@@ -1,0 +1,85 @@
+<!-- encabezado -->
+<header class="precios-encabezado">
+  <h1 class="precios-titulo">Precios de mercado</h1>
+  <a routerLink="/precios-productor2" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+</header>
+
+<main class="precios-contenido">
+  <h2 class="precios-subtitulo">Inteligencia de mercado</h2>
+
+  <!-- actualizacion -->
+  <div class="actualizacion-fila">
+    <p class="actualizacion-texto">Precios EMMSA · Actualizado 06:00 am</p>
+    <span class="etiqueta-hoy">Hoy</span>
+  </div>
+
+  <!-- lista de precios -->
+  <section class="seccion-precios">
+    <div class="precio-item">
+      <img src="assets/images/papa.png" class="precio-icono" />
+      <div class="precio-info">
+        <p class="precio-nombre">Papa blanca</p>
+        <p class="precio-valor">S/0.85/kg</p>
+      </div>
+      <span class="precio-tendencia sube">↑ 5%</span>
+    </div>
+    <hr class="precio-separador" />
+
+    <div class="precio-item">
+      <img src="assets/images/cebolla.png" class="precio-icono" />
+      <div class="precio-info">
+        <p class="precio-nombre">Cebolla roja</p>
+        <p class="precio-valor">S/1.20/kg</p>
+      </div>
+      <span class="precio-tendencia estable">→ 0%</span>
+    </div>
+    <hr class="precio-separador" />
+
+    <div class="precio-item">
+      <img src="assets/images/zanahoria.png" class="precio-icono" />
+      <div class="precio-info">
+        <p class="precio-nombre">Zanahoria</p>
+        <p class="precio-valor">S/0.65/kg</p>
+      </div>
+      <span class="precio-tendencia baja">↓ 3%</span>
+    </div>
+    <hr class="precio-separador" />
+  </section>
+
+  <!-- ia consejera -->
+  <section class="seccion-ia">
+    <div class="ia-encabezado">
+      <img src="assets/images/IA.png" class="ia-foto" />
+      <h2 class="ia-titulo">IA Consejera</h2>
+    </div>
+    <div class="ia-recuadro">
+      <p>
+        "Buen momento para enviar papa. El precio sube 3 días consecutivos.
+        Evita cebolla esta semana.
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-productor" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/cargas-productor" class="nav-item">
+    <img src="assets/images/caja2.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/precios-productor" class="nav-item activo">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Precios</span>
+  </a>
+  <a routerLink="/informacion-productor" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Información</span>
+  </a>
+</nav>
+

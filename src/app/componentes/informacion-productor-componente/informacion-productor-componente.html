@@ -1,0 +1,82 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <h1 class="dashboard-titulo">Pagos y comisiones</h1>
+  <a routerLink="/suscripcion-productor" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+</header>
+
+<main class="dashboard-contenido">
+  <!-- billetera -->
+  <section class="seccion-billetera">
+    <div class="billetera-cabecera">
+      <h2 class="billetera-titulo">Billetera</h2>
+      <span class="badge-verificado">Verificado</span>
+    </div>
+
+    <div class="tarjeta-saldo">
+      <p class="saldo-label">Saldo disponible</p>
+      <p class="saldo-monto">S/ 1,240.50</p>
+      <p class="saldo-accion">Liberar pago</p>
+    </div>
+  </section>
+
+  <!-- ultimo recibo -->
+  <section class="seccion-recibo">
+    <h2 class="recibo-subtitulo">Último recibo · Viaje #V-041</h2>
+
+    <div class="tarjeta-recibo">
+      <div class="recibo-fila">
+        <span>Flete bruto</span>
+        <span class="recibo-valor">S/ 380.00</span>
+      </div>
+      <div class="recibo-fila">
+        <span>Comisión (4%)</span>
+        <span class="recibo-valor">- S/ 15.20</span>
+      </div>
+      <div class="recibo-linea"></div>
+      <div class="recibo-fila recibo-total">
+        <span>Total neto</span>
+        <span class="recibo-valor">S/ 364.80</span>
+      </div>
+    </div>
+
+    <a class="btn-descargar-recibo">
+      <img src="assets/images/descarga.png" class="icono-descarga" />
+      Descargar recibo PDF
+    </a>
+  </section>
+
+  <!-- mis logros -->
+  <a routerLink="/logros-productor" class="tarjeta-logros">
+    <h2 class="logros-titulo">Mis logros</h2>
+    <p class="logros-texto">Ahorro total 2025: S/ 420</p>
+
+    <div class="barra-progreso">
+      <div class="barra-progreso-relleno"></div>
+    </div>
+
+    <p class="logros-porcentaje">65% del objetivo anual</p>
+  </a>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-productor" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/cargas-productor" class="nav-item">
+    <img src="assets/images/caja2.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/precios-productor" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Precios</span>
+  </a>
+  <a routerLink="/informacion-productor" class="nav-item activo">
+    <img src="assets/images/persona.png" />
+    <span>Información</span>
+  </a>
+</nav>
+

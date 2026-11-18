@@ -1,0 +1,220 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.lista-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.lista-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.lista-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 120px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ===== CARGAS ===== */
+.seccion-cargas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.carga-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 20px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.carga-item.activo {
+  border-color: #ffd766;
+}
+
+.carga-icono-contenedor {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.carga-icono {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carga-info p {
+  font-size: 14px;
+  color: #eceef2;
+  font-family: "Courier New", monospace;
+  padding: 2px 0;
+}
+
+/* ===== DATOS DEL COMPRADOR ===== */
+.seccion-comprador {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comprador-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.campo-input {
+  background-color: #eceef2;
+  border: none;
+  border-radius: 30px;
+  padding: 18px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  width: 100%;
+}
+
+.campo-error {
+  display: none;
+  color: #ff6b6b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.campo-error.visible {
+  display: block;
+}
+
+/* ===== FIRMA DIGITAL ===== */
+.seccion-firma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.firma-titulo {
+  font-size: 15px;
+  color: #eceef2;
+  font-family: "Courier New", monospace;
+}
+
+.firma-area {
+  width: 100%;
+  min-height: 220px;
+  background-color: #eceef2;
+  border: 2px dashed #3f4645;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.firma-area span {
+  font-size: 15px;
+  color: #3f4645;
+}
+
+/* ===== ACCIONES ===== */
+.lista-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-limpiar,
+.btn-confirmar {
+  background-color: #783f04;
+  color: #ffffff;
+  border: none;
+  text-decoration: none;
+  padding: 16px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== NAV INFERIOR ===== */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eceef2;
+  border-top: 1px solid #3f4645;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.nav-item.activo {
+  color: #38761d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .lista-encabezado {
+    padding: 24px 4%;
+  }
+
+  .lista-contenido {
+    padding: 20px 4% 100px 4%;
+    gap: 20px;
+  }
+}

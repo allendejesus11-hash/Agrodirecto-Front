@@ -1,0 +1,219 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.calificacion-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.flecha-volver {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.flecha-volver img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.calificacion-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.calificacion-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 60px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.calificacion-subtitulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* ===== TARJETA TRANSPORTISTA ===== */
+.tarjeta-transportista {
+  background-color: #3f4645;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.transportista-nombre {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.transportista-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.transportista-viaje {
+  font-size: 14px;
+  color: #eceef2;
+  font-family: "Courier New", monospace;
+}
+
+.estrellas {
+  display: flex;
+  gap: 8px;
+}
+
+.estrella {
+  font-size: 34px;
+  color: #6b7270;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.estrella.activa {
+  color: #ffd766;
+}
+
+.calificacion-ayuda {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* ===== COMENTARIO ===== */
+.seccion-comentario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comentario-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #3f4645;
+}
+
+.comentario-texto {
+  background-color: #eceef2;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  width: 100%;
+}
+
+/* ===== RECOMENDACION ===== */
+.seccion-recomendacion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recomendacion-pregunta {
+  font-size: 15px;
+  font-weight: 700;
+  color: #3f4645;
+}
+
+.recomendacion-botones {
+  display: flex;
+  gap: 14px;
+}
+
+.btn-recomendacion {
+  flex: 1;
+  background-color: #3f4645;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-recomendacion.activo {
+  background-color: #38761d;
+}
+
+/* ===== ENVIAR ===== */
+.btn-enviar {
+  background-color: #3f4645;
+  color: #ffffff;
+  border: none;
+  text-decoration: none;
+  padding: 18px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: center;
+  min-width: 220px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.calificacion-nota {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3f4645;
+  text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .calificacion-encabezado {
+    padding: 24px 4%;
+  }
+
+  .calificacion-titulo {
+    font-size: 17px;
+  }
+
+  .calificacion-contenido {
+    padding: 20px 4% 40px 4%;
+    gap: 16px;
+  }
+
+  .estrella {
+    font-size: 28px;
+  }
+}

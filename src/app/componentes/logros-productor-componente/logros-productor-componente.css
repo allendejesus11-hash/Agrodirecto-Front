@@ -1,0 +1,207 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.logros-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.flecha-volver {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.flecha-volver img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.logros-titulo-pagina {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.logros-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 60px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* ===== RESUMEN DE AHORRO ===== */
+.resumen-subtitulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.seccion-resumen-ahorro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.tarjeta-resumen {
+  background-color: #eceef2;
+  border-radius: 20px;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.resumen-monto {
+  font-size: 34px;
+  font-weight: 700;
+  color: #3f4645;
+}
+
+.resumen-detalle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #3f4645;
+  margin-top: 6px;
+}
+
+/* ===== GRAFICO POR MES ===== */
+.grafico-subtitulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.grafico-mensual {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.separador {
+  border-top: 2px solid #ffffff;
+}
+
+/* ===== MIS LOGROS ===== */
+.logros-subtitulo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.lista-logros {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.logro-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.logro-item.sin-borde {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.logro-icono {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #eceef2;
+  object-fit: contain;
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+.logro-texto {
+  flex: 1;
+}
+
+.logro-nombre {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.logro-detalle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+.badge-obtenido {
+  background-color: #38761d;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .logros-encabezado {
+    padding: 24px 4%;
+  }
+
+  .logros-titulo-pagina {
+    font-size: 18px;
+  }
+
+  .logros-contenido {
+    padding: 24px 4% 40px 4%;
+    gap: 24px;
+  }
+
+  .tarjeta-resumen {
+    padding: 24px 30px;
+    width: 100%;
+  }
+
+  .resumen-monto {
+    font-size: 28px;
+  }
+
+  .resumen-detalle {
+    font-size: 18px;
+  }
+
+  .logro-nombre {
+    font-size: 16px;
+  }
+
+  .badge-obtenido {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}

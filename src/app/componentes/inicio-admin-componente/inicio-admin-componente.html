@@ -1,0 +1,131 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Dashboard administrador</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <!-- tarjeta de bienvenida -->
+  <div class="tarjeta-bienvenida">
+    <img
+      src="assets/images/logo_diminuto.png"
+      alt="Logo diminuto"
+      class="bienvenida-logo"
+    />
+    <p class="bienvenida-texto">Hola, ------</p>
+    <span class="etiqueta-rol">Administrador</span>
+  </div>
+
+  <!-- metricas generales -->
+  <section>
+    <h2 class="seccion-titulo">Resumen de la plataforma</h2>
+    <div class="seccion-metricas">
+      <div class="tarjeta-metrica">
+        <img src="assets/images/persona.png" class="metrica-icono" />
+        <span class="metrica-numero">1200+</span>
+        <span class="metrica-etiqueta">Productores</span>
+      </div>
+      <div class="tarjeta-metrica">
+        <img src="assets/images/camion.png" class="metrica-icono" />
+        <span class="metrica-numero">340+</span>
+        <span class="metrica-etiqueta">Transportistas</span>
+      </div>
+      <div class="tarjeta-metrica">
+        <img src="assets/images/caja.png" class="metrica-icono" />
+        <span class="metrica-numero">86</span>
+        <span class="metrica-etiqueta">Cargas activas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- alertas / reportes recientes -->
+  <section>
+    <h2 class="seccion-titulo">Reportes recientes</h2>
+
+    <div class="tarjeta-alerta">
+      <img src="assets/images/advertencia.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Reporte de abuso - Miguel Asto Ramos</p>
+        <p class="alerta-detalle">Reportado por un productor · hace 2 horas</p>
+      </div>
+      <span class="alerta-etiqueta pendiente">Pendiente</span>
+    </div>
+
+    <div class="tarjeta-alerta" style="margin-top: 12px">
+      <img src="assets/images/advertencia.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Cuenta duplicada - Lote #A-05</p>
+        <p class="alerta-detalle">Detectado automáticamente · hace 1 día</p>
+      </div>
+      <span class="alerta-etiqueta resuelto">Resuelto</span>
+    </div>
+  </section>
+
+  <!-- accesos rapidos -->
+  <section>
+    <h2 class="seccion-titulo">Accesos rápidos</h2>
+    <div class="tarjeta-alerta">
+      <img src="assets/images/persona.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Gestionar usuarios</p>
+        <p class="alerta-detalle">Verificar, bloquear o revisar cuentas</p>
+      </div>
+      <a routerLink="/usuarios-admin" class="alerta-etiqueta resuelto" style="text-decoration:none;">Ir</a>
+    </div>
+
+    <div class="tarjeta-alerta" style="margin-top: 12px">
+      <img src="assets/images/caja.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Supervisar cargas</p>
+        <p class="alerta-detalle">Revisar fletes y publicaciones activas</p>
+      </div>
+      <a routerLink="/cargas-admin" class="alerta-etiqueta resuelto" style="text-decoration:none;">Ir</a>
+    </div>
+
+    <div class="tarjeta-alerta" style="margin-top: 12px">
+      <img src="assets/images/mensaje.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Aprobar chats</p>
+        <p class="alerta-detalle">Habilitar contacto entre productor y transportista</p>
+      </div>
+      <a routerLink="/chats-admin" class="alerta-etiqueta resuelto" style="text-decoration:none;">Ir</a>
+    </div>
+
+    <div class="tarjeta-alerta" style="margin-top: 12px">
+      <img src="assets/images/billetes.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Ver reporte de transacciones</p>
+        <p class="alerta-detalle">Montos y comisión ganada por carga</p>
+      </div>
+      <a routerLink="/reportes-admin" class="alerta-etiqueta resuelto" style="text-decoration:none;">Ir</a>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item activo">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

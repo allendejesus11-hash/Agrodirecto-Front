@@ -1,0 +1,71 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Gestión de usuarios</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <!-- filtro por tipo de usuario -->
+  <div class="filtro-usuarios">
+        <button class="btn-filtro" [class.activo]="filtro() === 'todos'" (click)="filtrar('todos')">Todos</button>
+        <button class="btn-filtro" [class.activo]="filtro() === 'productor'" (click)="filtrar('productor')">Productores</button>
+        <button class="btn-filtro" [class.activo]="filtro() === 'transportista'" (click)="filtrar('transportista')">Transportistas</button>
+      </div>
+
+  <section id="lista-usuarios">
+        @for (usuario of usuarios(); track usuario.nombre) {
+          @if (esVisible(usuario)) {
+            <div class="tarjeta-usuario">
+              <img [src]="usuario.foto" class="usuario-foto" />
+              <div class="usuario-info">
+                <p class="usuario-nombre">{{ usuario.nombre }}</p>
+                <p class="usuario-detalle">{{ usuario.detalle }}</p>
+              </div>
+              <button
+                class="usuario-estado"
+                [class.verificado]="!usuario.bloqueado"
+                [class.bloqueado]="usuario.bloqueado"
+                (click)="alternarEstado(usuario)"
+              >
+                {{ usuario.bloqueado ? 'Bloqueado' : 'Verificado' }}
+              </button>
+            </div>
+            @if (!$last) {
+              <hr class="usuario-separador" />
+            }
+          }
+        }
+      </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item activo">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/cargas-admin" class="nav-item">
+    <img src="assets/images/caja.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

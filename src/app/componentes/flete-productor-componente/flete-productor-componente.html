@@ -1,0 +1,73 @@
+<!-- encabezado -->
+<header class="consolidacion-encabezado">
+  <a routerLink="/inicio-productor" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
+  </a>
+  <h1 class="consolidacion-titulo">Estado de consolidación</h1>
+</header>
+
+<main class="consolidacion-contenido">
+  <h2 class="consolidacion-subtitulo">Mi carga · #C-2025-081</h2>
+
+  <!-- ruta generada -->
+  <div class="tarjeta-ruta">
+    <h3 class="ruta-titulo">Ruta de consolidación generada</h3>
+    <p class="ruta-detalle">Agrupado con 3 productores · Radio 5 km</p>
+  </div>
+
+  <!-- productores en el lote -->
+  <section class="seccion-productores">
+    <h2 class="productores-titulo">Productores en el lote</h2>
+
+    <div class="productor-item">
+      <img src="assets/images/persona_real1.png" class="productor-foto" />
+      <div class="productor-info">
+        <p class="productor-nombre">Carlos M. · 850 kg papa</p>
+        <p class="productor-detalle">Tú · Punto de acopio A</p>
+      </div>
+      <span class="productor-etiqueta confirmado">Confirmado</span>
+    </div>
+    <hr class="productor-separador" />
+
+    <div class="productor-item">
+      <img src="assets/images/persona_real5.png" class="productor-foto" />
+      <div class="productor-info">
+        <p class="productor-nombre">Rosa V. ·600 kg cebolla</p>
+        <p class="productor-detalle">Punto de acopio B</p>
+      </div>
+      <span class="productor-etiqueta confirmado">Confirmado</span>
+    </div>
+    <hr class="productor-separador" />
+
+    <div class="productor-item">
+      <img src="assets/images/persona_real6.png" class="productor-foto" />
+      <div class="productor-info">
+        <p class="productor-nombre">Juan P. · 400 kg maíz</p>
+        <p class="productor-detalle">Punto de acopio C</p>
+      </div>
+      <span class="productor-etiqueta pendiente">Pendiente</span>
+    </div>
+    <hr class="productor-separador" />
+  </section>
+
+  <!-- calculo de flete -->
+  <div class="tarjeta-flete">
+    <h3 class="flete-titulo">Cálculo de flete dividido</h3>
+
+    <div class="flete-fila">
+      <span>Flete total estimado</span>
+      <span>S/ 380</span>
+    </div>
+    <div class="flete-fila">
+      <span>Tu parte (46% del peso)</span>
+      <span>S/ 175</span>
+    </div>
+  </div>
+
+  <!-- ultimo cupo -->
+  <div class="tarjeta-alerta">
+    <img src="assets/images/advertencia2.png" class="alerta-icono" />
+    <p>Último cupo · 0.3 t disponibles</p>
+  </div>
+</main>
+

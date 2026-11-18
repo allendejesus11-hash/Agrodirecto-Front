@@ -1,0 +1,38 @@
+<!-- barra superior -->
+<header class="precios-encabezado">
+    <a routerLink="/precios-productor" class="btn-menu">
+        <img src="assets/images/barras_menu.png">
+    </a>
+    <h1 class="precios-titulo">Ahorro por temporada</h1>
+</header>
+
+<p class="precios-empresa">EMMSA</p>
+
+<!-- comparacion de precios -->
+<div class="precios-comparacion">
+    <img src="assets/images/comparacion_precios.png" class="comparacion-precio">
+</div>
+
+<!-- ultimos 7 dias -->
+<section class="precios-historial">
+    <h2 class="historial-titulo">Últimos 7 días:</h2>
+    <img src="assets/images/grafico_precios.png" class="grafico-historial">
+</section>
+
+<!-- filtros de cultivo -->
+<div class="opciones-fila opciones-cultivo">
+        @for (opcion of cultivos; track opcion.valor) {
+            <button class="btn-opcion" [class.activo]="cultivo() === opcion.valor" (click)="cultivo.set(opcion.valor)">{{ opcion.texto }}</button>
+        }
+    </div>
+
+<!-- ia consejera -->
+<section class="ia-consejera">
+    <div class="ia-cabecera">
+        <img src="assets/images/IA.png" class="ia-logo">
+        <span class="ia-nombre">IA Consejera</span>
+    </div>
+    <p class="ia-mensaje">
+        "Precio en alza 5 días consecutivos. Buen momento para enviar. Tendencia positiva proyectada 3 días más."
+    </p>
+</section>

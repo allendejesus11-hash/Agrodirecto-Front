@@ -1,0 +1,39 @@
+<!-- encabezado -->
+<header class="notif-encabezado">
+    <a routerLink="/inicio-transportista" class="flecha-volver">
+        <img src="assets/images/flecha_retroceso2.png" alt="Volver">
+    </a>
+    <h1 class="notif-encabezado-titulo">Alertas del sistema</h1>
+</header>
+
+<!-- contenido principal -->
+<main class="notif-contenido">
+    <h2 class="notif-titulo">Notificaciones del motor</h2>
+
+    <!-- tarjeta camion reasignado -->
+    <div class="notif-tarjeta">
+        <h3 class="notif-tarjeta-titulo">Camión reasignado</h3>
+        <p class="notif-tarjeta-texto">El camión A62BX-5T reportó falla mecánica. Tu carga fue reasignada al camión B91PQ-2R. Salida reprogramada: 6:30 am.</p>
+    </div>
+
+    <!-- tarjeta incompatibilidad detectada -->
+    <div class="notif-tarjeta">
+        <h3 class="notif-tarjeta-titulo">Incompatibilidad detectada</h3>
+        <p class="notif-tarjeta-texto">La carga de Luis. F. contiene productos químicos. No puede combinarse con tus alimentos. Fue retirada del lote.</p>
+    </div>
+
+    <!-- tarjeta carga perecible -->
+    <div class="notif-tarjeta">
+        <h3 class="notif-tarjeta-titulo">Carga perecible priorizada</h3>
+        <p class="notif-tarjeta-texto">Tu papa fue marcada como perecible y colocada en el primer slot de carga. Recojo prioritario.</p>
+    </div>
+
+    <!-- tarjeta agrupacion por geolocalizacion -->
+    <div class="notif-tarjeta">
+        <h3 class="notif-tarjeta-titulo">Agrupación por geolocalización</h3>
+        <p class="notif-tarjeta-texto">3 productores encontrados en radio de 5 km. Capacidad del camión: 8.4 / 10 t usadas.</p>
+        <div class="notif-barra-fondo">
+            <div class="notif-barra-progreso"></div>
+        </div>
+    </div>
+</main>

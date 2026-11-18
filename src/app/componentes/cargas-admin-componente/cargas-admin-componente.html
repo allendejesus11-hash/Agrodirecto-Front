@@ -1,0 +1,70 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Supervisión de cargas</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <section>
+    <h2 class="seccion-titulo">Cargas publicadas</h2>
+
+    <div class="tarjeta-alerta">
+      <img src="assets/images/caja.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Lote #A-04 · Papa + Zanahoria</p>
+        <p class="alerta-detalle">Huancayo · 2.4 t · Rosa Quispe Huamán</p>
+      </div>
+      <span class="alerta-etiqueta resuelto">Activa</span>
+    </div>
+
+    <div class="tarjeta-alerta" style="margin-top: 12px">
+      <img src="assets/images/caja.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Lote #A-05 · Cebolla</p>
+        <p class="alerta-detalle">Chupaca · 1.8 t · Julio Cesar Anccasi</p>
+      </div>
+      <span class="alerta-etiqueta pendiente">En revisión</span>
+    </div>
+
+    <div class="tarjeta-alerta" style="margin-top: 12px">
+      <img src="assets/images/caja.png" class="alerta-icono" />
+      <div class="alerta-info">
+        <p class="alerta-nombre">Lote #A-06 · Papa</p>
+        <p class="alerta-detalle">Concepción · 3.1 t · Daniela Molocho</p>
+      </div>
+      <span class="alerta-etiqueta resuelto">Activa</span>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/cargas-admin" class="nav-item activo">
+    <img src="assets/images/caja.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

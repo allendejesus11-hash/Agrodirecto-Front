@@ -1,0 +1,105 @@
+<!-- encabezado -->
+<header class="lotes-encabezado">
+  <h1 class="lotes-encabezado-titulo">Mis envíos</h1>
+  <a routerLink="/lotes-transportista2" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+</header>
+<main class="lotes-contenido">
+  <!-- historial de cargas -->
+  <section class="seccion-historial">
+    <h2 class="historial-titulo">Historial de cargas:</h2>
+
+    <div class="historial-filtros">
+      <button class="btn-filtro activo">Todos</button>
+      <button class="btn-filtro">Activos</button>
+      <button class="btn-filtro">Completados</button>
+    </div>
+
+    <!-- lote en ruta -->
+    <div class="lote-item">
+      <div class="lote-icono-contenedor">
+        <img src="assets/images/caja2.png" class="lote-icono" />
+      </div>
+      <div class="lote-info">
+        <p class="lote-nombre">#C-081-850 kg papa</p>
+        <p class="lote-detalle">Publicado 10 May-En tránsito</p>
+      </div>
+      <span class="lote-etiqueta en-ruta">En ruta</span>
+    </div>
+    <hr class="lote-separador" />
+
+    <!-- lote entregado 1 -->
+    <div class="lote-item">
+      <div class="lote-icono-contenedor">
+        <img src="assets/images/caja2.png" class="lote-icono" />
+      </div>
+      <div class="lote-info">
+        <p class="lote-nombre">#C-074-600 kg cebolla</p>
+        <p class="lote-detalle">Entregado 02 May-La Punta</p>
+      </div>
+      <span class="lote-etiqueta entregado">Entregado</span>
+    </div>
+    <hr class="lote-separador" />
+
+    <!-- lote entregado 2 -->
+    <div class="lote-item">
+      <div class="lote-icono-contenedor">
+        <img src="assets/images/caja2.png" class="lote-icono" />
+      </div>
+      <div class="lote-info">
+        <p class="lote-nombre">#C-068-400 kg maíz</p>
+        <p class="lote-detalle">Entregado 24 Abr-Mercado Central</p>
+      </div>
+      <span class="lote-etiqueta entregado">Entregado</span>
+    </div>
+    <hr class="lote-separador" />
+
+    <!-- lote cancelado -->
+    <div class="lote-item">
+      <div class="lote-icono-contenedor negacion">
+        <img src="assets/images/negacion.png" class="lote-icono" />
+      </div>
+      <div class="lote-info">
+        <p class="lote-nombre">#C-061-300 kg zanahoria</p>
+        <p class="lote-detalle">Cancelado 15 Abr</p>
+      </div>
+      <span class="lote-etiqueta cancelado">Cancelado</span>
+    </div>
+    <hr class="lote-separador" />
+  </section>
+
+  <!-- resumen de envios -->
+  <section class="seccion-resumen">
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">4</p>
+      <p class="resumen-label">Total de envíos</p>
+    </div>
+
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">S/ 420</p>
+      <p class="resumen-label">Ahorro total</p>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-transportista" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/lotes-transportista" class="nav-item activo">
+    <img src="assets/images/camion.png" />
+    <span>Lotes</span>
+  </a>
+  <a routerLink="/rutas-transportista" class="nav-item">
+    <img src="assets/images/pista.png" />
+    <span>Rutas</span>
+  </a>
+  <a routerLink="/perfil-transportista" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+

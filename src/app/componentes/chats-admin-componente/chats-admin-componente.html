@@ -1,0 +1,66 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Solicitudes de chat</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <p class="descripcion-seccion">
+    Aprueba el contacto entre productor y transportista para que puedan
+    chatear y coordinar el envío del lote.
+  </p>
+
+  <section id="lista-chats">
+        @for (chat of chats(); track chat.nombres) {
+          <div class="tarjeta-chat">
+            <div class="chat-personas">
+              <img [src]="chat.fotoA" class="chat-foto" />
+              <img [src]="chat.fotoB" class="chat-foto chat-foto-b" />
+            </div>
+            <div class="chat-info">
+              <p class="chat-nombres">{{ chat.nombres }}</p>
+              <p class="chat-detalle">{{ chat.detalle }}</p>
+            </div>
+            <button
+              class="btn-chat-estado"
+              [class.pendiente]="chat.estado === 'pendiente'"
+              [class.aprobado]="chat.estado === 'aprobado'"
+              (click)="aprobar(chat)"
+            >
+              {{ chat.estado === 'aprobado' ? 'Chat habilitado' : 'Aprobar chat' }}
+            </button>
+          </div>
+          @if (!$last) {
+            <hr class="usuario-separador" />
+          }
+        }
+      </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item activo">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

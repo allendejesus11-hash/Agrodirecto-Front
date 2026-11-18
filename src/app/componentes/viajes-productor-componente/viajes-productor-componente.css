@@ -1,0 +1,230 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.historial-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.flecha-volver {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.flecha-volver img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.historial-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.historial-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 60px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.historial-subtitulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* ===== RESUMEN ===== */
+.seccion-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resumen-tarjeta {
+  background-color: #eceef2;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+}
+
+.resumen-numero {
+  font-size: 32px;
+  font-weight: 700;
+  color: #3f4645;
+}
+
+.resumen-label {
+  font-size: 18px;
+  color: #3f4645;
+  margin-top: 4px;
+}
+
+/* ===== LISTA DE RUTAS ===== */
+.seccion-rutas {
+  display: flex;
+  flex-direction: column;
+}
+
+.ruta-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+}
+
+.ruta-icono-contenedor {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ruta-icono {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.ruta-info {
+  flex: 1;
+}
+
+.ruta-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ruta-detalle {
+  font-size: 13px;
+  color: #eceef2;
+  font-family: "Courier New", monospace;
+  margin-top: 2px;
+}
+
+.ruta-etiqueta {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.ruta-etiqueta.completado {
+  background-color: #38761d;
+}
+
+.ruta-etiqueta.retraso {
+  background-color: #7a2727;
+}
+
+.ruta-separador {
+  border: none;
+  border-top: 1px solid #ffffff;
+}
+
+/* ===== GRAFICO DE INGRESOS ===== */
+.seccion-grafico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.grafico-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.grafico-barras {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+  border-bottom: 2px solid #3f4645;
+  padding-bottom: 10px;
+}
+
+.grafico-columna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.grafico-barra {
+  width: 80px;
+  border-radius: 6px 6px 0 0;
+}
+
+.grafico-barra.mar {
+  height: 60px;
+  background-color: #f2e527;
+}
+
+.grafico-barra.abr {
+  height: 100px;
+  background-color: #38c6f2;
+}
+
+.grafico-barra.may {
+  height: 140px;
+  background-color: #d97ce0;
+}
+
+.grafico-mes {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .historial-encabezado {
+    padding: 24px 4%;
+  }
+
+  .historial-titulo {
+    font-size: 17px;
+  }
+
+  .historial-contenido {
+    padding: 20px 4% 40px 4%;
+    gap: 16px;
+  }
+
+  .grafico-barra {
+    width: 60px;
+  }
+}

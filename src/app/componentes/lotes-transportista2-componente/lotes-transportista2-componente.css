@@ -1,0 +1,212 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+/* ===== ENCABEZADO ===== */
+.retorno-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.enlace-menu img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.retorno-encabezado-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.retorno-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.titulo-ruta {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.subtitulo-seccion {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== TARJETA OSCURA ===== */
+.tarjeta-oscura {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.tarjeta-oscura-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tarjeta-icono {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.tarjeta-oscura-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tarjeta-oscura-texto {
+  font-size: 14px;
+  color: #eceef2;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+/* ===== INSUMOS ===== */
+.lista-insumos {
+  display: flex;
+  flex-direction: column;
+}
+
+.insumo-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.insumo-icono-contenedor {
+  width: 52px;
+  height: 52px;
+  background-color: #eceef2;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.insumo-icono {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.insumo-info {
+  flex: 1;
+}
+
+.insumo-nombre {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.insumo-detalle {
+  font-size: 12px;
+  color: #eceef2;
+  margin-top: 4px;
+}
+
+.lote-etiqueta {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.lote-etiqueta.aceptar {
+  background-color: #38761d;
+  color: #ffffff;
+}
+
+.lote-separador {
+  border: none;
+  border-top: 1px solid #ffffff;
+}
+
+/* ===== ALERTA BOTONES ===== */
+.alerta-botones {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.btn-alerta {
+  flex: 1;
+  padding: 12px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-aceptar {
+  background-color: #eceef2;
+  color: #3f4645;
+}
+
+.btn-ignorar {
+  background-color: #ffd766;
+  color: #ffffff;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .retorno-encabezado {
+    padding: 22px 4%;
+  }
+
+  .retorno-contenido {
+    padding: 22px 4%;
+    gap: 16px;
+  }
+
+  .titulo-ruta {
+    font-size: 22px;
+  }
+
+  .subtitulo-seccion {
+    font-size: 18px;
+  }
+
+  .insumo-nombre {
+    font-size: 13px;
+  }
+}

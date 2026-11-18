@@ -1,0 +1,77 @@
+<!-- encabezado -->
+<header class="bitacora-encabezado">
+  <a routerLink="/perfil-transportista" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+  <h1 class="bitacora-titulo">Bitácora de gastos</h1>
+</header>
+
+<main class="bitacora-contenido">
+  <h2 class="bitacora-subtitulo">Gastos - Viaje #V-041:</h2>
+
+  <!-- resumen de gastos -->
+  <section class="seccion-resumen">
+    <div class="resumen-tarjeta">
+      <p class="resumen-monto">S/248</p>
+      <p class="resumen-label">Total gastos</p>
+    </div>
+
+    <div class="resumen-tarjeta">
+      <p class="resumen-monto">S/132</p>
+      <p class="resumen-label">Combustible</p>
+    </div>
+  </section>
+
+  <!-- detalle de gastos -->
+  <section class="seccion-detalle">
+    <h2 class="detalle-titulo">Detalle de gastos:</h2>
+
+    <div class="gasto-item">
+      <div class="gasto-icono-contenedor">
+        <img src="assets/images/pista.png" class="gasto-icono" />
+      </div>
+      <div class="gasto-info">
+        <p class="gasto-detalle">08:15 am - S/22.00</p>
+      </div>
+      <p class="gasto-nombre">Peaje Chilca</p>
+    </div>
+    <hr class="gasto-separador" />
+
+    <div class="gasto-item">
+      <div class="gasto-icono-contenedor">
+        <img src="assets/images/pista.png" class="gasto-icono" />
+      </div>
+      <div class="gasto-info">
+        <p class="gasto-detalle">10:40 am - S/18.50</p>
+      </div>
+      <p class="gasto-nombre">Peaje Pasamayo</p>
+    </div>
+    <hr class="gasto-separador" />
+
+    <div class="gasto-item">
+      <div class="gasto-icono-contenedor">
+        <img src="assets/images/comida.png" class="gasto-icono" />
+      </div>
+      <div class="gasto-info">
+        <p class="gasto-detalle">12:00 pm - S/35.00</p>
+      </div>
+      <p class="gasto-nombre">Comida y descanso</p>
+    </div>
+    <hr class="gasto-separador" />
+
+    <div class="gasto-item">
+      <div class="gasto-icono-contenedor">
+        <img src="assets/images/fuego.png" class="gasto-icono" />
+      </div>
+      <div class="gasto-info">
+        <p class="gasto-detalle">Huancayo - S/132.00</p>
+      </div>
+      <p class="gasto-nombre">Combustible - 60L</p>
+    </div>
+    <hr class="gasto-separador" />
+  </section>
+
+  <!-- agregar gasto -->
+  <button class="btn-agregar">+ Agregar gasto</button>
+</main>
+

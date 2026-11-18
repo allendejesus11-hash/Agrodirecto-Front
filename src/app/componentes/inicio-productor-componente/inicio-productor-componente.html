@@ -1,0 +1,86 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a
+  >
+  <h1 class="dashboard-titulo">Dashboard productor</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <!-- tarjeta de bienvenida -->
+  <div class="tarjeta-bienvenida">
+    <img
+      src="assets/images/logo_diminuto.png"
+      alt="Logo diminuto"
+      class="bienvenida-logo"
+    />
+    <p class="bienvenida-texto">Hola, ------</p>
+    <a routerLink="/notificaciones-productor" class="btn-notificaciones">
+      <img src="assets/images/notificaciones.png" />
+    </a>
+  </div>
+
+  <!-- resumen -->
+  <section class="seccion-resumen">
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">3</p>
+      <p class="resumen-label">Envíos activos</p>
+    </div>
+
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">S/ 420</p>
+      <p class="resumen-label">Ahorro acumulado</p>
+    </div>
+  </section>
+
+  <!-- mapa de consolidacion -->
+  <section class="seccion-mapa">
+    <div class="mapa-contenedor">
+      <img src="assets/images/mapa.png" />
+    </div>
+    <p class="mapa-titulo">Mapa de consolidación en tiempo real</p>
+  </section>
+
+  <!-- acciones rapidas -->
+  <section class="seccion-acciones">
+    <a routerLink="/publicar-carga-productor" class="accion-tarjeta">
+      <img src="assets/images/caja2.png" class="accion-icono" />
+      <span>Publicar carga</span>
+    </a>
+
+    <a routerLink="/flete-productor" class="accion-tarjeta">
+      <img src="assets/images/camion.png" class="accion-icono" />
+      <span>Buscar flete</span>
+    </a>
+
+    <a routerLink="/viajes-productor" class="accion-tarjeta">
+      <img src="assets/images/pista.png" class="accion-icono" />
+      <span>Los viajes</span>
+    </a>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-productor" class="nav-item activo">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/cargas-productor" class="nav-item">
+    <img src="assets/images/caja2.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/precios-productor" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Precios</span>
+  </a>
+  <a routerLink="/informacion-productor" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Información</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">
+  Sesión cerrada correctamente
+</div>
+
+

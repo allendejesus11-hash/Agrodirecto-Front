@@ -1,0 +1,65 @@
+<!-- encabezado -->
+<header class="calificacion-encabezado">
+  <a routerLink="/viajes-productor" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
+  </a>
+  <h1 class="calificacion-titulo">Calificación post-viaje</h1>
+</header>
+
+<main class="calificacion-contenido">
+  <h2 class="calificacion-subtitulo">Califica el viaje</h2>
+
+  <!-- tarjeta transportista -->
+  <div class="tarjeta-transportista">
+    <h3 class="transportista-nombre">Carlos Ramos</h3>
+
+    <img src="assets/images/persona_real4.png" class="transportista-foto" />
+
+    <p class="transportista-viaje">Viaje #V-041-Huancayo --- Lima</p>
+
+    <div class="estrellas">
+          @for (valor of valores; track valor) {
+            <span class="estrella" [class.activa]="valor <= calificacion()" (click)="calificacion.set(valor)">★</span>
+          }
+        </div>
+
+    <p class="calificacion-ayuda">Toca para calificar (1-5 estrellas)</p>
+  </div>
+
+  <!-- comentario -->
+  <div class="seccion-comentario">
+    <label for="comentario" class="comentario-label"
+      >Comentario público (opcional):</label
+    >
+    <input
+      type="text"
+      id="comentario"
+      class="comentario-texto"
+      placeholder="Escribe tu experiencia...."
+    />
+  </div>
+
+  <!-- recomendacion -->
+  <div class="seccion-recomendacion">
+    <p class="recomendacion-pregunta">
+      ¿Recomendarías a este transportista?
+    </p>
+    <div class="recomendacion-botones">
+      <button type="button" class="btn-recomendacion" [class.activo]="recomienda() === 'si'" (click)="recomienda.set('si')">
+        Sí
+      </button>
+      <button type="button" class="btn-recomendacion" [class.activo]="recomienda() === 'no'" (click)="recomienda.set('no')">
+        No
+      </button>
+    </div>
+  </div>
+
+  <!-- enviar -->
+  <a routerLink="/viajes-productor" class="btn-enviar">Enviar calificación</a>
+
+  <p class="calificacion-nota">
+    El comentario será publicado en el perfil del transportista
+  </p>
+</main>
+
+

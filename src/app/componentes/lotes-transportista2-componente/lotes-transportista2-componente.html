@@ -1,0 +1,69 @@
+<!-- encabezado -->
+<header class="retorno-encabezado">
+  <a routerLink="/lotes-transportista" class="enlace-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+  <h1 class="retorno-encabezado-titulo">Cargas de retorno</h1>
+</header>
+<main class="retorno-contenido">
+  <!-- titulo ruta -->
+  <h2 class="titulo-ruta">Retorno · Lima → Campo</h2>
+
+  <!-- tarjeta capacidad ociosa -->
+  <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura-encabezado">
+      <img src="assets/images/camion.png" class="tarjeta-icono" />
+      <h3 class="tarjeta-oscura-titulo">Capacidad ociosa de retorno</h3>
+    </div>
+    <p class="tarjeta-oscura-texto">
+      Tienes 6.2 t disponibles en el viaje de regreso. Acepta insumos y
+      maximiza tu ingreso.
+    </p>
+  </div>
+
+  <!-- insumos disponibles -->
+  <h2 class="subtitulo-seccion">Insumos disponibles en Lima</h2>
+
+  <div class="lista-insumos">
+    <div class="insumo-item">
+      <div class="insumo-icono-contenedor">
+        <img src="assets/images/caja2.png" class="insumo-icono" />
+      </div>
+      <div class="insumo-info">
+        <p class="insumo-nombre">Fertilizante NPK · 2 t</p>
+        <p class="insumo-detalle">La Molina → Huancayo · S/ 120</p>
+      </div>
+      <span class="lote-etiqueta aceptar">Aceptar</span>
+    </div>
+
+    <hr class="lote-separador" />
+
+    <div class="insumo-item">
+      <div class="insumo-icono-contenedor">
+        <img src="assets/images/caja2.png" class="insumo-icono" />
+      </div>
+      <div class="insumo-info">
+        <p class="insumo-nombre">Semillas de papa · 800 kg</p>
+        <p class="insumo-detalle">Ate → Junín · S/ 80</p>
+      </div>
+      <span class="lote-etiqueta aceptar">Aceptar</span>
+    </div>
+
+    <hr class="lote-separador" />
+  </div>
+
+  <!-- alerta en camino -->
+  <h2 class="subtitulo-seccion">Alerta en camino</h2>
+
+  <div class="tarjeta-oscura">
+    <h3 class="tarjeta-oscura-titulo">Oferta cerca de tu ruta</h3>
+    <p class="tarjeta-oscura-texto">
+      Lote #B-12 en Matucana. 1.5 t de cebolla. Desvío: 4 km. ¿Aceptas?
+    </p>
+    <div class="alerta-botones">
+      <button class="btn-alerta btn-aceptar">Aceptar</button>
+      <button class="btn-alerta btn-ignorar">Ignorar</button>
+    </div>
+  </div>
+</main>
+

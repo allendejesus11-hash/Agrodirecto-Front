@@ -1,0 +1,248 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.lotes-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.lotes-encabezado-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.btn-menu {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.btn-menu img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.lotes-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 120px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== HISTORIAL ===== */
+.historial-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.historial-filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.btn-filtro {
+  background-color: #3f4645;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* ===== LOTES ===== */
+.lote-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.lote-icono-contenedor {
+  width: 52px;
+  height: 52px;
+  background-color: #eceef2;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lote-icono-contenedor.negacion {
+  background-color: #eceef2;
+}
+
+.lote-icono {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.lote-info {
+  flex: 1;
+}
+
+.lote-nombre {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.lote-detalle {
+  font-size: 12px;
+  color: #eceef2;
+  margin-top: 4px;
+}
+
+.lote-etiqueta {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.lote-etiqueta.en-ruta {
+  background-color: #ffd766;
+  color: #3f4645;
+}
+
+.lote-etiqueta.entregado {
+  background-color: #38761d;
+  color: #ffffff;
+}
+
+.lote-etiqueta.cancelado {
+  background-color: #783f04;
+  color: #ffffff;
+}
+
+.lote-separador {
+  border: none;
+  border-top: 1px solid #ffffff;
+}
+
+/* ===== RESUMEN ===== */
+.seccion-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.resumen-tarjeta {
+  background-color: #eceef2;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+}
+
+.resumen-numero {
+  font-size: 32px;
+  font-weight: 700;
+  color: #3f4645;
+}
+
+.resumen-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #3f4645;
+  margin-top: 6px;
+}
+
+/* ===== NAV INFERIOR ===== */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eceef2;
+  border-top: 1px solid #3f4645;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.nav-item.activo {
+  color: #38761d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .lotes-encabezado {
+    padding: 24px 4%;
+  }
+
+  .lotes-encabezado-titulo {
+    font-size: 17px;
+  }
+
+  .lotes-contenido {
+    padding: 20px 4% 100px 4%;
+    gap: 16px;
+  }
+
+  .historial-filtros {
+    gap: 8px;
+  }
+
+  .btn-filtro {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .lote-nombre {
+    font-size: 13px;
+  }
+
+  .resumen-numero {
+    font-size: 26px;
+  }
+}

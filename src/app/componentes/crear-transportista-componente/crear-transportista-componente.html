@@ -1,0 +1,69 @@
+<!-- pantalla de registro de transportista -->
+<section class="registro-pantalla">
+  <a routerLink="/inicio-sesion" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso.png" alt="Volver" />
+  </a>
+
+  <div class="registro-contenedor">
+    <h1 class="registro-titulo">Registrar transportista</h1>
+
+    <div class="registro-tipo-usuario">
+      <a routerLink="/crear-productor" class="btn-tipo">Productor</a>
+      <a class="btn-tipo activo">Transportista</a>
+    </div>
+
+    <form class="registro-formulario" [formGroup]="transportistaForm" (ngSubmit)="continuar()" ngNativeValidate>
+      <div class="campo-registro">
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" name="nombre" formControlName="nombre" />
+      </div>
+
+      <div class="campo-registro">
+        <label for="ruc">RUC:</label>
+        <input type="text" id="ruc" name="ruc" formControlName="ruc" maxlength="11" />
+        <p class="campo-error" [class.visible]="errorRuc()">
+          Ingrese un RUC válido de 11 dígitos
+        </p>
+      </div>
+
+      <div class="campo-registro">
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" formControlName="correo" />
+      </div>
+
+      <div class="campo-registro">
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" name="placa" formControlName="placa" />
+      </div>
+
+      <div class="campo-registro">
+        <label for="capacidad">Capacidad del camión (kg):</label>
+        <input type="number" id="capacidad" name="capacidad" formControlName="capacidad" min="0" />
+        <p class="campo-error" [class.visible]="errorCapacidad()">
+          La capacidad debe ser mayor o igual a 0
+        </p>
+      </div>
+
+      <div class="campo-registro">
+        <label for="documentos"
+          >Documentos (licencia, tarjeta de propiedad):</label
+        >
+        <input type="file" id="documentos" name="documentos" />
+      </div>
+
+      <button type="submit" class="btn-continuar">Continuar</button>
+    </form>
+  </div>
+</section>
+
+<!-- modal de confirmacion -->
+<div class="modal-overlay" [class.visible]="modalRegistro()">
+  <div class="modal-caja">
+    <p class="modal-pregunta">
+      Tu perfil será verificado en un plazo de 24 horas
+    </p>
+    <a routerLink="/inicio-sesion" class="modal-btn-si">Aceptar</a>
+  </div>
+</div>
+
+

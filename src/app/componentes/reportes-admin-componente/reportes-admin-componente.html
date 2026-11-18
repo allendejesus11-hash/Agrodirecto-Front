@@ -1,0 +1,90 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Reporte de transacciones</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <!-- resumen de comisiones -->
+  <section class="seccion-metricas" style="grid-template-columns: repeat(2, 1fr)">
+    <div class="tarjeta-metrica">
+      <img src="assets/images/billetes.png" class="metrica-icono" />
+      <span class="metrica-numero">S/ 2,480</span>
+      <span class="metrica-etiqueta">Total transado (mes)</span>
+    </div>
+    <div class="tarjeta-metrica">
+      <img src="assets/images/billetes.png" class="metrica-icono" />
+      <span class="metrica-numero">S/ 124</span>
+      <span class="metrica-etiqueta">Comisión acumulada (5%)</span>
+    </div>
+  </section>
+
+  <!-- transacciones por carga -->
+  <section>
+    <h2 class="seccion-titulo">Transacciones por carga</h2>
+
+    <div class="tarjeta-transaccion">
+      <div class="transaccion-info">
+        <p class="transaccion-carga">Lote #A-04 · Papa + Zanahoria</p>
+        <p class="transaccion-detalle">Rosa Quispe Huamán → Miguel Asto Ramos · 12/08/2026</p>
+      </div>
+      <div class="transaccion-montos">
+        <p class="transaccion-monto">S/ 850.00</p>
+        <p class="transaccion-comision">Comisión: S/ 42.50</p>
+      </div>
+      <span class="alerta-etiqueta resuelto">Pagado</span>
+    </div>
+
+    <div class="tarjeta-transaccion">
+      <div class="transaccion-info">
+        <p class="transaccion-carga">Lote #A-06 · Papa</p>
+        <p class="transaccion-detalle">Julio Cesar Anccasi → Daniela Molocho · 20/08/2026</p>
+      </div>
+      <div class="transaccion-montos">
+        <p class="transaccion-monto">S/ 610.00</p>
+        <p class="transaccion-comision">Comisión: S/ 30.50</p>
+      </div>
+      <span class="alerta-etiqueta resuelto">Pagado</span>
+    </div>
+
+    <div class="tarjeta-transaccion">
+      <div class="transaccion-info">
+        <p class="transaccion-carga">Lote #A-07 · Cebolla</p>
+        <p class="transaccion-detalle">Elena Ccorimanya → Franco Delgado · 28/08/2026</p>
+      </div>
+      <div class="transaccion-montos">
+        <p class="transaccion-monto">S/ 1,020.00</p>
+        <p class="transaccion-comision">Comisión: S/ 51.00</p>
+      </div>
+      <span class="alerta-etiqueta pendiente">Pendiente</span>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item activo">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

@@ -1,0 +1,67 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Perfil administrador</h1>
+</header>
+
+<main class="dashboard-contenido">
+  <!-- datos principales -->
+  <section class="seccion-datos">
+    <img src="assets/images/persona_real5.png" class="perfil-foto" />
+    <div class="datos-info">
+      <h2 class="perfil-nombre">Gadiel Vásquez Rojas</h2>
+      <p class="perfil-rol">Administrador de plataforma</p>
+    </div>
+  </section>
+
+  <!-- datos de la cuenta -->
+  <div class="tarjeta-datos">
+    <p class="dato-linea"><span>Correo:</span> admin@agrodirecto.pe</p>
+    <p class="dato-linea"><span>Rol:</span> Super administrador</p>
+    <p class="dato-linea"><span>Último acceso:</span> hoy, 08:45 am</p>
+  </div>
+
+  <!-- permisos -->
+  <section>
+    <h2 class="seccion-titulo">Permisos</h2>
+    <div class="tarjeta-datos">
+      <p class="dato-linea">✓ Gestionar usuarios (verificar / bloquear)</p>
+      <p class="dato-linea">✓ Supervisar cargas y fletes</p>
+      <p class="dato-linea">✓ Aprobar chat entre productor y transportista</p>
+      <p class="dato-linea">✓ Ver reporte de transacciones y comisión por carga</p>
+      <p class="dato-linea">✓ Revisar reportes de abuso</p>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/cargas-admin" class="nav-item">
+    <img src="assets/images/caja.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item activo">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

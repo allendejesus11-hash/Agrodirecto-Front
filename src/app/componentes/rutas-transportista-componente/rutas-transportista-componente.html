@@ -1,0 +1,65 @@
+<!-- encabezado -->
+<header class="seguimiento-encabezado">
+  <h1 class="seguimiento-titulo">Seguimiento en ruta</h1>
+</header>
+
+<main class="seguimiento-contenido">
+  <!-- viaje -->
+  <section class="seccion-viaje">
+    <h2 class="viaje-titulo">Viaje #V-2025-041</h2>
+
+    <div class="viaje-mapa">
+      <img src="assets/images/mapa.png" />
+    </div>
+
+    <div class="viaje-transportista">
+      <img src="assets/images/camion.png" class="transportista-icono" />
+      <div class="transportista-info">
+        <p class="transportista-nombre">Miguel Asto</p>
+        <p class="transportista-detalle">ETA: 2h 30 min · A62BX-5T</p>
+      </div>
+      <span class="viaje-etiqueta en-ruta">En ruta</span>
+    </div>
+  </section>
+
+  <!-- chat de viaje -->
+  <section class="seccion-chat">
+    <h2 class="chat-titulo">Chat de viaje</h2>
+
+    <div class="chat-mensajes">
+      <p class="mensaje mensaje-enviado">¿En cuánto llegan a Matucana?</p>
+      <p class="mensaje mensaje-recibido">En unos 40 min aprox.</p>
+      <p class="mensaje mensaje-enviado">
+        Ok, ya estoy listo en el mercado
+      </p>
+    </div>
+  </section>
+
+  <!-- acciones rapidas -->
+  <section class="seccion-acciones">
+    <button class="btn-accion retraso">Retraso</button>
+    <button class="btn-accion sos">SOS</button>
+    <a routerLink="/qr-transportista" class="btn-accion qr">QR</a>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-transportista" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/lotes-transportista" class="nav-item">
+    <img src="assets/images/camion.png" />
+    <span>Lotes</span>
+  </a>
+  <a routerLink="/rutas-transportista" class="nav-item activo">
+    <img src="assets/images/pista.png" />
+    <span>Rutas</span>
+  </a>
+  <a routerLink="/perfil-transportista" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+

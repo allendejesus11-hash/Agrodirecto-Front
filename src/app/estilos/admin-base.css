@@ -1,0 +1,528 @@
+/* ===== BASE COMPARTIDA DEL PANEL ADMIN ===== */
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.dashboard-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.dashboard-titulo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.btn-cerrar-sesion {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.aviso-toast {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #3f4645;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  text-align: center;
+  z-index: 300;
+}
+
+.aviso-toast.visible {
+  display: block;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.dashboard-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 120px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== TARJETA BIENVENIDA ===== */
+.tarjeta-bienvenida {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bienvenida-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.bienvenida-texto {
+  flex: 1;
+  font-size: 22px;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.etiqueta-rol {
+  background-color: #ffd766;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ===== TARJETAS DE METRICAS ===== */
+.seccion-metricas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.tarjeta-metrica {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+}
+
+.metrica-icono {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.metrica-numero {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.metrica-etiqueta {
+  font-size: 12px;
+  color: #eceef2;
+  font-weight: 600;
+}
+
+/* ===== SECCIONES GENERALES ===== */
+.seccion-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+/* ===== LISTA DE ALERTAS / REPORTES ===== */
+.tarjeta-alerta {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.alerta-icono {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.alerta-info {
+  flex: 1;
+}
+
+.alerta-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.alerta-detalle {
+  font-size: 13px;
+  color: #eceef2;
+}
+
+.alerta-etiqueta {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.alerta-etiqueta.pendiente {
+  background-color: #783f04;
+  color: #ffffff;
+}
+
+.alerta-etiqueta.resuelto {
+  background-color: #ffffff;
+  color: #3f4645;
+  border: 2px solid #3f4645;
+}
+
+/* ===== TARJETA DE USUARIO (usuarios_admin) ===== */
+.filtro-usuarios {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.btn-filtro {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid #ffffff;
+  background: none;
+  color: #ffffff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-filtro.activo {
+  background-color: #ffffff;
+  color: #3f4645;
+}
+
+.tarjeta-usuario {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.usuario-foto {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #eceef2;
+  padding: 6px;
+}
+
+.usuario-info {
+  flex: 1;
+}
+
+.usuario-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.usuario-detalle {
+  font-size: 13px;
+  color: #eceef2;
+}
+
+.usuario-estado {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+.usuario-estado.verificado {
+  background-color: #ffffff;
+  color: #3f4645;
+}
+
+.usuario-estado.bloqueado {
+  background-color: #783f04;
+  color: #ffffff;
+}
+
+.usuario-separador {
+  border: none;
+  border-top: 1px solid #ffffff;
+  opacity: 0.4;
+}
+
+/* ===== PERFIL ADMIN ===== */
+.seccion-datos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.perfil-foto {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.datos-info {
+  flex: 1;
+}
+
+.perfil-nombre {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.perfil-rol {
+  font-size: 13px;
+  color: #eceef2;
+  font-weight: 600;
+}
+
+.tarjeta-datos {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dato-linea {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.dato-linea span {
+  font-weight: 700;
+  color: #ffd766;
+}
+
+/* ===== TEXTO DESCRIPTIVO DE SECCION ===== */
+.descripcion-seccion {
+  font-size: 13px;
+  color: #eceef2;
+  line-height: 1.4;
+}
+
+/* ===== TARJETA DE SOLICITUD DE CHAT ===== */
+.tarjeta-chat {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chat-personas {
+  position: relative;
+  width: 54px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.chat-foto {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #eceef2;
+  padding: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.chat-foto-b {
+  left: 16px;
+  border: 2px solid #3f4645;
+}
+
+.chat-info {
+  flex: 1;
+}
+
+.chat-nombres {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chat-detalle {
+  font-size: 12px;
+  color: #eceef2;
+}
+
+.btn-chat-estado {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+.btn-chat-estado.pendiente {
+  background-color: #ffd766;
+  color: #3f4645;
+}
+
+.btn-chat-estado.aprobado {
+  background-color: #ffffff;
+  color: #38761d;
+  cursor: default;
+}
+
+/* ===== TARJETA DE TRANSACCION (reportes) ===== */
+.tarjeta-transaccion {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.transaccion-info {
+  flex: 1.4;
+}
+
+.transaccion-carga {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.transaccion-detalle {
+  font-size: 12px;
+  color: #eceef2;
+}
+
+.transaccion-montos {
+  flex: 1;
+  text-align: right;
+}
+
+.transaccion-monto {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.transaccion-comision {
+  font-size: 12px;
+  color: #ffd766;
+  font-weight: 600;
+}
+
+/* ===== NAV INFERIOR ===== */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eceef2;
+  border-top: 1px solid #3f4645;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.nav-item.activo {
+  color: #38761d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .dashboard-titulo {
+    font-size: 18px;
+  }
+
+  .dashboard-contenido {
+    padding: 20px 4% 100px 4%;
+    gap: 20px;
+  }
+
+  .bienvenida-texto {
+    font-size: 18px;
+  }
+
+  .seccion-metricas {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .metrica-numero {
+    font-size: 19px;
+  }
+
+  .metrica-etiqueta {
+    font-size: 10px;
+  }
+
+  .seccion-titulo {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,251 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.perfil-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.perfil-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.btn-menu {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.btn-menu img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.perfil-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 120px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== DATOS PRINCIPALES ===== */
+.seccion-datos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.perfil-foto {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.datos-info {
+  flex: 1;
+}
+
+.perfil-nombre {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.datos-fila {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.perfil-verificado {
+  background-color: #ffd766;
+  color: #3f4645;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.perfil-calificacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calificacion-numero {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.calificacion-estrellas {
+  color: #ffd766;
+  font-size: 16px;
+}
+
+.perfil-viajes {
+  font-size: 14px;
+  color: #eceef2;
+  margin-top: 8px;
+}
+
+/* ===== DATOS DEL VEHICULO ===== */
+.tarjeta-datos {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.dato-linea {
+  font-size: 16px;
+  color: #ffffff;
+  padding: 6px 0;
+}
+
+/* ===== COMENTARIOS ===== */
+.seccion-comentarios {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comentarios-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.tarjeta-comentario {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.comentario-foto {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.comentario-info {
+  flex: 1;
+  text-align: center;
+}
+
+.comentario-estrellas {
+  color: #ffd766;
+  font-size: 16px;
+}
+
+.comentario-texto {
+  font-size: 15px;
+  color: #ffffff;
+  margin-top: 8px;
+}
+
+/* ===== REPORTAR ABUSO ===== */
+.btn-reportar {
+  background-color: #990000;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* ===== NAV INFERIOR ===== */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eceef2;
+  border-top: 1px solid #3f4645;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.nav-item.activo {
+  color: #38761d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .perfil-encabezado {
+    padding: 24px 4%;
+  }
+
+  .perfil-titulo {
+    font-size: 17px;
+  }
+
+  .perfil-contenido {
+    padding: 20px 4% 100px 4%;
+    gap: 16px;
+  }
+
+  .seccion-datos {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .datos-fila {
+    justify-content: center;
+  }
+}
