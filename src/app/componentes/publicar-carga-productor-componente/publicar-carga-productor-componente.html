@@ -9,19 +9,19 @@
 <main class="publicar-contenido">
   <h2 class="publicar-subtitulo">Nueva publicación</h2>
 
-  <form [formGroup]="publicarForm" (ngSubmit)="publicar()" ngNativeValidate>
+  <form [formGroup]="form" (ngSubmit)="publicar()" ngNativeValidate>
     <!-- tipo de cultivo -->
     <div class="campo-formulario">
       <label class="campo-label">Tipo de cultivo:</label>
       <div class="opciones-fila">
-            @for (opcion of cultivos; track opcion.valor) {
+            @for (opcion of cultivos(); track opcion.idCultivo) {
               <button mat-button
                 type="button"
                 class="agro-material-button btn-opcion"
-                [class.activo]="cultivo() === opcion.valor"
-                (click)="cultivo.set(opcion.valor)"
+                [class.activo]="form.controls.idCultivo.value === opcion.idCultivo"
+                (click)="form.controls.idCultivo.setValue(opcion.idCultivo)"
               >
-                {{ opcion.texto }}
+                {{ opcion.nombreCultivo }}
               </button>
             }
           </div>
@@ -32,8 +32,8 @@
       <label for="peso" class="campo-label"
         >Peso estimado (kg) MAX 50T:</label
       >
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="peso" class="campo-input" min="0" formControlName="peso" /></mat-form-field>
-      <p class="campo-error" [class.visible]="errorPeso()">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="peso" class="campo-input" min="0" formControlName="pesoKg" /></mat-form-field>
+      <p class="campo-error" [class.visible]="!!error() && form.controls.pesoKg.value <= 0">
         Ingrese un peso válido mayor a 0
       </p>
     </div>
@@ -46,8 +46,8 @@
               <button mat-button
                 type="button"
                 class="agro-material-button btn-opcion"
-                [class.activo]="tipo() === opcion.valor"
-                (click)="tipo.set(opcion.valor)"
+                [class.activo]="form.controls.tipoCarga.value === opcion.valor"
+                (click)="form.controls.tipoCarga.setValue(opcion.valor)"
               >
                 {{ opcion.texto }}
               </button>
@@ -60,7 +60,7 @@
       <label for="destino" class="campo-label"
         >Dirección/Ciudad de Destino:</label
       >
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="destino" class="campo-input" formControlName="destino" /></mat-form-field>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="destino" class="campo-input" formControlName="direccionDestino" /></mat-form-field>
     </div>
 
     <!-- tarifa -->
@@ -68,8 +68,8 @@
       <label for="tarifa" class="campo-label"
         >Tarifa/Presupuesto propuesto (S/):</label
       >
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="tarifa" class="campo-input" min="0" formControlName="tarifa" /></mat-form-field>
-      <p class="campo-error" [class.visible]="errorTarifa()">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="tarifa" class="campo-input" min="0" formControlName="tarifaPropuesta" /></mat-form-field>
+      <p class="campo-error" [class.visible]="!!error() && form.controls.tarifaPropuesta.value <= 0">
         Ingrese una tarifa válida mayor a 0
       </p>
     </div>
@@ -87,20 +87,22 @@
     <!-- fecha de recojo -->
     <div class="campo-formulario">
       <label for="fecha" class="campo-label">Fecha de recojo:</label>
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field agro-material-date"><input matInput type="date" id="fecha" class="campo-input" formControlName="fecha" /></mat-form-field>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field agro-material-date"><input matInput type="date" id="fecha" class="campo-input" formControlName="fechaRecojo" /></mat-form-field>
     </div>
 
     <!-- marcar como urgente -->
-    <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="urgente()" (change)="alternarUrgente()">Marcar como urgente</mat-checkbox>
+    <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="form.controls.esUrgente.value" (change)="form.controls.esUrgente.setValue($event.checked)">Marcar como urgente</mat-checkbox>
 
     <!-- acciones -->
     <div class="publicar-acciones">
-      <button mat-button type="submit" class="agro-material-button btn-publicar">Publicar carga</button>
+      <button mat-button type="submit" class="agro-material-button btn-publicar" [disabled]="cargando()">{{cargando() ? "Publicando..." : "Publicar carga"}}</button>
       <button mat-button type="button" class="agro-material-button btn-cancelar" (click)="modalCancelar.set(true)">
         Cancelar carga
       </button>
     </div>
   </form>
+
+  @if (error()) { <p class="estado-integracion error" role="alert">{{error()}}</p> }
 
   <!-- modal de confirmacion -->
   <div class="modal-overlay" [class.visible]="modalCancelar()">

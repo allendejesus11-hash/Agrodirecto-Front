@@ -5,6 +5,8 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+
   <!-- tarjeta de bienvenida -->
   <div class="tarjeta-bienvenida">
     <img
@@ -12,7 +14,7 @@
       alt="Logo diminuto"
       class="bienvenida-logo"
     />
-    <p class="bienvenida-texto">Hola, ------</p>
+    <p class="bienvenida-texto">Hola, {{sesion.usuario()?.correo || "Administrador"}}</p>
     <span class="etiqueta-rol">Administrador</span>
   </div>
 
@@ -22,17 +24,17 @@
     <div class="seccion-metricas">
       <div class="tarjeta-metrica">
         <img src="assets/images/persona.png" class="metrica-icono" />
-        <span class="metrica-numero">1200+</span>
+        <span class="metrica-numero">{{numProductores()}}</span>
         <span class="metrica-etiqueta">Productores</span>
       </div>
       <div class="tarjeta-metrica">
         <img src="assets/images/camion.png" class="metrica-icono" />
-        <span class="metrica-numero">340+</span>
+        <span class="metrica-numero">{{numTransportistas()}}</span>
         <span class="metrica-etiqueta">Transportistas</span>
       </div>
       <div class="tarjeta-metrica">
         <img src="assets/images/caja.png" class="metrica-icono" />
-        <span class="metrica-numero">86</span>
+        <span class="metrica-numero">{{numCargasActivas()}}</span>
         <span class="metrica-etiqueta">Cargas activas</span>
       </div>
     </div>
@@ -41,24 +43,13 @@
   <!-- alertas / reportes recientes -->
   <section>
     <h2 class="seccion-titulo">Reportes recientes</h2>
-
-    <div class="tarjeta-alerta">
-      <img src="assets/images/advertencia.png" class="alerta-icono" />
-      <div class="alerta-info">
-        <p class="alerta-nombre">Reporte de abuso - Miguel Asto Ramos</p>
-        <p class="alerta-detalle">Reportado por un productor · hace 2 horas</p>
+    @for (carga of enRevision(); track carga.idCarga) {
+      <div class="tarjeta-alerta" style="margin-top: 12px">
+        <img src="assets/images/advertencia.png" class="alerta-icono" />
+        <div class="alerta-info"><p class="alerta-nombre">Carga en revisión: {{carga.codigoCarga}}</p><p class="alerta-detalle">{{carga.productor.nombreCompleto}} · {{carga.cultivo.nombreCultivo}}</p></div>
+        <span class="alerta-etiqueta pendiente">Pendiente</span>
       </div>
-      <span class="alerta-etiqueta pendiente">Pendiente</span>
-    </div>
-
-    <div class="tarjeta-alerta" style="margin-top: 12px">
-      <img src="assets/images/advertencia.png" class="alerta-icono" />
-      <div class="alerta-info">
-        <p class="alerta-nombre">Cuenta duplicada - Lote #A-05</p>
-        <p class="alerta-detalle">Detectado automáticamente · hace 1 día</p>
-      </div>
-      <span class="alerta-etiqueta resuelto">Resuelto</span>
-    </div>
+    } @empty {<p>No hay cargas en revisión.</p>}
   </section>
 
   <!-- accesos rapidos -->

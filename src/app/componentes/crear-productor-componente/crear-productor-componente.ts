@@ -1,44 +1,29 @@
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Component, inject, signal } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { AgroApiServicio } from '../../servicios/agro-api-servicio';
+import { SesionServicio } from '../../servicios/sesion-servicio';
+import { mensajeError } from '../../servicios/mensaje-error';
+import type { Usuario, Carga, Lote, Cultivo, PrecioMercado, SolicitudChat, Notificacion, ResumenTransacciones, AhorroProductor, ReputacionTransportista } from '../../modelos/agro-modelos';
+@Component({ selector: 'app-crear-productor-componente', standalone: true, imports: [CommonModule, RouterLink, ReactiveFormsModule, MatButtonModule, MatInputModule, MatFormFieldModule], templateUrl: './crear-productor-componente.html', styleUrl: './crear-productor-componente.css' })
+export class CrearProductorComponente implements OnInit {
+ private api = inject(AgroApiServicio);
+ protected sesion = inject(SesionServicio);
+ private router = inject(Router);
+ private ruta = inject(ActivatedRoute);
+ private fb = inject(FormBuilder);
+ error = signal(''); mensaje = signal(''); cargando = signal(false);
+ cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
+ ngOnInit(): void { this.cargar(); }
+ cargar(): void {}
+form=this.fb.nonNullable.group({nombreCompleto:'',dni:'',correo:'',distrito:'',contrasena:''});
+ registrar() { const d=this.form.getRawValue();this.error.set('');
+  if (!d.nombreCompleto.trim() || !/^[0-9]{8}$/.test(d.dni) || !d.correo.includes('@') || !d.distrito.trim() || d.contrasena.length<6) {this.error.set('Revisa nombre, DNI de 8 dígitos, correo, distrito y contraseña (mínimo 6 caracteres).');return;}
+  this.cargando.set(true); this.api.registrarProductor(d).subscribe({next:r=>{this.cargando.set(false);this.mensaje.set('Cuenta creada en estado '+r.estadoCuenta+'. Inicia sesión cuando sea verificada.');this.form.reset();},error:e=>{this.cargando.set(false);this.error.set(mensajeError(e));}});
+ }
 
-@Component({
-  imports: [MatButtonModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule, RouterLink],
-  selector: 'app-crear-productor-componente',
-  styleUrl: './crear-productor-componente.css',
-  templateUrl: './crear-productor-componente.html',
-})
-export class CrearProductorComponente {
-
-  private fb: FormBuilder = inject(FormBuilder);
-  private router: Router = inject(Router);
-
-  errorDni = signal(false);
-  errorContrasena = signal(false);
-
-  registroForm = this.fb.group({
-    nombre: [''],
-    dni: [''],
-    correo: [''],
-    distrito: [''],
-    contrasena: [''],
-  });
-
-  continuar(): void {
-    const dni = this.registroForm.controls.dni.value ?? '';
-    const contrasena = this.registroForm.controls.contrasena.value ?? '';
-
-    const dniValido = /^[0-9]{8}$/.test(dni);
-    const contrasenaValida = contrasena.length >= 6;
-
-    this.errorDni.set(!dniValido);
-    this.errorContrasena.set(!contrasenaValida);
-
-    if (!dniValido || !contrasenaValida) return;
-
-    this.router.navigateByUrl('/inicio-productor');
-  }
 }

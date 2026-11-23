@@ -5,35 +5,37 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <!-- filtro por tipo de usuario -->
   <div class="filtro-usuarios">
-        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'todos'" (click)="filtrar('todos')">Todos</button>
-        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'productor'" (click)="filtrar('productor')">Productores</button>
-        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'transportista'" (click)="filtrar('transportista')">Transportistas</button>
+        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'todos'" (click)="filtro.set('todos')">Todos</button>
+        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'productor'" (click)="filtro.set('productor')">Productores</button>
+        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'transportista'" (click)="filtro.set('transportista')">Transportistas</button>
       </div>
 
   <section id="lista-usuarios">
-        @for (usuario of usuarios(); track usuario.nombre) {
-          @if (esVisible(usuario)) {
+        @for (usuario of visibles(); track usuario.idUsuario) {
+
             <div class="tarjeta-usuario">
-              <img [src]="usuario.foto" class="usuario-foto" />
+              <img src="assets/images/persona_real1.png" class="usuario-foto" />
               <div class="usuario-info">
-                <p class="usuario-nombre">{{ usuario.nombre }}</p>
-                <p class="usuario-detalle">{{ usuario.detalle }}</p>
+                <p class="usuario-nombre">{{usuario.nombreCompleto}}</p>
+                <p class="usuario-detalle">{{usuario.correo}} · {{usuario.rol.nombreRol}}</p>
               </div>
               <button mat-button
                 class="agro-material-button usuario-estado"
-                [class.verificado]="!usuario.bloqueado"
-                [class.bloqueado]="usuario.bloqueado"
-                (click)="alternarEstado(usuario)"
+                [class.verificado]="usuario.estadoCuenta === 'verificado'"
+                [class.bloqueado]="usuario.estadoCuenta === 'bloqueado'"
+                (click)="usuario.estadoCuenta === 'pendiente' ? cambiarPendiente(usuario) : cambiar(usuario)"
               >
-                {{ usuario.bloqueado ? 'Bloqueado' : 'Verificado' }}
+                {{usuario.estadoCuenta === 'pendiente' ? 'Verificar' : (usuario.estadoCuenta === 'bloqueado' ? 'Bloqueado' : 'Verificado')}}
               </button>
             </div>
             @if (!$last) {
               <hr class="usuario-separador" />
             }
-          }
         }
       </section>
 </main>

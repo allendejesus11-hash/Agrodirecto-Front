@@ -7,69 +7,23 @@
 </header>
 
 <main class="notif-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <!-- alertas -->
   <section class="seccion-alertas">
     <div class="alertas-encabezado">
       <h2 class="alertas-titulo">Alertas</h2>
-      <span class="alertas-contador">4 nuevas</span>
+      <span class="alertas-contador">{{contador()}} nuevas</span>
     </div>
 
-    <div class="alerta-item">
-      <div class="alerta-icono-contenedor">
-        <img src="assets/images/advertencia.png" class="alerta-icono" />
-      </div>
-      <div class="alerta-info">
-        <p class="alerta-nombre">¡Último cupo! Lote #A-04</p>
-        <p class="alerta-detalle">
-          Solo queda 0.3 t disponible · hace 5 min
-        </p>
-      </div>
-    </div>
-    <hr class="alerta-separador" />
-
-    <div class="alerta-item">
-      <div class="alerta-icono-contenedor">
-        <img src="assets/images/camion.png" class="alerta-icono" />
-      </div>
-      <div class="alerta-info">
-        <p class="alerta-nombre">Camión consolidado</p>
-        <p class="alerta-detalle">Tu carga fue agrupada · Sale mañana</p>
-      </div>
-    </div>
-    <hr class="alerta-separador" />
-
-    <div class="alerta-item">
-      <div class="alerta-icono-contenedor">
-        <img src="assets/images/clima.png" class="alerta-icono" />
-      </div>
-      <div class="alerta-info">
-        <p class="alerta-nombre">Alerta Senamhi</p>
-        <p class="alerta-detalle">Lluvia en ruta Huancayo-Lima · mañana</p>
-      </div>
-    </div>
-    <hr class="alerta-separador" />
-
-    <div class="alerta-item">
-      <div class="alerta-icono-contenedor">
-        <img src="assets/images/estrella.png" class="alerta-icono" />
-      </div>
-      <div class="alerta-info">
-        <p class="alerta-nombre">Nueva calificación recibida</p>
-        <p class="alerta-detalle">Carlos dejó 5 estrellas · hace 2 hrs</p>
-      </div>
-    </div>
-    <hr class="alerta-separador" />
-
-    <div class="alerta-item">
-      <div class="alerta-icono-contenedor">
-        <img src="assets/images/billetes.png" class="alerta-icono" />
-      </div>
-      <div class="alerta-info">
-        <p class="alerta-nombre">Pago liberado</p>
-        <p class="alerta-detalle">S/364.80 disponible en billetera</p>
-      </div>
-    </div>
-    <hr class="alerta-separador" />
+    <!-- Notificaciones reales -->
+    @for (n of notificaciones(); track n.idNotificacion) {
+      <div class="alerta-item" (click)="leer(n)" (keydown.enter)="leer(n)" tabindex="0" role="button" [attr.aria-label]="n.leida ? 'Notificación leída' : 'Marcar como leída'">
+        <div class="alerta-icono-contenedor"><img src="assets/images/advertencia.png" class="alerta-icono" /></div>
+        <div class="alerta-info"><p class="alerta-nombre">{{n.titulo}} {{n.leida ? '✓' : '●'}}</p><p class="alerta-detalle">{{n.mensaje}} · {{n.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</p></div>
+      </div><hr class="alerta-separador" />
+    } @empty { <p>No tienes notificaciones.</p> }
   </section>
 
   <!-- soporte -->

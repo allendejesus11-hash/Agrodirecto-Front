@@ -7,17 +7,20 @@
 </header>
 
 <main class="logros-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <!-- resumen de ahorro -->
   <section class="seccion-resumen-ahorro">
     <h2 class="resumen-subtitulo">Resumen de ahorro:</h2>
 
     <div class="tarjeta-resumen">
-      <p class="resumen-monto">S/420</p>
-      <p class="resumen-detalle">Ahorro 2025</p>
+      <p class="resumen-monto">S/ {{ahorro()?.ahorroTemporada ?? 0 | number:"1.2-2"}}</p>
+      <p class="resumen-detalle">Ahorro acumulado</p>
     </div>
 
     <div class="tarjeta-resumen">
-      <p class="resumen-monto">S/ 140</p>
+      <p class="resumen-monto">S/ {{ahorro()?.ahorroMesActual ?? 0 | number:"1.2-2"}}</p>
       <p class="resumen-detalle">Este mes</p>
     </div>
   </section>
@@ -31,6 +34,7 @@
     />
   </section>
 
+  <p class="estado-integracion aviso">Gráfico ilustrativo del diseño original. La API aún no devuelve una serie de ahorro por mes.</p>
   <div class="separador"></div>
 
   <!-- mis logros -->
@@ -51,7 +55,7 @@
         <img src="assets/images/estrella.png" class="logro-icono" />
         <div class="logro-texto">
           <p class="logro-nombre">Ahorrador del mes</p>
-          <p class="logro-detalle">+S/140 en Mayo</p>
+          <p class="logro-detalle">S/ {{ahorro()?.ahorroMesActual ?? 0 | number:"1.2-2"}} este mes</p>
         </div>
         <span class="badge-obtenido">Obtenido</span>
       </div>

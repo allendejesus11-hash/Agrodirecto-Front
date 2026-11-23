@@ -5,20 +5,23 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <!-- datos principales -->
   <section class="seccion-datos">
     <img src="assets/images/persona_real5.png" class="perfil-foto" />
     <div class="datos-info">
-      <h2 class="perfil-nombre">Gadiel Vásquez Rojas</h2>
+      <h2 class="perfil-nombre">{{usuario()?.nombreCompleto || "Administrador"}}</h2>
       <p class="perfil-rol">Administrador de plataforma</p>
     </div>
   </section>
 
   <!-- datos de la cuenta -->
   <div class="tarjeta-datos">
-    <p class="dato-linea"><span>Correo:</span> admin@agrodirecto.pe</p>
-    <p class="dato-linea"><span>Rol:</span> Super administrador</p>
-    <p class="dato-linea"><span>Último acceso:</span> hoy, 08:45 am</p>
+    <p class="dato-linea"><span>Correo:</span> {{usuario()?.correo || "Sin correo"}}</p>
+    <p class="dato-linea"><span>Rol:</span> {{usuario()?.rol?.nombreRol || "Administrador"}}</p>
+    <p class="dato-linea"><span>Último acceso:</span> {{usuario()?.ultimoAcceso || "Sin registro"}}</p>
   </div>
 
   <!-- permisos -->

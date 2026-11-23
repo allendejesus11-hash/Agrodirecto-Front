@@ -4,6 +4,8 @@
   <h1 class="dashboard-titulo">Dashboard transportista</h1>
 </header>
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+
   <!-- tarjeta de bienvenida -->
   <div class="tarjeta-bienvenida">
     <img
@@ -11,7 +13,7 @@
       alt="Logo diminuto"
       class="bienvenida-logo"
     />
-    <p class="bienvenida-texto">Hola, ------</p>
+    <p class="bienvenida-texto">Hola, {{sesion.usuario()?.correo || "Transportista"}}</p>
     <a routerLink="/notificaciones-transportista" class="btn-notificaciones">
       <img
         src="assets/images/notificaciones.png"
@@ -26,9 +28,9 @@
     </div>
     <div class="capacidad-info">
       <h2 class="capacidad-titulo">Capacidad usada</h2>
-      <p class="capacidad-toneladas">7.5/10 toneladas</p>
-      <span class="capacidad-disponible">2.5 t disponibles</span>
-      <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="unidadLlena()" (change)="alternarUnidadLlena()">Unidad llena</mat-checkbox>
+      <p class="capacidad-toneladas">{{usado() | number:"1.1-2"}}/{{perfil()?.capacidadToneladas || 0 | number:"1.1-2"}} toneladas</p>
+      <span class="capacidad-disponible">{{disponible() | number:"1.1-2"}} t disponibles</span>
+      <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="disponible() <= 0" disabled>Unidad llena</mat-checkbox>
     </div>
   </section>
 
@@ -38,9 +40,9 @@
       <img src="assets/images/puntero.png" class="ruta-puntero" />
       <h2 class="ruta-titulo">Próxima Ruta</h2>
     </div>
-    <p class="ruta-destino">Huancayo → La Parada, Lima</p>
+    <p class="ruta-destino">{{lotes().length ? lotes()[0].origen + " → " + lotes()[0].destino : "Sin próxima ruta"}}</p>
     <p class="ruta-salida">
-      <span>Salida:</span> mañana 5:00 am - 3 productores
+      <span>Salida:</span> {{lotes().length ? (lotes()[0].fechaSalida || "Por programar") : "Sin rutas asignadas"}}
     </p>
   </div>
 
@@ -55,27 +57,14 @@
       </div>
     </div>
 
-    <div class="lote-item">
-      <img src="assets/images/caja.png" class="lote-icono" />
-      <div class="lote-info">
-        <p class="lote-nombre">Lote #A-04 - 2.4 t</p>
-        <p class="lote-detalle">Papa + Zanahoria - Huancayo</p>
-      </div>
-      <span class="lote-etiqueta aceptar">Aceptar</span>
-    </div>
-
-    <hr class="lote-separador" />
-
-    <div class="lote-item">
-      <img src="assets/images/caja.png" class="lote-icono" />
-      <div class="lote-info">
-        <p class="lote-nombre">Lote #A-05 - 1.8 t</p>
-        <p class="lote-detalle">Cebolla - Chupaca</p>
-      </div>
-      <span class="lote-etiqueta urgente">Urgente</span>
-    </div>
-
-    <hr class="lote-separador" />
+    <!-- Lista de lotes real -->
+    @for (lote of lotes(); track lote.idLote) {
+      <div class="lote-item">
+        <img src="assets/images/caja.png" class="lote-icono" />
+        <div class="lote-info"><p class="lote-nombre">{{lote.codigoLote}}</p><p class="lote-detalle">{{lote.origen}} → {{lote.destino}}</p></div>
+        <span class="lote-etiqueta aceptar">{{lote.estadoLote}}</span>
+      </div><hr class="lote-separador" />
+    } @empty { <p>No tienes lotes asignados.</p> }
   </section>
 </main>
 

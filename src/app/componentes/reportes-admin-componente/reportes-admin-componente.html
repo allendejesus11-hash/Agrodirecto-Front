@@ -5,16 +5,19 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <!-- resumen de comisiones -->
   <section class="seccion-metricas" style="grid-template-columns: repeat(2, 1fr)">
     <div class="tarjeta-metrica">
       <img src="assets/images/billetes.png" class="metrica-icono" />
-      <span class="metrica-numero">S/ 2,480</span>
+      <span class="metrica-numero">S/ {{resumen()?.totalTransado ?? 0 | number:"1.2-2"}}</span>
       <span class="metrica-etiqueta">Total transado (mes)</span>
     </div>
     <div class="tarjeta-metrica">
       <img src="assets/images/billetes.png" class="metrica-icono" />
-      <span class="metrica-numero">S/ 124</span>
+      <span class="metrica-numero">S/ {{resumen()?.comisionAcumulada ?? 0 | number:"1.2-2"}}</span>
       <span class="metrica-etiqueta">Comisión acumulada (5%)</span>
     </div>
   </section>
@@ -22,42 +25,15 @@
   <!-- transacciones por carga -->
   <section>
     <h2 class="seccion-titulo">Transacciones por carga</h2>
-
-    <div class="tarjeta-transaccion">
-      <div class="transaccion-info">
-        <p class="transaccion-carga">Lote #A-04 · Papa + Zanahoria</p>
-        <p class="transaccion-detalle">Rosa Quispe Huamán → Miguel Asto Ramos · 12/08/2026</p>
+    <label for="mes" class="estado-integracion">Mes: <input id="mes" type="month" [value]="mes()" (change)="cambiarMes($event)" class="estado-integracion selector" /></label>
+    @for (lote of transacciones(); track lote.idLote) {
+      <div class="tarjeta-transaccion"><div class="transaccion-info"><p class="transaccion-carga">{{lote.codigoLote}} · {{lote.destino}}</p>
+        <p class="transaccion-detalle">{{lote.origen}} → {{lote.destino}} · {{lote.fechaSalida || 'Sin fecha'}}</p></div>
+        <div class="transaccion-montos"><p class="transaccion-monto">S/ {{lote.fleteTotal ?? 0 | number:'1.2-2'}}</p>
+          <p class="transaccion-comision">Comisión: S/ {{lote.montoComision ?? 0 | number:'1.2-2'}}</p></div>
+        <span class="alerta-etiqueta" [class.resuelto]="lote.estadoPago==='pagado'" [class.pendiente]="lote.estadoPago!=='pagado'">{{lote.estadoPago || 'Pendiente'}}</span>
       </div>
-      <div class="transaccion-montos">
-        <p class="transaccion-monto">S/ 850.00</p>
-        <p class="transaccion-comision">Comisión: S/ 42.50</p>
-      </div>
-      <span class="alerta-etiqueta resuelto">Pagado</span>
-    </div>
-
-    <div class="tarjeta-transaccion">
-      <div class="transaccion-info">
-        <p class="transaccion-carga">Lote #A-06 · Papa</p>
-        <p class="transaccion-detalle">Julio Cesar Anccasi → Daniela Molocho · 20/08/2026</p>
-      </div>
-      <div class="transaccion-montos">
-        <p class="transaccion-monto">S/ 610.00</p>
-        <p class="transaccion-comision">Comisión: S/ 30.50</p>
-      </div>
-      <span class="alerta-etiqueta resuelto">Pagado</span>
-    </div>
-
-    <div class="tarjeta-transaccion">
-      <div class="transaccion-info">
-        <p class="transaccion-carga">Lote #A-07 · Cebolla</p>
-        <p class="transaccion-detalle">Elena Ccorimanya → Franco Delgado · 28/08/2026</p>
-      </div>
-      <div class="transaccion-montos">
-        <p class="transaccion-monto">S/ 1,020.00</p>
-        <p class="transaccion-comision">Comisión: S/ 51.00</p>
-      </div>
-      <span class="alerta-etiqueta pendiente">Pendiente</span>
-    </div>
+    } @empty {<p>No hay transacciones para este mes.</p>}
   </section>
 </main>
 
