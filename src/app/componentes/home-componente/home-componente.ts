@@ -1,8 +1,9 @@
+import { MatButtonModule } from '@angular/material/button';
 import { Component, DOCUMENT, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [RouterLink],
+  imports: [MatButtonModule, RouterLink],
   selector: 'app-home-componente',
   styleUrl: './home-componente.css',
   templateUrl: './home-componente.html',

@@ -28,7 +28,7 @@
   color: #ffffff;
 }
 
-.btn-cerrar-sesion {
+.btn-cerrar-sesion, .btn-cerrar-sesion:is(.agro-material-button) {
   display: inline-flex;
   align-items: center;
   background: none;
@@ -208,7 +208,7 @@
   margin-bottom: 6px;
 }
 
-.btn-filtro {
+.btn-filtro, .btn-filtro:is(.agro-material-button) {
   flex: 1;
   padding: 10px;
   border-radius: 20px;
@@ -222,7 +222,7 @@
   transition: 0.3s;
 }
 
-.btn-filtro.activo {
+.btn-filtro.activo, .btn-filtro.activo:is(.agro-material-button) {
   background-color: #ffffff;
   color: #3f4645;
 }
@@ -260,7 +260,7 @@
   color: #eceef2;
 }
 
-.usuario-estado {
+.usuario-estado, .usuario-estado:is(.agro-material-button) {
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
@@ -271,12 +271,12 @@
   font-family: "Poppins", Arial, sans-serif;
 }
 
-.usuario-estado.verificado {
+.usuario-estado.verificado, .usuario-estado.verificado:is(.agro-material-button) {
   background-color: #ffffff;
   color: #3f4645;
 }
 
-.usuario-estado.bloqueado {
+.usuario-estado.bloqueado, .usuario-estado.bloqueado:is(.agro-material-button) {
   background-color: #783f04;
   color: #ffffff;
 }
@@ -392,7 +392,7 @@
   color: #eceef2;
 }
 
-.btn-chat-estado {
+.btn-chat-estado, .btn-chat-estado:is(.agro-material-button) {
   font-size: 12px;
   font-weight: 700;
   padding: 8px 14px;
@@ -403,12 +403,12 @@
   font-family: "Poppins", Arial, sans-serif;
 }
 
-.btn-chat-estado.pendiente {
+.btn-chat-estado.pendiente, .btn-chat-estado.pendiente:is(.agro-material-button) {
   background-color: #ffd766;
   color: #3f4645;
 }
 
-.btn-chat-estado.aprobado {
+.btn-chat-estado.aprobado, .btn-chat-estado.aprobado:is(.agro-material-button) {
   background-color: #ffffff;
   color: #38761d;
   cursor: default;

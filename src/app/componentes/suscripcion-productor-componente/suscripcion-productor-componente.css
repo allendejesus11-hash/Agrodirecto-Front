@@ -138,7 +138,7 @@
   text-align: center;
 }
 
-.btn-activar-premium {
+.btn-activar-premium, .btn-activar-premium:is(.agro-material-button) {
   background-color: #3f4645;
   color: #ffffff;
   padding: 24px;
@@ -189,7 +189,7 @@
     font-size: 16px;
   }
 
-  .btn-activar-premium {
+  .btn-activar-premium, .btn-activar-premium:is(.agro-material-button) {
     font-size: 20px;
     padding: 18px;
   }

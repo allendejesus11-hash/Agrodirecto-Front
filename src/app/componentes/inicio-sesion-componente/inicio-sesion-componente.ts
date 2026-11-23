@@ -1,3 +1,6 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -5,7 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 type TipoUsuario = 'productor' | 'transportista' | 'admin';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [MatButtonModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule, RouterLink],
   selector: 'app-inicio-sesion-componente',
   styleUrl: './inicio-sesion-componente.css',
   templateUrl: './inicio-sesion-componente.html',

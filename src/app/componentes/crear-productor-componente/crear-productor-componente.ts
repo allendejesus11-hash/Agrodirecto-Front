@@ -1,9 +1,12 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [MatButtonModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule, RouterLink],
   selector: 'app-crear-productor-componente',
   styleUrl: './crear-productor-componente.css',
   templateUrl: './crear-productor-componente.html',

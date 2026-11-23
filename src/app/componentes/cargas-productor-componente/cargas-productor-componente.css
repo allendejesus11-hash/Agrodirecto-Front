@@ -153,7 +153,9 @@
 }
 
 .btn-limpiar,
-.btn-confirmar {
+.btn-confirmar,
+.btn-limpiar:is(.agro-material-button),
+.btn-confirmar:is(.agro-material-button) {
   background-color: #783f04;
   color: #ffffff;
   border: none;

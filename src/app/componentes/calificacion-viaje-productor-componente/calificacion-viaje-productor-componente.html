@@ -31,12 +31,12 @@
     <label for="comentario" class="comentario-label"
       >Comentario público (opcional):</label
     >
-    <input
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput
       type="text"
       id="comentario"
       class="comentario-texto"
       placeholder="Escribe tu experiencia...."
-    />
+    /></mat-form-field>
   </div>
 
   <!-- recomendacion -->
@@ -45,17 +45,17 @@
       ¿Recomendarías a este transportista?
     </p>
     <div class="recomendacion-botones">
-      <button type="button" class="btn-recomendacion" [class.activo]="recomienda() === 'si'" (click)="recomienda.set('si')">
+      <button mat-button type="button" class="agro-material-button btn-recomendacion" [class.activo]="recomienda() === 'si'" (click)="recomienda.set('si')">
         Sí
       </button>
-      <button type="button" class="btn-recomendacion" [class.activo]="recomienda() === 'no'" (click)="recomienda.set('no')">
+      <button mat-button type="button" class="agro-material-button btn-recomendacion" [class.activo]="recomienda() === 'no'" (click)="recomienda.set('no')">
         No
       </button>
     </div>
   </div>
 
   <!-- enviar -->
-  <a routerLink="/viajes-productor" class="btn-enviar">Enviar calificación</a>
+  <a mat-button routerLink="/viajes-productor" class="agro-material-button btn-enviar">Enviar calificación</a>
 
   <p class="calificacion-nota">
     El comentario será publicado en el perfil del transportista

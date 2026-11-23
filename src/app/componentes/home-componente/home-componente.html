@@ -14,7 +14,7 @@
 
         <div class="nav-btn">
             <!--CAMBIO: redirije a inicio sesion-->
-            <a routerLink="/inicio-sesion" class="btn-registro">Registrarse</a>
+            <a mat-button routerLink="/inicio-sesion" class="agro-material-button btn-registro">Registrarse</a>
         </div>
     </nav>
 </header>
@@ -33,10 +33,10 @@
         </p>
 
         <div class="hero-acciones">
-            <a href="#registro" (click)="desplazarA('registro', $event)" class="btn-primario">
+            <a mat-button href="#registro" (click)="desplazarA('registro', $event)" class="agro-material-button btn-primario">
                 Comenzar ahora <span class="arrow">&rarr;</span>
             </a>
-            <a href="#servicios" (click)="desplazarA('servicios', $event)" class="btn-secundario"> Ver servicios </a>
+            <a mat-button href="#servicios" (click)="desplazarA('servicios', $event)" class="agro-material-button btn-secundario"> Ver servicios </a>
         </div>
 
         <div class="hero-stats">
@@ -131,7 +131,7 @@
 <!-- testimonios -->
 <section class="testimonios">
     <div class="carrusel">
-        <button class="flecha flecha-izq">&#9664;</button>
+        <button mat-button class="agro-material-button flecha flecha-izq">&#9664;</button>
         <div class="carrusel-fotos">
             <img src="assets/images/agricultor1.png" class="foto-lateral" />
             <div class="foto-central">
@@ -145,7 +145,7 @@
             </div>
             <img src="assets/images/agricultor3.png" class="foto-lateral" />
         </div>
-        <button class="flecha flecha-der">&#9654;</button>
+        <button mat-button class="agro-material-button flecha flecha-der">&#9654;</button>
     </div>
 </section>
 
@@ -168,7 +168,7 @@
                 Regístrate para mantenernos en contacto contigo.
             </p>
             <!--redireccion a inicio sesion-->
-            <a routerLink="/inicio-sesion" class="btn-registrarse">REGISTRARSE</a>
+            <a mat-button routerLink="/inicio-sesion" class="agro-material-button btn-registrarse">REGISTRARSE</a>
         </div>
     </div>
 </section>
@@ -176,16 +176,16 @@
 <!-- faq -->
 <section class="faq">
     <div class="faq-item">
-        <button class="faq-pregunta">¿Qué es Agrodirecto?</button>
+        <button mat-button class="agro-material-button faq-pregunta">¿Qué es Agrodirecto?</button>
     </div>
     <div class="faq-item">
-        <button class="faq-pregunta">¿Qué servicios ofrecemos?</button>
+        <button mat-button class="agro-material-button faq-pregunta">¿Qué servicios ofrecemos?</button>
     </div>
     <div class="faq-item">
-        <button class="faq-pregunta">¿Cómo surgimos?</button>
+        <button mat-button class="agro-material-button faq-pregunta">¿Cómo surgimos?</button>
     </div>
     <div class="faq-item">
-        <button class="faq-pregunta">¿Agrodirecto es seguro?</button>
+        <button mat-button class="agro-material-button faq-pregunta">¿Agrodirecto es seguro?</button>
     </div>
 </section>
 

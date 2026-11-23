@@ -1,6 +1,6 @@
 <!-- encabezado -->
 <header class="dashboard-encabezado">
-  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <a mat-button href="/inicio-sesion" class="agro-material-button btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
   <h1 class="dashboard-titulo">Solicitudes de chat</h1>
 </header>
 
@@ -21,8 +21,8 @@
               <p class="chat-nombres">{{ chat.nombres }}</p>
               <p class="chat-detalle">{{ chat.detalle }}</p>
             </div>
-            <button
-              class="btn-chat-estado"
+            <button mat-button
+              class="agro-material-button btn-chat-estado"
               [class.pendiente]="chat.estado === 'pendiente'"
               [class.aprobado]="chat.estado === 'aprobado'"
               (click)="aprobar(chat)"

@@ -20,7 +20,7 @@
   border-bottom: 2px solid #ffffff;
 }
 
-.flecha-volver {
+.flecha-volver, .flecha-volver:is(.agro-material-button) {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -145,7 +145,7 @@
   justify-content: center;
 }
 
-.btn-soporte {
+.btn-soporte, .btn-soporte:is(.agro-material-button) {
   background-color: #ffd766;
   color: #3f4645;
   display: inline-flex;

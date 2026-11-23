@@ -1,9 +1,13 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [MatButtonModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, ReactiveFormsModule, RouterLink],
   selector: 'app-publicar-carga-productor-componente',
   styleUrl: './publicar-carga-productor-componente.css',
   templateUrl: './publicar-carga-productor-componente.html',

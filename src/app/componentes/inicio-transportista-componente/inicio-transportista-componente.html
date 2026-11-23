@@ -1,6 +1,6 @@
 <!-- encabezado -->
 <header class="dashboard-encabezado">
-  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <a mat-button href="/inicio-sesion" class="agro-material-button btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
   <h1 class="dashboard-titulo">Dashboard transportista</h1>
 </header>
 <main class="dashboard-contenido">
@@ -28,10 +28,7 @@
       <h2 class="capacidad-titulo">Capacidad usada</h2>
       <p class="capacidad-toneladas">7.5/10 toneladas</p>
       <span class="capacidad-disponible">2.5 t disponibles</span>
-      <div class="campo-urgente" (click)="alternarUnidadLlena()">
-        <span class="checkbox-urgente" [class.marcado]="unidadLlena()"></span>
-        <span>Unidad llena</span>
-      </div>
+      <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="unidadLlena()" (change)="alternarUnidadLlena()">Unidad llena</mat-checkbox>
     </div>
   </section>
 
@@ -54,7 +51,7 @@
       <div class="lotes-filtro">
         <span>Filtro (Tn):</span>
         <span>&lt;</span>
-        <input type="number" id="filtro-toneladas" class="filtro-input" />
+        <input matInput type="number" id="filtro-toneladas" class="filtro-input" />
       </div>
     </div>
 

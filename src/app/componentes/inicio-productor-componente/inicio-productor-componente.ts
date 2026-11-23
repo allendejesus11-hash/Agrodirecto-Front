@@ -1,9 +1,10 @@
+import { MatButtonModule } from '@angular/material/button';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SesionServicio } from '../../servicios/sesion-servicio';
 
 @Component({
-  imports: [RouterLink],
+  imports: [MatButtonModule, RouterLink],
   selector: 'app-inicio-productor-componente',
   styleUrl: './inicio-productor-componente.css',
   templateUrl: './inicio-productor-componente.html',

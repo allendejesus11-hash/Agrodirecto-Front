@@ -1,8 +1,9 @@
+import { MatButtonModule } from '@angular/material/button';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [RouterLink],
+  imports: [MatButtonModule, RouterLink],
   selector: 'app-lotes-transportista2-componente',
   styleUrl: './lotes-transportista2-componente.css',
   templateUrl: './lotes-transportista2-componente.html',

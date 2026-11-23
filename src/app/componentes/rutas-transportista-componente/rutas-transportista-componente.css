@@ -158,7 +158,7 @@
   flex-wrap: wrap;
 }
 
-.btn-accion {
+.btn-accion, .btn-accion:is(.agro-material-button) {
   background-color: #ffd766;
   color: #3f4645;
   border: none;

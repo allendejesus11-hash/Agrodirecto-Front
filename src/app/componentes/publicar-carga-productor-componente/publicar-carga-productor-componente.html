@@ -15,9 +15,9 @@
       <label class="campo-label">Tipo de cultivo:</label>
       <div class="opciones-fila">
             @for (opcion of cultivos; track opcion.valor) {
-              <button
+              <button mat-button
                 type="button"
-                class="btn-opcion"
+                class="agro-material-button btn-opcion"
                 [class.activo]="cultivo() === opcion.valor"
                 (click)="cultivo.set(opcion.valor)"
               >
@@ -32,7 +32,7 @@
       <label for="peso" class="campo-label"
         >Peso estimado (kg) MAX 50T:</label
       >
-      <input type="number" id="peso" class="campo-input" min="0" formControlName="peso" />
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="peso" class="campo-input" min="0" formControlName="peso" /></mat-form-field>
       <p class="campo-error" [class.visible]="errorPeso()">
         Ingrese un peso válido mayor a 0
       </p>
@@ -43,9 +43,9 @@
       <label class="campo-label">Tipo:</label>
       <div class="opciones-fila">
             @for (opcion of tipos; track opcion.valor) {
-              <button
+              <button mat-button
                 type="button"
-                class="btn-opcion"
+                class="agro-material-button btn-opcion"
                 [class.activo]="tipo() === opcion.valor"
                 (click)="tipo.set(opcion.valor)"
               >
@@ -60,7 +60,7 @@
       <label for="destino" class="campo-label"
         >Dirección/Ciudad de Destino:</label
       >
-      <input type="text" id="destino" class="campo-input" formControlName="destino" />
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="destino" class="campo-input" formControlName="destino" /></mat-form-field>
     </div>
 
     <!-- tarifa -->
@@ -68,7 +68,7 @@
       <label for="tarifa" class="campo-label"
         >Tarifa/Presupuesto propuesto (S/):</label
       >
-      <input type="number" id="tarifa" class="campo-input" min="0" formControlName="tarifa" />
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="tarifa" class="campo-input" min="0" formControlName="tarifa" /></mat-form-field>
       <p class="campo-error" [class.visible]="errorTarifa()">
         Ingrese una tarifa válida mayor a 0
       </p>
@@ -87,19 +87,16 @@
     <!-- fecha de recojo -->
     <div class="campo-formulario">
       <label for="fecha" class="campo-label">Fecha de recojo:</label>
-      <input type="date" id="fecha" class="campo-input" formControlName="fecha" />
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field agro-material-date"><input matInput type="date" id="fecha" class="campo-input" formControlName="fecha" /></mat-form-field>
     </div>
 
     <!-- marcar como urgente -->
-    <div class="campo-urgente" (click)="alternarUrgente()">
-      <span class="checkbox-urgente" [class.marcado]="urgente()"></span>
-      <span>Marcar como urgente</span>
-    </div>
+    <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="urgente()" (change)="alternarUrgente()">Marcar como urgente</mat-checkbox>
 
     <!-- acciones -->
     <div class="publicar-acciones">
-      <button type="submit" class="btn-publicar">Publicar carga</button>
-      <button type="button" class="btn-cancelar" (click)="modalCancelar.set(true)">
+      <button mat-button type="submit" class="agro-material-button btn-publicar">Publicar carga</button>
+      <button mat-button type="button" class="agro-material-button btn-cancelar" (click)="modalCancelar.set(true)">
         Cancelar carga
       </button>
     </div>
@@ -112,10 +109,10 @@
         ¿Estás seguro de que deseas cancelar esta carga?
       </p>
       <div class="modal-botones">
-        <button type="button" class="modal-btn-no" (click)="modalCancelar.set(false)">
+        <button mat-button type="button" class="agro-material-button modal-btn-no" (click)="modalCancelar.set(false)">
           No
         </button>
-        <a routerLink="/inicio-productor" class="modal-btn-si">Sí</a>
+        <a mat-button routerLink="/inicio-productor" class="agro-material-button modal-btn-si">Sí</a>
       </div>
     </div>
   </div>

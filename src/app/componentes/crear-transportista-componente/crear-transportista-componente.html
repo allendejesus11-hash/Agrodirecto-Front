@@ -8,19 +8,19 @@
     <h1 class="registro-titulo">Registrar transportista</h1>
 
     <div class="registro-tipo-usuario">
-      <a routerLink="/crear-productor" class="btn-tipo">Productor</a>
+      <a mat-button routerLink="/crear-productor" class="agro-material-button btn-tipo">Productor</a>
       <a class="btn-tipo activo">Transportista</a>
     </div>
 
     <form class="registro-formulario" [formGroup]="transportistaForm" (ngSubmit)="continuar()" ngNativeValidate>
       <div class="campo-registro">
         <label for="nombre">Nombre Completo:</label>
-        <input type="text" id="nombre" name="nombre" formControlName="nombre" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre" name="nombre" formControlName="nombre" /></mat-form-field>
       </div>
 
       <div class="campo-registro">
         <label for="ruc">RUC:</label>
-        <input type="text" id="ruc" name="ruc" formControlName="ruc" maxlength="11" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="ruc" name="ruc" formControlName="ruc" maxlength="11" /></mat-form-field>
         <p class="campo-error" [class.visible]="errorRuc()">
           Ingrese un RUC válido de 11 dígitos
         </p>
@@ -28,17 +28,17 @@
 
       <div class="campo-registro">
         <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" formControlName="correo" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="email" id="correo" name="correo" formControlName="correo" /></mat-form-field>
       </div>
 
       <div class="campo-registro">
         <label for="placa">Placa:</label>
-        <input type="text" id="placa" name="placa" formControlName="placa" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="placa" name="placa" formControlName="placa" /></mat-form-field>
       </div>
 
       <div class="campo-registro">
         <label for="capacidad">Capacidad del camión (kg):</label>
-        <input type="number" id="capacidad" name="capacidad" formControlName="capacidad" min="0" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="capacidad" name="capacidad" formControlName="capacidad" min="0" /></mat-form-field>
         <p class="campo-error" [class.visible]="errorCapacidad()">
           La capacidad debe ser mayor o igual a 0
         </p>
@@ -51,7 +51,7 @@
         <input type="file" id="documentos" name="documentos" />
       </div>
 
-      <button type="submit" class="btn-continuar">Continuar</button>
+      <button mat-button type="submit" class="agro-material-button btn-continuar">Continuar</button>
     </form>
   </div>
 </section>
@@ -62,7 +62,7 @@
     <p class="modal-pregunta">
       Tu perfil será verificado en un plazo de 24 horas
     </p>
-    <a routerLink="/inicio-sesion" class="modal-btn-si">Aceptar</a>
+    <a mat-button routerLink="/inicio-sesion" class="agro-material-button modal-btn-si">Aceptar</a>
   </div>
 </div>
 

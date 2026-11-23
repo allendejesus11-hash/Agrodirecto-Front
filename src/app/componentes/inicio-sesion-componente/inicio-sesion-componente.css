@@ -45,7 +45,7 @@
   margin-bottom: 50px;
 }
 
-.btn-tipo {
+.btn-tipo, .btn-tipo:is(.agro-material-button) {
   background-color: #3f4645;
   color: #ffffff;
   border: none;
@@ -58,7 +58,7 @@
   transition: 0.3s;
 }
 
-.btn-tipo.activo {
+.btn-tipo.activo, .btn-tipo.activo:is(.agro-material-button) {
   background-color: #eceef2;
   color: #3f4645;
 }
@@ -115,7 +115,7 @@
   margin-top: 10px;
 }
 
-.btn-ingresar {
+.btn-ingresar, .btn-ingresar:is(.agro-material-button) {
   flex: 1;
   background-color: #ffd766;
   color: #ffffff;
@@ -129,11 +129,11 @@
   transition: 0.3s;
 }
 
-.btn-ingresar:hover {
+.btn-ingresar:hover, .btn-ingresar:hover:is(.agro-material-button) {
   background-color: #e8c94a;
 }
 
-.btn-crear-cuenta {
+.btn-crear-cuenta, .btn-crear-cuenta:is(.agro-material-button) {
   flex: 1;
   background-color: #3f4645;
   color: #ffffff;
@@ -149,7 +149,7 @@
   transition: 0.3s;
 }
 
-.btn-crear-cuenta:hover {
+.btn-crear-cuenta:hover, .btn-crear-cuenta:hover:is(.agro-material-button) {
   background-color: #2c3130;
 }
 

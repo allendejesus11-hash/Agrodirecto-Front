@@ -12,7 +12,7 @@
 }
 
 /* ===== ENCABEZADO ===== */
-.btn-cerrar-sesion {
+.btn-cerrar-sesion, .btn-cerrar-sesion:is(.agro-material-button) {
   display: inline-flex;
   align-items: center;
   background: none;
@@ -96,7 +96,7 @@
   font-weight: 400;
 }
 
-.btn-notificaciones {
+.btn-notificaciones, .btn-notificaciones:is(.agro-material-button) {
   display: inline-flex;
   align-items: center;
   background: none;

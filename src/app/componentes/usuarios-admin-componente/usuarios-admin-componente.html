@@ -1,15 +1,15 @@
 <!-- encabezado -->
 <header class="dashboard-encabezado">
-  <a href="/inicio-sesion" class="btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <a mat-button href="/inicio-sesion" class="agro-material-button btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
   <h1 class="dashboard-titulo">Gestión de usuarios</h1>
 </header>
 
 <main class="dashboard-contenido">
   <!-- filtro por tipo de usuario -->
   <div class="filtro-usuarios">
-        <button class="btn-filtro" [class.activo]="filtro() === 'todos'" (click)="filtrar('todos')">Todos</button>
-        <button class="btn-filtro" [class.activo]="filtro() === 'productor'" (click)="filtrar('productor')">Productores</button>
-        <button class="btn-filtro" [class.activo]="filtro() === 'transportista'" (click)="filtrar('transportista')">Transportistas</button>
+        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'todos'" (click)="filtrar('todos')">Todos</button>
+        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'productor'" (click)="filtrar('productor')">Productores</button>
+        <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'transportista'" (click)="filtrar('transportista')">Transportistas</button>
       </div>
 
   <section id="lista-usuarios">
@@ -21,8 +21,8 @@
                 <p class="usuario-nombre">{{ usuario.nombre }}</p>
                 <p class="usuario-detalle">{{ usuario.detalle }}</p>
               </div>
-              <button
-                class="usuario-estado"
+              <button mat-button
+                class="agro-material-button usuario-estado"
                 [class.verificado]="!usuario.bloqueado"
                 [class.bloqueado]="usuario.bloqueado"
                 (click)="alternarEstado(usuario)"

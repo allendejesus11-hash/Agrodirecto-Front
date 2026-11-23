@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SesionServicio } from '../../servicios/sesion-servicio';
@@ -13,7 +14,7 @@ interface Usuario {
 }
 
 @Component({
-  imports: [RouterLink],
+  imports: [MatButtonModule, RouterLink],
   selector: 'app-usuarios-admin-componente',
   styleUrl: '../../estilos/admin-base.css',
   templateUrl: './usuarios-admin-componente.html',

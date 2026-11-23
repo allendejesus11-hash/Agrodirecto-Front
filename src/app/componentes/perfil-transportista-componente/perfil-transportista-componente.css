@@ -26,7 +26,7 @@
   color: #ffffff;
 }
 
-.btn-menu {
+.btn-menu, .btn-menu:is(.agro-material-button) {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -175,7 +175,7 @@
 }
 
 /* ===== REPORTAR ABUSO ===== */
-.btn-reportar {
+.btn-reportar, .btn-reportar:is(.agro-material-button) {
   background-color: #990000;
   color: #ffffff;
   border: none;

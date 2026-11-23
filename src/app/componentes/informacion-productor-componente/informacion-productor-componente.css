@@ -133,7 +133,7 @@
   font-weight: 700;
 }
 
-.btn-descargar-recibo {
+.btn-descargar-recibo, .btn-descargar-recibo:is(.agro-material-button) {
   display: flex;
   align-items: center;
   justify-content: center;

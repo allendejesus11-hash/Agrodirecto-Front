@@ -24,8 +24,8 @@
   <section class="seccion-comprador">
     <h2 class="comprador-titulo">Datos del comprador:</h2>
 
-    <input type="text" id="nombre-comprador" class="campo-input" placeholder="Nombre del comprador" [formControl]="nombreComprador" />
-    <input type="text" id="dni-comprador" class="campo-input" placeholder="DNI/RUC" [formControl]="dniComprador" />
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre-comprador" class="campo-input" placeholder="Nombre del comprador" [formControl]="nombreComprador" /></mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="dni-comprador" class="campo-input" placeholder="DNI/RUC" [formControl]="dniComprador" /></mat-form-field>
     <p class="campo-error" [class.visible]="errorDniComprador()">
       Ingrese un DNI (8 dígitos) o RUC (11 dígitos) válido
     </p>
@@ -41,10 +41,10 @@
 
   <!-- acciones -->
   <div class="lista-acciones">
-    <button type="button" class="btn-limpiar" (click)="limpiar()">
+    <button mat-button type="button" class="agro-material-button btn-limpiar" (click)="limpiar()">
       Limpiar
     </button>
-    <a href="/inicio-productor" class="btn-confirmar" (click)="confirmarEntrega($event)">
+    <a mat-button href="/inicio-productor" class="agro-material-button btn-confirmar" (click)="confirmarEntrega($event)">
       Confirma entrega
     </a>
   </div>

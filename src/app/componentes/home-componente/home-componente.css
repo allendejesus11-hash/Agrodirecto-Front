@@ -76,7 +76,7 @@
     align-items: center;
 }
 
-.btn-registro {
+.btn-registro, .btn-registro:is(.agro-material-button) {
     display: inline-block;
     text-decoration: none;
     background-color: #38761d;
@@ -88,7 +88,7 @@
     transition: 0.3s;
 }
 
-.btn-registro:hover {
+.btn-registro:hover, .btn-registro:hover:is(.agro-material-button) {
     background-color: #6aa84f;
 }
 
@@ -135,7 +135,7 @@
     margin-bottom: 50px;
 }
 
-.btn-primario {
+.btn-primario, .btn-primario:is(.agro-material-button) {
     text-decoration: none;
     background-color: #38761d;
     color: #ffffff;
@@ -149,11 +149,11 @@
     transition: 0.3s;
 }
 
-.btn-primario:hover {
+.btn-primario:hover, .btn-primario:hover:is(.agro-material-button) {
     background-color: #6aa84f;
 }
 
-.btn-secundario {
+.btn-secundario, .btn-secundario:is(.agro-material-button) {
     text-decoration: none;
     background: transparent;
     color: #3f4645;
@@ -165,7 +165,7 @@
     transition: 0.3s;
 }
 
-.btn-secundario:hover {
+.btn-secundario:hover, .btn-secundario:hover:is(.agro-material-button) {
     background-color: #dde0e5;
 }
 
@@ -383,7 +383,7 @@
     font-style: italic;
 }
 
-.flecha {
+.flecha, .flecha:is(.agro-material-button) {
     background: none;
     border: none;
     font-size: 30px;
@@ -392,7 +392,7 @@
     transition: 0.3s;
 }
 
-.flecha:hover {
+.flecha:hover, .flecha:hover:is(.agro-material-button) {
     color: #38761d;
 }
 
@@ -446,7 +446,7 @@
     font-family: "Oxygen Mono", monospace;
 }
 
-.btn-registrarse {
+.btn-registrarse, .btn-registrarse:is(.agro-material-button) {
     background-color: #38761d;
     color: #ffffff;
     border: none;
@@ -459,7 +459,7 @@
     transition: 0.3s;
 }
 
-.btn-registrarse:hover {
+.btn-registrarse:hover, .btn-registrarse:hover:is(.agro-material-button) {
     background-color: #6aa84f;
 }
 
@@ -474,7 +474,7 @@
     max-width: 500px;
 }
 
-.faq-pregunta {
+.faq-pregunta, .faq-pregunta:is(.agro-material-button) {
     width: 100%;
     background-color: #ffd766;
     color: #3f4645;
@@ -489,7 +489,7 @@
     transition: 0.3s;
 }
 
-.faq-pregunta:hover {
+.faq-pregunta:hover, .faq-pregunta:hover:is(.agro-material-button) {
     background-color: #e8c94a;
 }
 

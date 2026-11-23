@@ -4,9 +4,9 @@
     <h1 class="login-titulo">Inicio de sesión</h1>
 
     <div class="login-tipo-usuario">
-      <button class="btn-tipo" [class.activo]="tipoUsuario() === 'productor'" (click)="tipoUsuario.set('productor')">Productor</button>
-      <button class="btn-tipo" [class.activo]="tipoUsuario() === 'transportista'" (click)="tipoUsuario.set('transportista')">Transportista</button>
-      <button class="btn-tipo" [class.activo]="tipoUsuario() === 'admin'" (click)="tipoUsuario.set('admin')">Admin</button>
+      <button mat-button class="agro-material-button btn-tipo" [class.activo]="tipoUsuario() === 'productor'" (click)="tipoUsuario.set('productor')">Productor</button>
+      <button mat-button class="agro-material-button btn-tipo" [class.activo]="tipoUsuario() === 'transportista'" (click)="tipoUsuario.set('transportista')">Transportista</button>
+      <button mat-button class="agro-material-button btn-tipo" [class.activo]="tipoUsuario() === 'admin'" (click)="tipoUsuario.set('admin')">Admin</button>
     </div>
 
     <div class="login-marca">
@@ -16,20 +16,20 @@
     <form class="login-formulario" [formGroup]="loginForm" (ngSubmit)="ingresar()" ngNativeValidate>
       <div class="campo-login">
         <label for="usuario">Correo:</label>
-        <input type="email" id="usuario" name="usuario" formControlName="usuario" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="email" id="usuario" name="usuario" formControlName="usuario" /></mat-form-field>
       </div>
 
       <div class="campo-login">
         <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" formControlName="contrasena" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="password" id="contrasena" name="contrasena" formControlName="contrasena" /></mat-form-field>
         <p class="campo-error" [class.visible]="errorContrasena()">
           ¡Credenciales incorrectas! Ingrese una válida
         </p>
       </div>
 
       <div class="login-acciones">
-        <button type="submit" class="btn-ingresar">Ingresar</button>
-        <a routerLink="/crear-productor" class="btn-crear-cuenta"
+        <button mat-button type="submit" class="agro-material-button btn-ingresar">Ingresar</button>
+        <a mat-button routerLink="/crear-productor" class="agro-material-button btn-crear-cuenta"
           >Crear cuenta nueva</a
         >
       </div>

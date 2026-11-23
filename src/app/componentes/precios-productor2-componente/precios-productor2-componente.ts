@@ -1,8 +1,9 @@
+import { MatButtonModule } from '@angular/material/button';
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [RouterLink],
+  imports: [MatButtonModule, RouterLink],
   selector: 'app-precios-productor2-componente',
   styleUrl: './precios-productor2-componente.css',
   templateUrl: './precios-productor2-componente.html',

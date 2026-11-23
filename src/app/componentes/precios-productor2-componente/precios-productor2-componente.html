@@ -22,7 +22,7 @@
 <!-- filtros de cultivo -->
 <div class="opciones-fila opciones-cultivo">
         @for (opcion of cultivos; track opcion.valor) {
-            <button class="btn-opcion" [class.activo]="cultivo() === opcion.valor" (click)="cultivo.set(opcion.valor)">{{ opcion.texto }}</button>
+            <button mat-button class="agro-material-button btn-opcion" [class.activo]="cultivo() === opcion.valor" (click)="cultivo.set(opcion.valor)">{{ opcion.texto }}</button>
         }
     </div>
 
