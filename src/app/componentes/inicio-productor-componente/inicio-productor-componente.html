@@ -6,6 +6,8 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+
   <!-- tarjeta de bienvenida -->
   <div class="tarjeta-bienvenida">
     <img
@@ -13,7 +15,7 @@
       alt="Logo diminuto"
       class="bienvenida-logo"
     />
-    <p class="bienvenida-texto">Hola, ------</p>
+    <p class="bienvenida-texto">Hola, {{sesion.usuario()?.correo || "Productor"}}</p>
     <a routerLink="/notificaciones-productor" class="btn-notificaciones">
       <img src="assets/images/notificaciones.png" />
     </a>
@@ -22,12 +24,12 @@
   <!-- resumen -->
   <section class="seccion-resumen">
     <div class="resumen-tarjeta">
-      <p class="resumen-numero">3</p>
+      <p class="resumen-numero">{{activos()}}</p>
       <p class="resumen-label">Envíos activos</p>
     </div>
 
     <div class="resumen-tarjeta">
-      <p class="resumen-numero">S/ 420</p>
+      <p class="resumen-numero">S/ {{ahorro()?.ahorroTemporada ?? 0 | number:"1.2-2"}}</p>
       <p class="resumen-label">Ahorro acumulado</p>
     </div>
   </section>

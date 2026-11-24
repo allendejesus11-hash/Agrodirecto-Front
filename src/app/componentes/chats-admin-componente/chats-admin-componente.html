@@ -5,29 +5,32 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <p class="descripcion-seccion">
     Aprueba el contacto entre productor y transportista para que puedan
     chatear y coordinar el envío del lote.
   </p>
 
   <section id="lista-chats">
-        @for (chat of chats(); track chat.nombres) {
+        @for (chat of chats(); track chat.idSolicitud) {
           <div class="tarjeta-chat">
             <div class="chat-personas">
-              <img [src]="chat.fotoA" class="chat-foto" />
-              <img [src]="chat.fotoB" class="chat-foto chat-foto-b" />
+              <img src="assets/images/persona_real1.png" class="chat-foto" />
+              <img src="assets/images/persona_real2.png" class="chat-foto chat-foto-b" />
             </div>
             <div class="chat-info">
-              <p class="chat-nombres">{{ chat.nombres }}</p>
-              <p class="chat-detalle">{{ chat.detalle }}</p>
+              <p class="chat-nombres">{{chat.productor.nombreCompleto}} ↔ {{chat.transportista.nombreCompleto}}</p>
+              <p class="chat-detalle">{{chat.lote.codigoLote}} · {{chat.fechaSolicitud | date:"dd/MM/yyyy"}}</p>
             </div>
             <button mat-button
               class="agro-material-button btn-chat-estado"
-              [class.pendiente]="chat.estado === 'pendiente'"
-              [class.aprobado]="chat.estado === 'aprobado'"
+              [class.pendiente]="chat.estadoSolicitud === 'pendiente'"
+              [class.aprobado]="chat.estadoSolicitud === 'aprobado'"
               (click)="aprobar(chat)"
             >
-              {{ chat.estado === 'aprobado' ? 'Chat habilitado' : 'Aprobar chat' }}
+              {{ chat.estadoSolicitud === 'aprobado' ? 'Chat habilitado' : 'Aprobar chat' }}
             </button>
           </div>
           @if (!$last) {

@@ -13,22 +13,22 @@
       <img src="assets/images/logo.png" class="login-logo" />
     </div>
 
-    <form class="login-formulario" [formGroup]="loginForm" (ngSubmit)="ingresar()" ngNativeValidate>
+    <form class="login-formulario" [formGroup]="form" (ngSubmit)="ingresar()" ngNativeValidate>
       <div class="campo-login">
         <label for="usuario">Correo:</label>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="email" id="usuario" name="usuario" formControlName="usuario" /></mat-form-field>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="email" id="usuario" name="usuario" formControlName="correo" /></mat-form-field>
       </div>
 
       <div class="campo-login">
         <label for="contrasena">Contraseña:</label>
         <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="password" id="contrasena" name="contrasena" formControlName="contrasena" /></mat-form-field>
-        <p class="campo-error" [class.visible]="errorContrasena()">
-          ¡Credenciales incorrectas! Ingrese una válida
+        <p class="campo-error" [class.visible]="!!error()">
+          {{ error() || "¡Credenciales incorrectas! Ingrese una válida" }}
         </p>
       </div>
 
       <div class="login-acciones">
-        <button mat-button type="submit" class="agro-material-button btn-ingresar">Ingresar</button>
+        <button mat-button type="submit" class="agro-material-button btn-ingresar" [disabled]="cargando()">{{ cargando() ? "Ingresando..." : "Ingresar" }}</button>
         <a mat-button routerLink="/crear-productor" class="agro-material-button btn-crear-cuenta"
           >Crear cuenta nueva</a
         >

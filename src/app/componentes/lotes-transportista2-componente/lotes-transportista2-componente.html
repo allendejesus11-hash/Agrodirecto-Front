@@ -6,8 +6,11 @@
   <h1 class="retorno-encabezado-titulo">Cargas de retorno</h1>
 </header>
 <main class="retorno-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <!-- titulo ruta -->
-  <h2 class="titulo-ruta">Retorno · Lima → Campo</h2>
+  <h2 class="titulo-ruta">Cargas de retorno disponibles</h2>
 
   <!-- tarjeta capacidad ociosa -->
   <div class="tarjeta-oscura">
@@ -16,8 +19,7 @@
       <h3 class="tarjeta-oscura-titulo">Capacidad ociosa de retorno</h3>
     </div>
     <p class="tarjeta-oscura-texto">
-      Tienes 6.2 t disponibles en el viaje de regreso. Acepta insumos y
-      maximiza tu ingreso.
+      {{capacidad() / 1000 | number:"1.1-2"}} t disponibles en el viaje de regreso. Acepta insumos y maximiza tu ingreso.
     </p>
   </div>
 
@@ -25,31 +27,14 @@
   <h2 class="subtitulo-seccion">Insumos disponibles en Lima</h2>
 
   <div class="lista-insumos">
-    <div class="insumo-item">
-      <div class="insumo-icono-contenedor">
-        <img src="assets/images/caja2.png" class="insumo-icono" />
-      </div>
-      <div class="insumo-info">
-        <p class="insumo-nombre">Fertilizante NPK · 2 t</p>
-        <p class="insumo-detalle">La Molina → Huancayo · S/ 120</p>
-      </div>
-      <span class="lote-etiqueta aceptar">Aceptar</span>
-    </div>
-
-    <hr class="lote-separador" />
-
-    <div class="insumo-item">
-      <div class="insumo-icono-contenedor">
-        <img src="assets/images/caja2.png" class="insumo-icono" />
-      </div>
-      <div class="insumo-info">
-        <p class="insumo-nombre">Semillas de papa · 800 kg</p>
-        <p class="insumo-detalle">Ate → Junín · S/ 80</p>
-      </div>
-      <span class="lote-etiqueta aceptar">Aceptar</span>
-    </div>
-
-    <hr class="lote-separador" />
+    @for (carga of cargas(); track carga.idCarga) {
+      <div class="insumo-item">
+        <div class="insumo-icono-contenedor"><img src="assets/images/caja2.png" class="insumo-icono" /></div>
+        <div class="insumo-info"><p class="insumo-nombre">{{carga.cultivo.nombreCultivo}} · {{carga.pesoKg / 1000 | number:'1.1-2'}} t</p>
+          <p class="insumo-detalle">{{carga.direccionDestino}} · S/ {{carga.tarifaPropuesta | number:'1.2-2'}}</p></div>
+        <button mat-button class="agro-material-button lote-etiqueta aceptar" (click)="aceptar(carga)" [disabled]="!seleccion() || capacidad() < carga.pesoKg">Aceptar</button>
+      </div><hr class="lote-separador" />
+    } @empty { <p>No hay cargas de retorno disponibles.</p> }
   </div>
 
   <!-- alerta en camino -->
@@ -58,11 +43,14 @@
   <div class="tarjeta-oscura">
     <h3 class="tarjeta-oscura-titulo">Oferta cerca de tu ruta</h3>
     <p class="tarjeta-oscura-texto">
-      Lote #B-12 en Matucana. 1.5 t de cebolla. Desvío: 4 km. ¿Aceptas?
+      Selecciona el lote al que asignarás la carga de retorno.
     </p>
+    <select class="estado-integracion selector" aria-label="Lote de retorno" [value]="seleccion()" (change)="seleccionar($event)">
+      @for (lote of lotes(); track lote.idLote) {<option [value]="lote.idLote">{{lote.codigoLote}}</option>}
+    </select>
     <div class="alerta-botones">
-      <button mat-button class="agro-material-button btn-alerta btn-aceptar">Aceptar</button>
-      <button mat-button class="agro-material-button btn-alerta btn-ignorar">Ignorar</button>
+      <button mat-button class="agro-material-button btn-alerta btn-aceptar" (click)="cargar()">Actualizar</button>
+      <a routerLink="/lotes-transportista" class="agro-material-button btn-alerta btn-ignorar">Volver</a>
     </div>
   </div>
 </main>

@@ -12,16 +12,16 @@
       <a class="btn-tipo activo">Transportista</a>
     </div>
 
-    <form class="registro-formulario" [formGroup]="transportistaForm" (ngSubmit)="continuar()" ngNativeValidate>
+    <form class="registro-formulario" [formGroup]="form" (ngSubmit)="registrar()" ngNativeValidate>
       <div class="campo-registro">
         <label for="nombre">Nombre Completo:</label>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre" name="nombre" formControlName="nombre" /></mat-form-field>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre" name="nombre" formControlName="nombreCompleto" /></mat-form-field>
       </div>
 
       <div class="campo-registro">
         <label for="ruc">RUC:</label>
         <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="ruc" name="ruc" formControlName="ruc" maxlength="11" /></mat-form-field>
-        <p class="campo-error" [class.visible]="errorRuc()">
+        <p class="campo-error" [class.visible]="!!error() && form.controls.ruc.value.length !== 11">
           Ingrese un RUC válido de 11 dígitos
         </p>
       </div>
@@ -38,10 +38,15 @@
 
       <div class="campo-registro">
         <label for="capacidad">Capacidad del camión (kg):</label>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="capacidad" name="capacidad" formControlName="capacidad" min="0" /></mat-form-field>
-        <p class="campo-error" [class.visible]="errorCapacidad()">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="capacidad" name="capacidad" formControlName="capacidadKg" min="0" /></mat-form-field>
+        <p class="campo-error" [class.visible]="!!error() && form.controls.capacidadKg.value <= 0">
           La capacidad debe ser mayor o igual a 0
         </p>
+      </div>
+
+      <div class="campo-registro">
+        <label for="licencia">Número de licencia:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="licencia" formControlName="licencia" /></mat-form-field>
       </div>
 
       <div class="campo-registro">
@@ -51,13 +56,16 @@
         <input type="file" id="documentos" name="documentos" />
       </div>
 
-      <button mat-button type="submit" class="agro-material-button btn-continuar">Continuar</button>
+      <p class="estado-integracion aviso">El archivo seleccionado todavía no se adjunta al registro: la API recibe el número de licencia.</p>
+      <button mat-button type="submit" class="agro-material-button btn-continuar" [disabled]="cargando()">{{ cargando() ? 'Registrando...' : 'Continuar' }}</button>
+      <p class="estado-integracion error" *ngIf="error()">{{error()}}</p>
+      <p class="estado-integracion exito" *ngIf="mensaje()">{{mensaje()}}</p>
     </form>
   </div>
 </section>
 
 <!-- modal de confirmacion -->
-<div class="modal-overlay" [class.visible]="modalRegistro()">
+<div class="modal-overlay" [class.visible]="!!mensaje()">
   <div class="modal-caja">
     <p class="modal-pregunta">
       Tu perfil será verificado en un plazo de 24 horas

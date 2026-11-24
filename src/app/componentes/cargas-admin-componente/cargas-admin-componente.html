@@ -5,35 +5,21 @@
 </header>
 
 <main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <section>
     <h2 class="seccion-titulo">Cargas publicadas</h2>
-
-    <div class="tarjeta-alerta">
-      <img src="assets/images/caja.png" class="alerta-icono" />
-      <div class="alerta-info">
-        <p class="alerta-nombre">Lote #A-04 · Papa + Zanahoria</p>
-        <p class="alerta-detalle">Huancayo · 2.4 t · Rosa Quispe Huamán</p>
+    @for (carga of visibles(); track carga.idCarga) {
+      <div class="tarjeta-alerta" style="margin-top: 12px">
+        <img src="assets/images/caja.png" class="alerta-icono" />
+        <div class="alerta-info">
+          <p class="alerta-nombre">{{carga.codigoCarga}} · {{carga.cultivo.nombreCultivo}}</p>
+          <p class="alerta-detalle">{{carga.direccionDestino}} · {{carga.pesoKg / 1000 | number:'1.1-2'}} t · {{carga.productor.nombreCompleto}}</p>
+        </div>
+        <span class="alerta-etiqueta" [class.pendiente]="carga.estadoCarga === 'en_revision'" [class.resuelto]="carga.estadoCarga !== 'en_revision'">{{carga.estadoCarga === 'en_revision' ? 'En revisión' : carga.estadoCarga}}</span>
       </div>
-      <span class="alerta-etiqueta resuelto">Activa</span>
-    </div>
-
-    <div class="tarjeta-alerta" style="margin-top: 12px">
-      <img src="assets/images/caja.png" class="alerta-icono" />
-      <div class="alerta-info">
-        <p class="alerta-nombre">Lote #A-05 · Cebolla</p>
-        <p class="alerta-detalle">Chupaca · 1.8 t · Julio Cesar Anccasi</p>
-      </div>
-      <span class="alerta-etiqueta pendiente">En revisión</span>
-    </div>
-
-    <div class="tarjeta-alerta" style="margin-top: 12px">
-      <img src="assets/images/caja.png" class="alerta-icono" />
-      <div class="alerta-info">
-        <p class="alerta-nombre">Lote #A-06 · Papa</p>
-        <p class="alerta-detalle">Concepción · 3.1 t · Daniela Molocho</p>
-      </div>
-      <span class="alerta-etiqueta resuelto">Activa</span>
-    </div>
+    } @empty { <p>No hay cargas registradas.</p> }
   </section>
 </main>
 

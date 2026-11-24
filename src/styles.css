@@ -8,3 +8,10 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Solo mensajes de estado de la API; todo el diseño original está intacto. */
+.estado-integracion { margin: 12px 0; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.estado-integracion.error { color: #b42318; }
+.estado-integracion.exito { color: #1b6a35; }
+.estado-integracion.aviso { color: #5a5936; }
+.estado-integracion.selector { border: 1px solid #7b977f; border-radius: 7px; padding: 8px; background: #fff; color: #234a32; max-width: 100%; }

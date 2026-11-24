@@ -7,45 +7,25 @@
 </header>
 
 <main class="precios-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
   <h2 class="precios-subtitulo">Inteligencia de mercado</h2>
 
   <!-- actualizacion -->
   <div class="actualizacion-fila">
-    <p class="actualizacion-texto">Precios EMMSA · Actualizado 06:00 am</p>
+    <p class="actualizacion-texto">Precios de la API · Fecha: {{precios()[0]?.fechaPrecio || "Sin datos"}}</p>
     <span class="etiqueta-hoy">Hoy</span>
   </div>
 
   <!-- lista de precios -->
   <section class="seccion-precios">
-    <div class="precio-item">
-      <img src="assets/images/papa.png" class="precio-icono" />
-      <div class="precio-info">
-        <p class="precio-nombre">Papa blanca</p>
-        <p class="precio-valor">S/0.85/kg</p>
-      </div>
-      <span class="precio-tendencia sube">↑ 5%</span>
-    </div>
-    <hr class="precio-separador" />
-
-    <div class="precio-item">
-      <img src="assets/images/cebolla.png" class="precio-icono" />
-      <div class="precio-info">
-        <p class="precio-nombre">Cebolla roja</p>
-        <p class="precio-valor">S/1.20/kg</p>
-      </div>
-      <span class="precio-tendencia estable">→ 0%</span>
-    </div>
-    <hr class="precio-separador" />
-
-    <div class="precio-item">
-      <img src="assets/images/zanahoria.png" class="precio-icono" />
-      <div class="precio-info">
-        <p class="precio-nombre">Zanahoria</p>
-        <p class="precio-valor">S/0.65/kg</p>
-      </div>
-      <span class="precio-tendencia baja">↓ 3%</span>
-    </div>
-    <hr class="precio-separador" />
+    @for (p of visibles(); track p.idPrecio) {
+      <div class="precio-item"><img src="assets/images/papa.png" class="precio-icono" />
+        <div class="precio-info"><p class="precio-nombre">{{p.cultivo.nombreCultivo}}</p><p class="precio-valor">S/ {{p.precioPorKg | number:'1.2-2'}}/kg</p></div>
+        <span class="precio-tendencia estable">Sin tendencia</span>
+      </div><hr class="precio-separador" />
+    } @empty {<p>No hay precios registrados.</p>}
   </section>
 
   <!-- ia consejera -->
@@ -56,8 +36,7 @@
     </div>
     <div class="ia-recuadro">
       <p>
-        "Buen momento para enviar papa. El precio sube 3 días consecutivos.
-        Evita cebolla esta semana.
+        "Se muestran los precios registrados. La API aún no ofrece tendencias históricas ni recomendaciones automáticas.
       </p>
     </div>
   </section>
