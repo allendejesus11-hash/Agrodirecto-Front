@@ -17,7 +17,8 @@ export class NotificacionesProductorComponente implements OnInit {
  cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
  ngOnInit(): void { this.cargar(); }
 notificaciones=signal<Notificacion[]>([]);contador=signal(0);
- cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.api.notificaciones(id).subscribe({next:r=>{this.notificaciones.set(r.notificaciones);this.contador.set(r.totalNoLeidas);},error:e=>this.error.set(mensajeError(e))});}
+
+ cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.api.notificaciones(id).subscribe({next:r=>{this.notificaciones.set(r.notificaciones);this.contador.set(r.notificaciones.length);},error:e=>this.error.set(mensajeError(e))});}
  leer(n:Notificacion){if(n.leida)return;this.api.marcarLeida(n.idNotificacion).subscribe({next:()=>this.cargar(),error:e=>this.error.set(mensajeError(e))});}
 
 }
