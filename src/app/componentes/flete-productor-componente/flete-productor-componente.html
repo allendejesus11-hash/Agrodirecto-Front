@@ -1,0 +1,56 @@
+<!-- encabezado -->
+<header class="consolidacion-encabezado">
+  <a routerLink="/inicio-productor" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
+  </a>
+  <h1 class="consolidacion-titulo">Estado de consolidación</h1>
+</header>
+
+<main class="consolidacion-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <h2 class="consolidacion-subtitulo">Mi carga · {{seleccionado()?.codigoLote || "Sin lote"}}</h2>
+
+  <!-- ruta generada -->
+  <div class="tarjeta-ruta">
+    <h3 class="ruta-titulo">Ruta de consolidación generada</h3>
+    <p class="ruta-detalle">Agrupado con {{(seleccionado()?.cargas || []).length}} cargas · {{seleccionado()?.origen || "Origen pendiente"}}</p>
+  </div>
+
+  <!-- productores en el lote -->
+  <section class="seccion-productores">
+    <h2 class="productores-titulo">Productores en el lote</h2>
+    <select class="estado-integracion selector" aria-label="Lote" (change)="cambiarLote($event)">
+      @for (l of lotes(); track l.idLote) {<option [value]="l.idLote">{{l.codigoLote}}</option>}
+    </select>
+    @for (carga of seleccionado()?.cargas || []; track carga.idCarga) {
+      <div class="productor-item"><img src="assets/images/persona_real1.png" class="productor-foto" />
+        <div class="productor-info"><p class="productor-nombre">{{carga.productor.nombreCompleto}} · {{carga.pesoKg}} kg {{carga.cultivo.nombreCultivo}}</p>
+          <p class="productor-detalle">{{carga.direccionDestino}}</p></div>
+        <span class="productor-etiqueta confirmado">{{carga.estadoCarga}}</span>
+      </div><hr class="productor-separador" />
+    } @empty {<p>No hay cargas en este lote.</p>}
+  </section>
+
+  <!-- calculo de flete -->
+  <div class="tarjeta-flete">
+    <h3 class="flete-titulo">Cálculo de flete dividido</h3>
+
+    <div class="flete-fila">
+      <span>Flete total estimado</span>
+      <span>S/ {{seleccionado()?.fleteTotal ?? 0 | number:"1.2-2"}}</span>
+    </div>
+    <div class="flete-fila">
+      <span>Parte proporcional de tus cargas</span>
+      <span>S/ {{parte() | number:"1.2-2"}}</span>
+    </div>
+  </div>
+
+  <!-- ultimo cupo -->
+  <div class="tarjeta-alerta">
+    <img src="assets/images/advertencia2.png" class="alerta-icono" />
+    <p>Estado: {{seleccionado()?.estadoLote || "Pendiente"}}</p>
+  </div>
+</main>
+

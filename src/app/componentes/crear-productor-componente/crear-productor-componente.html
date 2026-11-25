@@ -1,0 +1,54 @@
+<!-- Pantalla de registro de productor -->
+<section class="registro-pantalla">
+  <a routerLink="/inicio-sesion" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso.png" alt="Volver" />
+  </a>
+
+  <div class="registro-contenedor">
+    <h1 class="registro-titulo">Registrar productor</h1>
+
+    <div class="registro-tipo-usuario">
+      <a class="btn-tipo activo">Productor</a>
+      <a mat-button routerLink="/crear-transportista" class="agro-material-button btn-tipo">Transportista</a>
+    </div>
+
+    <form class="registro-formulario" [formGroup]="form" (ngSubmit)="registrar()" ngNativeValidate>
+      <div class="campo-registro">
+        <label for="nombre">Nombre Completo:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre" name="nombre" formControlName="nombreCompleto" /></mat-form-field>
+      </div>
+
+      <div class="campo-registro">
+        <label for="dni">DNI:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="dni" name="dni" formControlName="dni" maxlength="8" /></mat-form-field>
+        <p class="campo-error" [class.visible]="!!error() && form.controls.dni.value.length !== 8">
+          Ingrese un DNI válido de 8 dígitos
+        </p>
+      </div>
+
+      <div class="campo-registro">
+        <label for="correo">Correo:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="email" id="correo" name="correo" formControlName="correo" /></mat-form-field>
+      </div>
+
+      <div class="campo-registro">
+        <label for="distrito">Distrito:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="distrito" name="distrito" formControlName="distrito" /></mat-form-field>
+      </div>
+
+      <div class="campo-registro">
+        <label for="contrasena">Contraseña:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="password" id="contrasena" name="contrasena" formControlName="contrasena" /></mat-form-field>
+        <p class="campo-error" [class.visible]="!!error() && form.controls.contrasena.value.length < 6">
+          La contraseña debe tener al menos 6 caracteres
+        </p>
+      </div>
+
+      <button mat-button type="submit" class="agro-material-button btn-continuar" [disabled]="cargando()">{{ cargando() ? "Registrando..." : "Continuar" }}</button>
+      <p class="estado-integracion error" *ngIf="error()">{{error()}}</p>
+      <p class="estado-integracion exito" *ngIf="mensaje()">{{mensaje()}}</p>
+    </form>
+  </div>
+</section>
+
+

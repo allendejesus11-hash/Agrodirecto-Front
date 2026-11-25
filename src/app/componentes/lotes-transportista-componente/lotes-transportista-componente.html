@@ -1,0 +1,66 @@
+<!-- encabezado -->
+<header class="lotes-encabezado">
+  <h1 class="lotes-encabezado-titulo">Mis envíos</h1>
+  <a routerLink="/lotes-transportista2" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+</header>
+<main class="lotes-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <!-- historial de cargas -->
+  <section class="seccion-historial">
+    <h2 class="historial-titulo">Historial de cargas:</h2>
+
+    <div class="historial-filtros">
+      <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'todos'" (click)="filtro.set('todos')">Todos</button>
+      <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'activos'" (click)="filtro.set('activos')">Activos</button>
+      <button mat-button class="agro-material-button btn-filtro" [class.activo]="filtro() === 'completados'" (click)="filtro.set('completados')">Completados</button>
+    </div>
+
+    <!-- lote en ruta -->
+    @for (lote of visibles(); track lote.idLote) {
+      <a class="lote-item" [routerLink]="['/lotes-transportista2']" [queryParams]="{id:lote.idLote}" style="text-decoration:none; color:inherit;">
+        <div class="lote-icono-contenedor"><img src="assets/images/caja2.png" class="lote-icono" /></div>
+        <div class="lote-info"><p class="lote-nombre">{{lote.codigoLote}} · {{lote.destino}}</p>
+          <p class="lote-detalle">Salida: {{lote.fechaSalida || 'Sin programar'}} · {{lote.estadoLote}}</p></div>
+        <span class="lote-etiqueta" [class.entregado]="lote.estadoLote==='entregado'" [class.en-ruta]="lote.estadoLote!=='entregado'">{{lote.estadoLote}}</span>
+      </a><hr class="lote-separador" />
+    } @empty { <p>No tienes envíos en este filtro.</p> }
+  </section>
+
+  <!-- resumen de envios -->
+  <section class="seccion-resumen">
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">{{lotes().length}}</p>
+      <p class="resumen-label">Total de envíos</p>
+    </div>
+
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">{{entregados()}}</p>
+      <p class="resumen-label">Envíos entregados</p>
+    </div>
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-transportista" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/lotes-transportista" class="nav-item activo">
+    <img src="assets/images/camion.png" />
+    <span>Lotes</span>
+  </a>
+  <a routerLink="/rutas-transportista" class="nav-item">
+    <img src="assets/images/pista.png" />
+    <span>Rutas</span>
+  </a>
+  <a routerLink="/perfil-transportista" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+

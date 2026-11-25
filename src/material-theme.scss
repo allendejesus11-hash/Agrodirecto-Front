@@ -1,0 +1,119 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (primary: mat.$green-palette, tertiary: mat.$yellow-palette),
+    typography: (plain-family: 'Poppins, Arial, sans-serif', brand-family: 'Poppins, Arial, sans-serif'),
+    density: 0,
+  ));
+  --mat-sys-primary: #38761d;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-tertiary: #ffd766;
+}
+
+/* Material aporta interacción; cada pantalla conserva sus botones originales. */
+.agro-material-button.mat-mdc-button {
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  font: inherit;
+  letter-spacing: normal;
+  white-space: normal;
+  text-transform: none;
+  vertical-align: baseline;
+  display: inline-block;
+  --mat-button-text-state-layer-color: currentColor;
+  --mat-button-text-ripple-color: rgba(255, 255, 255, .18);
+}
+.agro-material-button:focus-visible { outline: 2px solid #ffd766; outline-offset: 3px; }
+
+/* Se mantienen las etiquetas externas y los controles de formulario existentes. */
+.agro-material-field {
+  width: 100%;
+  min-width: 0;
+  background: #eceef2;
+  border-radius: 30px;
+  color: #3f4645;
+  font: 600 15px 'Poppins', Arial, sans-serif;
+  --mat-form-field-container-text-font: 'Poppins', Arial, sans-serif;
+  --mat-form-field-container-text-size: 15px;
+  --mat-form-field-container-text-weight: 600;
+  --mat-form-field-container-text-line-height: 20px;
+  --mat-form-field-container-height: 52px;
+  --mat-form-field-container-vertical-padding: 16px;
+  --mat-form-field-outlined-container-shape: 30px;
+  --mat-form-field-outlined-outline-color: transparent;
+  --mat-form-field-outlined-hover-outline-color: #6aa84f;
+  --mat-form-field-outlined-focus-outline-color: #38761d;
+  --mat-form-field-outlined-input-text-color: #3f4645;
+  --mat-form-field-outlined-caret-color: #38761d;
+}
+html .agro-material-field input.mat-mdc-input-element {
+  flex: none; width: 100%; max-width: none; height: auto; min-height: 0;
+  border: 0; border-radius: 0; background: transparent; padding: 0;
+  margin: 0; font: inherit; color: inherit; box-sizing: border-box;
+}
+.campo-login .agro-material-field {
+  flex: 1; max-width: 500px; border-radius: 10px;
+  --mat-form-field-outlined-container-shape: 10px;
+  --mat-form-field-container-height: 44px;
+  --mat-form-field-container-vertical-padding: 12px;
+  --mat-form-field-container-text-size: 13.3333px;
+  --mat-form-field-container-text-weight: 400;
+}
+.campo-registro .agro-material-field {
+  border-radius: 10px;
+  --mat-form-field-outlined-container-shape: 10px;
+  --mat-form-field-container-height: 50px;
+  --mat-form-field-container-vertical-padding: 15px;
+  --mat-form-field-container-text-size: 13.3333px;
+  --mat-form-field-container-text-weight: 400;
+}
+.seccion-comentario .agro-material-field {
+  border-radius: 14px; --mat-form-field-outlined-container-shape: 14px;
+}
+.campo-urgente.agro-material-checkbox {
+  --mat-checkbox-label-text-color: #ffffff;
+  --mat-checkbox-label-text-font: 'Poppins', Arial, sans-serif;
+  --mat-checkbox-label-text-size: 16px;
+  --mat-checkbox-label-text-weight: 700;
+  --mat-checkbox-selected-icon-color: #ffd766;
+  --mat-checkbox-selected-hover-icon-color: #ffd766;
+  --mat-checkbox-selected-focus-icon-color: #ffd766;
+  --mat-checkbox-selected-checkmark-color: #3f4645;
+  --mat-checkbox-unselected-icon-color: #eceef2;
+}
+@media (max-width: 900px) {
+  .campo-login .agro-material-field {
+    flex: auto; max-width: 100%;
+    --mat-form-field-container-height: 50px;
+    --mat-form-field-container-vertical-padding: 15px;
+  }
+}
+
+/* Ajustes de tamaño para conservar los campos de las pantallas originales. */
+.agro-material-field .mat-mdc-text-field-wrapper {
+  padding-inline: var(--agro-field-padding, 16px);
+}
+.campo-formulario .agro-material-field,
+.seccion-comentario .agro-material-field {
+  --mat-form-field-container-height: 49px;
+  --mat-form-field-container-text-line-height: 17px;
+}
+.campo-formulario .agro-material-field { --agro-field-padding: 20px; }
+.seccion-comprador .agro-material-field {
+  --agro-field-padding: 24px;
+  --mat-form-field-container-height: 53px;
+  --mat-form-field-container-vertical-padding: 18px;
+  --mat-form-field-container-text-line-height: 17px;
+}
+.campo-formulario .agro-material-date {
+  --mat-form-field-container-height: 51px;
+  --mat-form-field-container-text-line-height: 19px;
+}
+.campo-login .agro-material-field,
+.campo-registro .agro-material-field {
+  --mat-form-field-outlined-input-text-color: #000000;
+  color: #000000;
+}

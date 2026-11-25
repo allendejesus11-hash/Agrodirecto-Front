@@ -1,0 +1,229 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.seguimiento-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.seguimiento-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.seguimiento-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 120px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== VIAJE ===== */
+.seccion-viaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.viaje-titulo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.viaje-mapa {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.viaje-mapa img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.viaje-transportista {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background-color: #3f4645;
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.transportista-icono {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.transportista-info {
+  flex: 1;
+}
+
+.transportista-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.transportista-detalle {
+  font-size: 13px;
+  color: #eceef2;
+  margin-top: 2px;
+}
+
+.viaje-etiqueta {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.viaje-etiqueta.en-ruta {
+  background-color: #ffd766;
+  color: #3f4645;
+}
+
+/* ===== CHAT ===== */
+.seccion-chat {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.chat-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chat-mensajes {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mensaje {
+  max-width: 80%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mensaje-enviado {
+  align-self: flex-end;
+  background-color: #3f4645;
+  color: #ffffff;
+}
+
+.mensaje-recibido {
+  align-self: flex-start;
+  background-color: #eceef2;
+  color: #3f4645;
+}
+
+/* ===== ACCIONES ===== */
+.seccion-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-accion, .btn-accion:is(.agro-material-button) {
+  background-color: #ffd766;
+  color: #3f4645;
+  border: none;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== NAV INFERIOR ===== */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eceef2;
+  border-top: 1px solid #3f4645;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.nav-item.activo {
+  color: #38761d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .seguimiento-encabezado {
+    padding: 24px 4%;
+  }
+
+  .seguimiento-contenido {
+    padding: 20px 4% 100px 4%;
+    gap: 16px;
+  }
+
+  .viaje-titulo {
+    font-size: 22px;
+  }
+}

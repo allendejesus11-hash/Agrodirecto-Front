@@ -1,0 +1,69 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a mat-button href="/inicio-sesion" class="agro-material-button btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Solicitudes de chat</h1>
+</header>
+
+<main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <p class="descripcion-seccion">
+    Aprueba el contacto entre productor y transportista para que puedan
+    chatear y coordinar el envío del lote.
+  </p>
+
+  <section id="lista-chats">
+        @for (chat of chats(); track chat.idSolicitud) {
+          <div class="tarjeta-chat">
+            <div class="chat-personas">
+              <img src="assets/images/persona_real1.png" class="chat-foto" />
+              <img src="assets/images/persona_real2.png" class="chat-foto chat-foto-b" />
+            </div>
+            <div class="chat-info">
+              <p class="chat-nombres">{{chat.productor.nombreCompleto}} ↔ {{chat.transportista.nombreCompleto}}</p>
+              <p class="chat-detalle">{{chat.lote.codigoLote}} · {{chat.fechaSolicitud | date:"dd/MM/yyyy"}}</p>
+            </div>
+            <button mat-button
+              class="agro-material-button btn-chat-estado"
+              [class.pendiente]="chat.estadoSolicitud === 'pendiente'"
+              [class.aprobado]="chat.estadoSolicitud === 'aprobado'"
+              (click)="aprobar(chat)"
+            >
+              {{ chat.estadoSolicitud === 'aprobado' ? 'Chat habilitado' : 'Aprobar chat' }}
+            </button>
+          </div>
+          @if (!$last) {
+            <hr class="usuario-separador" />
+          }
+        }
+      </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item activo">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

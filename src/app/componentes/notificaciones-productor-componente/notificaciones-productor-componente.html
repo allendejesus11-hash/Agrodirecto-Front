@@ -1,0 +1,45 @@
+<!-- encabezado -->
+<header class="notif-encabezado">
+  <a routerLink="/inicio-productor" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
+  </a>
+  <h1 class="notif-titulo">Notificaciones</h1>
+</header>
+
+<main class="notif-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <!-- alertas -->
+  <section class="seccion-alertas">
+    <div class="alertas-encabezado">
+      <h2 class="alertas-titulo">Alertas</h2>
+      <span class="alertas-contador">{{contador()}} nuevas</span>
+    </div>
+
+    <!-- Notificaciones reales -->
+    @for (n of notificaciones(); track n.idNotificacion) {
+      <div class="alerta-item" (click)="leer(n)" (keydown.enter)="leer(n)" tabindex="0" role="button" [attr.aria-label]="n.leida ? 'Notificación leída' : 'Marcar como leída'">
+        <div class="alerta-icono-contenedor"><img src="assets/images/advertencia.png" class="alerta-icono" /></div>
+        <div class="alerta-info"><p class="alerta-nombre">{{n.titulo}} {{n.leida ? '✓' : '●'}}</p><p class="alerta-detalle">{{n.mensaje}} · {{n.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</p></div>
+      </div><hr class="alerta-separador" />
+    } @empty { <p>No tienes notificaciones.</p> }
+  </section>
+
+  <!-- soporte -->
+  <section class="seccion-soporte">
+    <h2 class="soporte-titulo">Soporte</h2>
+
+    <div class="soporte-botones">
+      <span class="btn-soporte">
+        <img src="assets/images/FAQ.png" class="soporte-icono" />
+        FAQ
+      </span>
+      <span class="btn-soporte">
+        <img src="assets/images/mensaje.png" class="soporte-icono" />
+        Soporte
+      </span>
+    </div>
+  </section>
+</main>
+

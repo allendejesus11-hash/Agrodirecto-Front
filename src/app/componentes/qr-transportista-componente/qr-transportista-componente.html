@@ -1,0 +1,41 @@
+<!-- encabezado -->
+<header class="qr-encabezado">
+  <a routerLink="/rutas-transportista" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
+  </a>
+  <h1 class="qr-titulo">Validación QR Entrega</h1>
+</header>
+
+<main class="qr-contenido">
+  <h2 class="qr-subtitulo">Confirmar entrega</h2>
+
+  <!-- tarjeta del lote -->
+  <div class="tarjeta-lote">
+    <div class="lote-encabezado">
+      <img src="assets/images/caja2.png" class="lote-icono" />
+      <h3 class="lote-nombre">Lote #A-04-Carlos M.</h3>
+    </div>
+    <p class="lote-detalle">850kg papa blanca-Huancayo</p>
+    <p class="lote-detalle">Destino: La Parada, Lima</p>
+  </div>
+
+  <!-- codigo qr -->
+  <section class="seccion-qr">
+    <h3 class="qr-instruccion">Código para el productor</h3>
+
+    <div class="qr-imagen-contenedor">
+      <img src="assets/images/QR.png" />
+    </div>
+
+    <p class="qr-leyenda">QR</p>
+  </section>
+
+  <hr class="qr-separador" />
+
+  <!-- acciones -->
+  <div class="qr-acciones">
+    <button mat-button class="agro-material-button btn-qr confirmar">Confirmar recojo de carga</button>
+    <button mat-button class="agro-material-button btn-qr manual">Ingresar código manualmente</button>
+  </div>
+</main>
+

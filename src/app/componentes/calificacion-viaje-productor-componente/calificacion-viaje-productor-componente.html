@@ -1,0 +1,73 @@
+<!-- encabezado -->
+<header class="calificacion-encabezado">
+  <a routerLink="/viajes-productor" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
+  </a>
+  <h1 class="calificacion-titulo">Calificación post-viaje</h1>
+</header>
+
+<main class="calificacion-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <h2 class="calificacion-subtitulo">Califica el viaje</h2>
+
+  <!-- tarjeta transportista -->
+  <div class="tarjeta-transportista">
+    <h3 class="transportista-nombre">{{ lotes().length ? (seleccionado()?.transportista?.nombreCompleto || "Transportista") : "Sin viajes entregados" }}</h3>
+
+    <img src="assets/images/persona_real4.png" class="transportista-foto" />
+
+    <p class="transportista-viaje">{{ seleccionado()?.codigoLote || "Selecciona un viaje entregado" }} · {{ seleccionado()?.origen || "" }} → {{ seleccionado()?.destino || "" }}</p>
+
+    <select class="estado-integracion selector" aria-label="Viaje a calificar" [value]="idLote()" (change)="elegirLote($event)">
+      @for (lote of lotes(); track lote.idLote) {
+        <option [value]="lote.idLote">{{lote.codigoLote}}</option>
+      }
+    </select>
+    <div class="estrellas">
+          @for (valor of [1,2,3,4,5]; track valor) {
+            <span class="estrella" [class.activa]="valor <= form.controls.estrellas.value" (click)="form.controls.estrellas.setValue(valor)">★</span>
+          }
+        </div>
+
+    <p class="calificacion-ayuda">Toca para calificar (1-5 estrellas)</p>
+  </div>
+
+  <!-- comentario -->
+  <div class="seccion-comentario">
+    <label for="comentario" class="comentario-label"
+      >Comentario público (opcional):</label
+    >
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput
+      type="text"
+      id="comentario"
+      class="comentario-texto"
+      placeholder="Escribe tu experiencia...." [formControl]="form.controls.comentario"
+    /></mat-form-field>
+  </div>
+
+  <!-- recomendacion -->
+  <div class="seccion-recomendacion">
+    <p class="recomendacion-pregunta">
+      ¿Recomendarías a este transportista?
+    </p>
+    <div class="recomendacion-botones">
+      <button mat-button type="button" class="agro-material-button btn-recomendacion" [class.activo]="form.controls.recomienda.value" (click)="form.controls.recomienda.setValue(true)">
+        Sí
+      </button>
+      <button mat-button type="button" class="agro-material-button btn-recomendacion" [class.activo]="!form.controls.recomienda.value" (click)="form.controls.recomienda.setValue(false)">
+        No
+      </button>
+    </div>
+  </div>
+
+  <!-- enviar -->
+  <button mat-button type="button" class="agro-material-button btn-enviar" (click)="calificar()" [disabled]="cargando() || !lotes().length">Enviar calificación</button>
+
+  <p class="calificacion-nota">
+    El comentario será publicado en el perfil del transportista
+  </p>
+</main>
+
+

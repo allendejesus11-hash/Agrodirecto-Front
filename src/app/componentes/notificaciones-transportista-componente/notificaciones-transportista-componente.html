@@ -1,0 +1,25 @@
+<!-- encabezado -->
+<header class="notif-encabezado">
+    <a routerLink="/inicio-transportista" class="flecha-volver">
+        <img src="assets/images/flecha_retroceso2.png" alt="Volver">
+    </a>
+    <h1 class="notif-encabezado-titulo">Alertas del sistema</h1>
+</header>
+
+<!-- contenido principal -->
+<main class="notif-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+    <h2 class="notif-titulo">Notificaciones del motor</h2>
+
+    <!-- tarjeta camion reasignado -->
+    <!-- Notificaciones reales -->
+    <p class="estado-integracion aviso">{{contador()}} notificaciones sin leer</p>
+    @for (n of notificaciones(); track n.idNotificacion) {
+      <div class="notif-tarjeta" (click)="leer(n)" (keydown.enter)="leer(n)" tabindex="0" role="button">
+        <h3 class="notif-tarjeta-titulo">{{n.titulo}} {{n.leida ? '✓' : '●'}}</h3>
+        <p class="notif-tarjeta-texto">{{n.mensaje}} · {{n.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</p>
+      </div>
+    } @empty {<p>No tienes notificaciones.</p>}
+</main>
