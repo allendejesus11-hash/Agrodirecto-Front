@@ -1,0 +1,76 @@
+<!-- encabezado -->
+<header class="lista-encabezado">
+  <h1 class="lista-titulo">Lista de cargas</h1>
+</header>
+
+<main class="lista-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <!-- cargas -->
+  <section class="seccion-cargas">
+        @for (carga of cargas(); track carga.idCarga) {
+          <div class="carga-item" [class.activo]="seleccionada()?.idCarga === carga.idCarga" (click)="seleccionada.set(carga)">
+            <div class="carga-icono-contenedor">
+              <img src="assets/images/caja2.png" class="carga-icono" />
+            </div>
+            <div class="carga-info">
+              <p>Producto: {{carga.cultivo.nombreCultivo}} · {{carga.pesoKg}} kg</p>
+              <p>Destino: {{carga.direccionDestino}}</p>
+              <p>Recojo: {{carga.fechaRecojo}} · {{carga.estadoCarga}}</p>
+            </div>
+          </div>
+        }
+      </section>
+
+  @if (!cargas().length) { <p>No hay cargas publicadas todavía.</p> }
+  <!-- datos del comprador -->
+  <section class="seccion-comprador">
+    <h2 class="comprador-titulo">Datos del comprador:</h2>
+    <p class="estado-integracion aviso">La confirmación de entrega y la firma digital corresponden a la HU-17, todavía pendiente. Aquí puedes consultar o cancelar cargas publicadas.</p>
+
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre-comprador" class="campo-input" placeholder="Nombre del comprador" [formControl]="nombreComprador" /></mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="dni-comprador" class="campo-input" placeholder="DNI/RUC" [formControl]="dniComprador" /></mat-form-field>
+    <p class="campo-error" [class.visible]="errorDniComprador()">
+      Ingrese un DNI (8 dígitos) o RUC (11 dígitos) válido
+    </p>
+  </section>
+
+  <!-- firma digital -->
+  <section class="seccion-firma">
+    <h2 class="firma-titulo">Firma digital</h2>
+    <div class="firma-area">
+      <span>Área de firma</span>
+    </div>
+  </section>
+
+  <!-- acciones -->
+  <div class="lista-acciones">
+    <button mat-button type="button" class="agro-material-button btn-limpiar" (click)="limpiar()">
+      Limpiar
+    </button>
+    <button mat-button type="button" class="agro-material-button btn-confirmar" [disabled]="!seleccionada() || seleccionada()?.estadoCarga !== 'publicada'" (click)="cancelarSeleccionada()">Cancelar carga no asignada</button>
+  </div>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-productor" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/cargas-productor" class="nav-item activo">
+    <img src="assets/images/caja2.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/precios-productor" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Precios</span>
+  </a>
+  <a routerLink="/informacion-productor" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Información</span>
+  </a>
+</nav>
+
+

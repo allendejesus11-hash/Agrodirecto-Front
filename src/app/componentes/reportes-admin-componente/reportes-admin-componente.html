@@ -1,0 +1,66 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a mat-button href="/inicio-sesion" class="agro-material-button btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Reporte de transacciones</h1>
+</header>
+
+<main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <!-- resumen de comisiones -->
+  <section class="seccion-metricas" style="grid-template-columns: repeat(2, 1fr)">
+    <div class="tarjeta-metrica">
+      <img src="assets/images/billetes.png" class="metrica-icono" />
+      <span class="metrica-numero">S/ {{resumen()?.totalTransado ?? 0 | number:"1.2-2"}}</span>
+      <span class="metrica-etiqueta">Total transado (mes)</span>
+    </div>
+    <div class="tarjeta-metrica">
+      <img src="assets/images/billetes.png" class="metrica-icono" />
+      <span class="metrica-numero">S/ {{resumen()?.comisionAcumulada ?? 0 | number:"1.2-2"}}</span>
+      <span class="metrica-etiqueta">Comisión acumulada (5%)</span>
+    </div>
+  </section>
+
+  <!-- transacciones por carga -->
+  <section>
+    <h2 class="seccion-titulo">Transacciones por carga</h2>
+    <label for="mes" class="estado-integracion">Mes: <input id="mes" type="month" [value]="mes()" (change)="cambiarMes($event)" class="estado-integracion selector" /></label>
+    @for (lote of transacciones(); track lote.idLote) {
+      <div class="tarjeta-transaccion"><div class="transaccion-info"><p class="transaccion-carga">{{lote.codigoLote}} · {{lote.destino}}</p>
+        <p class="transaccion-detalle">{{lote.origen}} → {{lote.destino}} · {{lote.fechaSalida || 'Sin fecha'}}</p></div>
+        <div class="transaccion-montos"><p class="transaccion-monto">S/ {{lote.fleteTotal ?? 0 | number:'1.2-2'}}</p>
+          <p class="transaccion-comision">Comisión: S/ {{lote.montoComision ?? 0 | number:'1.2-2'}}</p></div>
+        <span class="alerta-etiqueta" [class.resuelto]="lote.estadoPago==='pagado'" [class.pendiente]="lote.estadoPago!=='pagado'">{{lote.estadoPago || 'Pendiente'}}</span>
+      </div>
+    } @empty {<p>No hay transacciones para este mes.</p>}
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-admin" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/usuarios-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Usuarios</span>
+  </a>
+  <a routerLink="/chats-admin" class="nav-item">
+    <img src="assets/images/mensaje.png" />
+    <span>Chats</span>
+  </a>
+  <a routerLink="/reportes-admin" class="nav-item activo">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Reportes</span>
+  </a>
+  <a routerLink="/perfil-admin" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

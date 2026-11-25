@@ -1,0 +1,85 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <h1 class="dashboard-titulo">Pagos y comisiones</h1>
+  <a routerLink="/suscripcion-productor" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+</header>
+
+<main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <!-- billetera -->
+  <section class="seccion-billetera">
+    <div class="billetera-cabecera">
+      <h2 class="billetera-titulo">Billetera</h2>
+      <span class="badge-verificado">Verificado</span>
+    </div>
+
+    <div class="tarjeta-saldo">
+      <p class="saldo-label">Saldo disponible</p>
+      <p class="saldo-monto">S/ {{saldo() | number:"1.2-2"}}</p>
+      <p class="saldo-accion">Liberar pago</p>
+    </div>
+  </section>
+
+  <!-- ultimo recibo -->
+  <section class="seccion-recibo">
+    <h2 class="recibo-subtitulo">Último recibo · {{reciente()?.codigoLote || "Sin recibos"}}</h2>
+
+    <div class="tarjeta-recibo">
+      <div class="recibo-fila">
+        <span>Flete bruto</span>
+        <span class="recibo-valor">S/ {{reciente()?.fleteTotal ?? 0 | number:"1.2-2"}}</span>
+      </div>
+      <div class="recibo-fila">
+        <span>Comisión ({{reciente()?.porcentajeComision ?? 0}}%)</span>
+        <span class="recibo-valor">- S/ {{reciente()?.montoComision ?? 0 | number:"1.2-2"}}</span>
+      </div>
+      <div class="recibo-linea"></div>
+      <div class="recibo-fila recibo-total">
+        <span>Total neto</span>
+        <span class="recibo-valor">S/ {{reciente()?.montoNeto ?? 0 | number:"1.2-2"}}</span>
+      </div>
+    </div>
+
+    <a class="btn-descargar-recibo" (click)="exportarRecibo()" tabindex="0" role="button">
+      <img src="assets/images/descarga.png" class="icono-descarga" />
+      Descargar recibo PDF
+    </a>
+  </section>
+
+  <!-- mis logros -->
+  <a routerLink="/logros-productor" class="tarjeta-logros">
+    <h2 class="logros-titulo">Mis logros</h2>
+    <p class="logros-texto">Ahorro acumulado: S/ {{ahorro()?.ahorroTemporada ?? 0 | number:"1.2-2"}}</p>
+
+    <div class="barra-progreso">
+      <div class="barra-progreso-relleno"></div>
+    </div>
+
+    <p class="logros-porcentaje">{{(ahorro()?.ahorroTemporada ?? 0) / 1000 * 100 | number:"1.0-0"}}% del objetivo de S/ 1000</p>
+  </a>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-productor" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/cargas-productor" class="nav-item">
+    <img src="assets/images/caja2.png" />
+    <span>Cargas</span>
+  </a>
+  <a routerLink="/precios-productor" class="nav-item">
+    <img src="assets/images/grafico_barras.png" />
+    <span>Precios</span>
+  </a>
+  <a routerLink="/informacion-productor" class="nav-item activo">
+    <img src="assets/images/persona.png" />
+    <span>Información</span>
+  </a>
+</nav>
+

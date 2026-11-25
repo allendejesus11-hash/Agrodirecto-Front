@@ -1,0 +1,39 @@
+<!-- barra superior -->
+<header class="precios-encabezado">
+    <a routerLink="/precios-productor" class="btn-menu">
+        <img src="assets/images/barras_menu.png">
+    </a>
+    <h1 class="precios-titulo">Ahorro por temporada</h1>
+</header>
+
+<p class="precios-empresa">EMMSA</p>
+
+<!-- comparacion de precios -->
+<div class="precios-comparacion">
+    <img src="assets/images/comparacion_precios.png" class="comparacion-precio">
+</div>
+
+<p class="estado-integracion aviso">Gráficos ilustrativos del diseño original, no datos históricos de la API.</p>
+<!-- ultimos 7 dias -->
+<section class="precios-historial">
+    <h2 class="historial-titulo">Últimos 7 días:</h2>
+    <img src="assets/images/grafico_precios.png" class="grafico-historial">
+</section>
+
+<!-- filtros de cultivo -->
+<div class="opciones-fila opciones-cultivo">
+        @for (opcion of nombres(); track opcion) {
+            <button mat-button class="agro-material-button btn-opcion" [class.activo]="cultivo() === opcion" (click)="cultivo.set(opcion)">{{ opcion }}</button>
+        }
+    </div>
+
+<!-- ia consejera -->
+<section class="ia-consejera">
+    <div class="ia-cabecera">
+        <img src="assets/images/IA.png" class="ia-logo">
+        <span class="ia-nombre">IA Consejera</span>
+    </div>
+    <p class="ia-mensaje">
+        Precio actual seleccionado: @for (p of visibles(); track p.idPrecio) { {{p.cultivo.nombreCultivo}} S/ {{p.precioPorKg | number:'1.2-2'}}/kg · } La API todavía no devuelve series históricas para predecir tendencias.
+    </p>
+</section>

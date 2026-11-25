@@ -1,0 +1,131 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.notif-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.flecha-volver, .flecha-volver:is(.agro-material-button) {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.flecha-volver img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.notif-encabezado-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.notif-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== TITULO ===== */
+.notif-titulo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+/* ===== TARJETAS ===== */
+.notif-tarjeta {
+  background-color: #3f4645;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notif-tarjeta-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.notif-tarjeta-texto {
+  font-size: 14px;
+  color: #eceef2;
+  line-height: 1.6;
+}
+
+/* ===== BARRA DE PROGRESO ===== */
+.notif-barra-fondo {
+  width: 100%;
+  height: 10px;
+  background-color: #eceef2;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.notif-barra-progreso {
+  width: 84%;
+  height: 100%;
+  background-color: #ffd766;
+  border-radius: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .notif-encabezado {
+    padding: 24px 4%;
+  }
+
+  .notif-encabezado-titulo {
+    font-size: 17px;
+  }
+
+  .notif-contenido {
+    padding: 24px 4%;
+    gap: 16px;
+  }
+
+  .notif-titulo {
+    font-size: 22px;
+  }
+
+  .notif-tarjeta {
+    padding: 18px 20px;
+  }
+
+  .notif-tarjeta-titulo {
+    font-size: 15px;
+  }
+
+  .notif-tarjeta-texto {
+    font-size: 13px;
+  }
+}

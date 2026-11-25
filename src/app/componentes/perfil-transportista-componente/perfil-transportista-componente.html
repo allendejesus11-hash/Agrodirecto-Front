@@ -1,0 +1,75 @@
+<!-- encabezado -->
+<header class="perfil-encabezado">
+  <h1 class="perfil-titulo">Perfil transportista</h1>
+  <a routerLink="/perfil-transportista2" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+</header>
+
+<main class="perfil-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
+
+  <!-- datos principales -->
+  <section class="seccion-datos">
+    <img src="assets/images/persona_real1.png" class="perfil-foto" />
+
+    <div class="datos-info">
+      <h2 class="perfil-nombre">{{usuario()?.nombreCompleto || "Transportista"}}</h2>
+
+      <div class="datos-fila">
+        <span class="perfil-verificado">{{usuario()?.estadoCuenta || "Sin verificar"}}</span>
+        <div class="perfil-calificacion">
+          <span class="calificacion-numero">{{reputacion()?.promedioEstrellas ?? 0 | number:"1.1-1"}}</span>
+          <span class="calificacion-estrellas">★★★★☆</span>
+        </div>
+      </div>
+
+      <p class="perfil-viajes">{{reputacion()?.totalResenas ?? 0}} reseñas</p>
+    </div>
+  </section>
+
+  <!-- datos del vehiculo -->
+  <div class="tarjeta-datos">
+    <p class="dato-linea">RUC: {{usuario()?.ruc || "Sin RUC"}}</p>
+    <p class="dato-linea">Placa: {{usuario()?.placa || "Sin placa"}} · Camión {{usuario()?.capacidadToneladas || 0}} t</p>
+    <p class="dato-linea">Licencia: {{usuario()?.licencia || "Sin licencia"}}</p>
+  </div>
+
+  <!-- comentarios -->
+  <section class="seccion-comentarios">
+    <h2 class="comentarios-titulo">Comentarios recientes</h2>
+
+    <!-- Comentarios reales -->
+    @for (comentario of reputacion()?.comentarios || []; track $index) {
+      <div class="tarjeta-comentario"><img src="assets/images/persona_real2.png" class="comentario-foto" />
+        <div class="comentario-info"><span class="comentario-estrellas">{{comentario.estrellas}} ★</span>
+          <p class="comentario-texto">“{{comentario.comentario}}” — {{comentario.productor}}</p></div>
+      </div>
+    } @empty {<p>Sin calificaciones aún.</p>}
+  </section>
+
+  <!-- reportar abuso -->
+  <button mat-button class="agro-material-button btn-reportar" disabled title="La API no expone todavía esta acción">Reportar abuso (pendiente)</button>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-transportista" class="nav-item">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/lotes-transportista" class="nav-item">
+    <img src="assets/images/camion.png" />
+    <span>Lotes</span>
+  </a>
+  <a routerLink="/rutas-transportista" class="nav-item">
+    <img src="assets/images/pista.png" />
+    <span>Rutas</span>
+  </a>
+  <a routerLink="/perfil-transportista" class="nav-item activo">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+

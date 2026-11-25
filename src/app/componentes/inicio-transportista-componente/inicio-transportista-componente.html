@@ -1,0 +1,92 @@
+<!-- encabezado -->
+<header class="dashboard-encabezado">
+  <a mat-button href="/inicio-sesion" class="agro-material-button btn-cerrar-sesion" (click)="cerrarSesion($event)">Cerrar sesión</a>
+  <h1 class="dashboard-titulo">Dashboard transportista</h1>
+</header>
+<main class="dashboard-contenido">
+  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+
+  <!-- tarjeta de bienvenida -->
+  <div class="tarjeta-bienvenida">
+    <img
+      src="assets/images/logo_diminuto.png"
+      alt="Logo diminuto"
+      class="bienvenida-logo"
+    />
+    <p class="bienvenida-texto">Hola, {{sesion.usuario()?.correo || "Transportista"}}</p>
+    <a routerLink="/notificaciones-transportista" class="btn-notificaciones">
+      <img
+        src="assets/images/notificaciones.png"
+      />
+    </a>
+  </div>
+
+  <!-- seccion de capacidad -->
+  <section class="seccion-capacidad">
+    <div class="capacidad-grafico">
+      <img src="assets/images/grafico_pastel_transportista.png" />
+    </div>
+    <div class="capacidad-info">
+      <h2 class="capacidad-titulo">Capacidad usada</h2>
+      <p class="capacidad-toneladas">{{usado() | number:"1.1-2"}}/{{perfil()?.capacidadToneladas || 0 | number:"1.1-2"}} toneladas</p>
+      <span class="capacidad-disponible">{{disponible() | number:"1.1-2"}} t disponibles</span>
+      <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="disponible() <= 0" disabled>Unidad llena</mat-checkbox>
+    </div>
+  </section>
+
+  <!-- tarjeta de proxima ruta -->
+  <div class="tarjeta-ruta">
+    <div class="ruta-encabezado">
+      <img src="assets/images/puntero.png" class="ruta-puntero" />
+      <h2 class="ruta-titulo">Próxima Ruta</h2>
+    </div>
+    <p class="ruta-destino">{{lotes().length ? lotes()[0].origen + " → " + lotes()[0].destino : "Sin próxima ruta"}}</p>
+    <p class="ruta-salida">
+      <span>Salida:</span> {{lotes().length ? (lotes()[0].fechaSalida || "Por programar") : "Sin rutas asignadas"}}
+    </p>
+  </div>
+
+  <!-- lotes disponibles -->
+  <section class="seccion-lotes">
+    <div class="lotes-encabezado">
+      <h2 class="lotes-titulo">Lotes disponibles</h2>
+      <div class="lotes-filtro">
+        <span>Filtro (Tn):</span>
+        <span>&lt;</span>
+        <input matInput type="number" id="filtro-toneladas" class="filtro-input" />
+      </div>
+    </div>
+
+    <!-- Lista de lotes real -->
+    @for (lote of lotes(); track lote.idLote) {
+      <div class="lote-item">
+        <img src="assets/images/caja.png" class="lote-icono" />
+        <div class="lote-info"><p class="lote-nombre">{{lote.codigoLote}}</p><p class="lote-detalle">{{lote.origen}} → {{lote.destino}}</p></div>
+        <span class="lote-etiqueta aceptar">{{lote.estadoLote}}</span>
+      </div><hr class="lote-separador" />
+    } @empty { <p>No tienes lotes asignados.</p> }
+  </section>
+</main>
+
+<!-- barra de navegacion inferior -->
+<nav class="nav-inferior">
+  <a routerLink="/inicio-transportista" class="nav-item activo">
+    <img src="assets/images/inicio.png" />
+    <span>Inicio</span>
+  </a>
+  <a routerLink="/lotes-transportista" class="nav-item">
+    <img src="assets/images/camion.png" />
+    <span>Lotes</span>
+  </a>
+  <a routerLink="/rutas-transportista" class="nav-item">
+    <img src="assets/images/pista.png" />
+    <span>Rutas</span>
+  </a>
+  <a routerLink="/perfil-transportista" class="nav-item">
+    <img src="assets/images/persona.png" />
+    <span>Perfil</span>
+  </a>
+</nav>
+<div class="aviso-toast" [class.visible]="sesion.avisoCerrarSesion()">Sesión cerrada correctamente</div>
+
+

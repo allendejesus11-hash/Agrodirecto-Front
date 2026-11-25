@@ -1,0 +1,12 @@
+services:
+  app:
+    image: agrodirecto-angular:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agrodirecto-angular
+    ports:
+      - "4200:4200"
+    environment:
+      API_TARGET: "${API_TARGET:-http://44.213.38.214:8080}"
+    restart: unless-stopped

@@ -1,0 +1,268 @@
+:host {
+  display: block;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #3f4645;
+  background: radial-gradient(
+    circle at center,
+    #6aa84f 0%,
+    #38761d 55%,
+    #234c10 100%
+  );
+  min-height: 100vh;
+}
+
+/* ===== ENCABEZADO ===== */
+.dashboard-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 30px 5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+.dashboard-titulo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.btn-menu img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.dashboard-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 5% 120px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* ===== BILLETERA ===== */
+.billetera-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.billetera-titulo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.badge-verificado {
+  background-color: #38761d;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.tarjeta-saldo {
+  background-color: #3f4645;
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.saldo-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.saldo-monto {
+  font-size: 40px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 10px 0;
+}
+
+.saldo-accion {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== ULTIMO RECIBO ===== */
+.recibo-subtitulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.tarjeta-recibo {
+  background-color: #3f4645;
+  border-radius: 20px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.recibo-fila {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.recibo-valor {
+  font-weight: 700;
+}
+
+.recibo-linea {
+  border-top: 2px solid #ffffff;
+  margin: 4px 0;
+}
+
+.recibo-total {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn-descargar-recibo, .btn-descargar-recibo:is(.agro-material-button) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #7a4a24;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 18px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.icono-descarga {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ===== MIS LOGROS ===== */
+.tarjeta-logros {
+  background-color: #3f4645;
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-decoration: none;
+  display: block;
+}
+
+.logros-titulo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.logros-texto {
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.barra-progreso {
+  width: 100%;
+  height: 10px;
+  background-color: #eceef2;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.barra-progreso-relleno {
+  width: 65%;
+  height: 100%;
+  background-color: #ffd766;
+}
+
+.logros-porcentaje {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* ===== NAV INFERIOR ===== */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eceef2;
+  border-top: 1px solid #3f4645;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f4645;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.nav-item.activo {
+  color: #38761d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .dashboard-encabezado {
+    padding: 24px 4%;
+  }
+
+  .dashboard-titulo {
+    font-size: 19px;
+  }
+
+  .dashboard-contenido {
+    padding: 24px 4% 110px 4%;
+    gap: 24px;
+  }
+
+  .billetera-titulo {
+    font-size: 24px;
+  }
+
+  .saldo-monto {
+    font-size: 32px;
+  }
+
+  .recibo-fila {
+    font-size: 15px;
+  }
+
+  .recibo-total {
+    font-size: 18px;
+  }
+}

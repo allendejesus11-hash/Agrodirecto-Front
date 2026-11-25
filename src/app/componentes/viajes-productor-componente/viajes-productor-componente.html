@@ -1,0 +1,90 @@
+<!-- encabezado -->
+<header class="historial-encabezado">
+  <a routerLink="/inicio-productor" class="flecha-volver">
+    <img src="assets/images/flecha_retroceso2.png" />
+  </a>
+  <h1 class="historial-titulo">Historial de rutas</h1>
+</header>
+
+<main class="historial-contenido">
+  <h2 class="historial-subtitulo">Mis rutas completadas:</h2>
+
+  <!-- resumen -->
+  <section class="seccion-resumen">
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">38</p>
+      <p class="resumen-label">Viajes</p>
+    </div>
+
+    <div class="resumen-tarjeta">
+      <p class="resumen-numero">S/132</p>
+      <p class="resumen-label">Ingresos</p>
+    </div>
+  </section>
+
+  <!-- lista de rutas -->
+  <section class="seccion-rutas">
+    <div class="ruta-item">
+      <div class="ruta-icono-contenedor completado">
+        <img src="assets/images/check.png" class="ruta-icono" />
+      </div>
+      <div class="ruta-info">
+        <p class="ruta-nombre">#V-041-Huancayo --- Lima</p>
+        <p class="ruta-detalle">12 May -9.2t -S/380</p>
+      </div>
+      <a routerLink="/calificacion-viaje-productor" class="ruta-etiqueta completado"
+        >Completado</a
+      >
+    </div>
+    <hr class="ruta-separador" />
+
+    <div class="ruta-item">
+      <div class="ruta-icono-contenedor completado">
+        <img src="assets/images/check.png" class="ruta-icono" />
+      </div>
+      <div class="ruta-info">
+        <p class="ruta-nombre">#V-040-Junín --- Lima</p>
+        <p class="ruta-detalle">05 May -8.8t - S/350</p>
+      </div>
+      <a routerLink="/calificacion-viaje-productor" class="ruta-etiqueta completado"
+        >Completado</a
+      >
+    </div>
+    <hr class="ruta-separador" />
+
+    <div class="ruta-item">
+      <div class="ruta-icono-contenedor retraso">
+        <img src="assets/images/alerta.png" class="ruta-icono" />
+      </div>
+      <div class="ruta-info">
+        <p class="ruta-nombre">#V-039-Pasco --- Lima</p>
+        <p class="ruta-detalle">28 Abr-7.4t - S/310</p>
+      </div>
+      <a routerLink="/calificacion-viaje-productor" class="ruta-etiqueta retraso"
+        >Con retraso</a
+      >
+    </div>
+    <hr class="ruta-separador" />
+  </section>
+
+  <!-- ingresos por mes -->
+  <section class="seccion-grafico">
+    <h2 class="grafico-titulo">Ingresos por mes:</h2>
+
+    <div class="grafico-barras">
+      <div class="grafico-columna">
+        <div class="grafico-barra mar"></div>
+        <span class="grafico-mes">Mar</span>
+      </div>
+      <div class="grafico-columna">
+        <div class="grafico-barra abr"></div>
+        <span class="grafico-mes">Abr</span>
+      </div>
+      <div class="grafico-columna">
+        <div class="grafico-barra may"></div>
+        <span class="grafico-mes">May</span>
+      </div>
+    </div>
+  </section>
+</main>
+
