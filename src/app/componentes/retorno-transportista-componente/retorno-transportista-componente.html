@@ -1,0 +1,121 @@
+<!-- encabezado -->
+<header class="retorno-encabezado">
+  <a routerLink="/inicio-transportista" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+  <h1 class="retorno-titulo-pagina">Cargas de retorno</h1>
+</header>
+
+<main class="retorno-contenido">
+
+  @if (cargando()) {
+    <div class="cargando-contenedor">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p class="cargando-texto">Buscando cargas disponibles…</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="mensaje-error">{{ error() }}</div>
+  }
+
+  @if (mensaje()) {
+    <div class="mensaje-exito">{{ mensaje() }}</div>
+  }
+
+  @if (!cargando()) {
+
+    <p class="retorno-descripcion">
+      Optimiza tu viaje de regreso aceptando cargas disponibles en tu ruta de retorno.
+    </p>
+
+    @if (cargasRetorno().length === 0) {
+      <div class="sin-datos-contenedor">
+        <img src="assets/images/clima.png" class="sin-datos-icono" />
+        <p class="sin-datos">No hay cargas de retorno disponibles en este momento.</p>
+      </div>
+    } @else {
+      <h2 class="seccion-titulo">Disponibles ({{ cargasRetorno().length }})</h2>
+
+      @for (carga of cargasRetorno(); track carga.idCarga) {
+        <div class="tarjeta-carga">
+          <div class="carga-fila">
+            <span class="carga-codigo">{{ carga.codigoCarga }}</span>
+            @if (carga.esUrgente) {
+              <span class="badge-urgente">Urgente</span>
+            }
+          </div>
+
+          <div class="carga-info-fila">
+            <div class="carga-info-item">
+              <span class="carga-info-label">Destino</span>
+              <span class="carga-info-valor">{{ carga.direccionDestino }}</span>
+            </div>
+            <div class="carga-info-item">
+              <span class="carga-info-label">Peso</span>
+              <span class="carga-info-valor">{{ capacidadTexto(carga) }}</span>
+            </div>
+          </div>
+
+          <div class="carga-info-fila">
+            <div class="carga-info-item">
+              <span class="carga-info-label">Cultivo</span>
+              <span class="carga-info-valor">{{ carga.cultivo?.nombreCultivo }}</span>
+            </div>
+            <div class="carga-info-item">
+              <span class="carga-info-label">Tarifa</span>
+              <span class="carga-info-valor tarifa-verde">S/ {{ carga.tarifaPropuesta | number:'1.2-2' }}</span>
+            </div>
+          </div>
+
+          <div class="carga-info-fila">
+            <div class="carga-info-item">
+              <span class="carga-info-label">Productor</span>
+              <span class="carga-info-valor">{{ carga.productor?.nombreCompleto }} · {{carga.productor?.distrito || 'Origen no registrado'}}</span>
+            </div>
+            <div class="carga-info-item">
+              <span class="carga-info-label">Recojo</span>
+              <span class="carga-info-valor">{{ carga.fechaRecojo | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          @if (lotesActivos().length > 0) {
+            <button
+              mat-flat-button
+              class="btn-asignar"
+              [disabled]="asignando() === carga.idCarga"
+              (click)="seleccionarLote(carga.idCarga)">
+              @if (asignando() === carga.idCarga) {
+                <mat-spinner diameter="20"></mat-spinner>
+              } @else {
+                Asignar a mi lote
+              }
+            </button>
+          } @else {
+            <p class="sin-lote-nota">Necesitas un lote activo en camino para asignar retorno.</p>
+          }
+        </div>
+      }
+    }
+  }
+
+  <!-- modal: elegir lote -->
+  @if (loteSeleccionado() !== null) {
+    <div class="overlay" (click)="cerrarModal()">
+      <div class="modal-lotes" (click)="$event.stopPropagation()">
+        <h3 class="modal-titulo">Selecciona tu lote activo</h3>
+        <p class="modal-sub">La carga de retorno se sumará a este lote.</p>
+
+        @for (lote of lotesActivos(); track lote.idLote) {
+          <div class="tarjeta-lote-mini" (click)="confirmarAsignacion(lote.idLote)">
+            <span class="lote-mini-codigo">{{ lote.codigoLote }}</span>
+            <span class="lote-mini-ruta">{{ lote.origen }} → {{ lote.destino }} · Disponible: {{disponible(lote) | number:'1.0-2'}} kg</span>
+          </div>
+        }
+
+        <button mat-button class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+      </div>
+    </div>
+  }
+
+</main>

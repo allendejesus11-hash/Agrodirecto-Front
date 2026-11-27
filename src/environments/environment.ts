@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  // El proxy de Angular reenvía /api/v1 a  http://localhost:8088/api/v1.
+  // Desarrollo: proxy local; Docker reemplaza el destino por API_TARGET para AWS.
   apiURL: '/api/v1',
 };

@@ -11,6 +11,7 @@
   @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
 
   <h2 class="consolidacion-subtitulo">Mi carga · {{seleccionado()?.codigoLote || "Sin lote"}}</h2>
+  @if(seleccionado()?.transportista; as transportista){<a routerLink="/perfil-publico-transportista" [queryParams]="{id:transportista.idUsuario}">Ver perfil de {{transportista.nombreCompleto}}</a>}
 
   <!-- ruta generada -->
   <div class="tarjeta-ruta">

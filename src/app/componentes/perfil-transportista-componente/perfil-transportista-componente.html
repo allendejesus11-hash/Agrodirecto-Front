@@ -1,7 +1,7 @@
 <!-- encabezado -->
 <header class="perfil-encabezado">
   <h1 class="perfil-titulo">Perfil transportista</h1>
-  <a routerLink="/perfil-transportista2" class="btn-menu">
+  <a [routerLink]="esProductor?'/flete-productor':'/perfil-transportista2'" class="btn-menu">
     <img src="assets/images/barras_menu.png" />
   </a>
 </header>
@@ -21,11 +21,11 @@
         <span class="perfil-verificado">{{usuario()?.estadoCuenta || "Sin verificar"}}</span>
         <div class="perfil-calificacion">
           <span class="calificacion-numero">{{reputacion()?.promedioEstrellas ?? 0 | number:"1.1-1"}}</span>
-          <span class="calificacion-estrellas">★★★★☆</span>
+          <span class="calificacion-estrellas">{{reputacion()?.promedioEstrellas == null ? 'Sin calificaciones' : '★'}}</span>
         </div>
       </div>
 
-      <p class="perfil-viajes">{{reputacion()?.totalResenas ?? 0}} reseñas</p>
+      <p class="perfil-viajes">{{reputacion()?.totalResenas ?? 0}} reseñas · {{reputacion()?.totalViajes ?? 0}} viajes completados</p>
     </div>
   </section>
 
@@ -54,7 +54,7 @@
 </main>
 
 <!-- barra de navegacion inferior -->
-<nav class="nav-inferior">
+@if(!esProductor){<nav class="nav-inferior">
   <a routerLink="/inicio-transportista" class="nav-item">
     <img src="assets/images/inicio.png" />
     <span>Inicio</span>
@@ -71,5 +71,5 @@
     <img src="assets/images/persona.png" />
     <span>Perfil</span>
   </a>
-</nav>
+</nav>}
 

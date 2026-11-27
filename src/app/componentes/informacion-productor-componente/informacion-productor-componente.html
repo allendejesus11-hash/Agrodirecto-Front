@@ -20,7 +20,7 @@
     <div class="tarjeta-saldo">
       <p class="saldo-label">Saldo disponible</p>
       <p class="saldo-monto">S/ {{saldo() | number:"1.2-2"}}</p>
-      <p class="saldo-accion">Liberar pago</p>
+      <p class="saldo-accion">Saldo de lotes pagados · estimación proporcional</p>
     </div>
   </section>
 
@@ -28,7 +28,7 @@
   <section class="seccion-recibo">
     <h2 class="recibo-subtitulo">Último recibo · {{reciente()?.codigoLote || "Sin recibos"}}</h2>
 
-    <div class="tarjeta-recibo">
+    @if(reciente()){<div class="tarjeta-recibo">
       <div class="recibo-fila">
         <span>Flete bruto</span>
         <span class="recibo-valor">S/ {{reciente()?.fleteTotal ?? 0 | number:"1.2-2"}}</span>
@@ -46,8 +46,8 @@
 
     <a class="btn-descargar-recibo" (click)="exportarRecibo()" tabindex="0" role="button">
       <img src="assets/images/descarga.png" class="icono-descarga" />
-      Descargar recibo PDF
-    </a>
+      Imprimir recibo / guardar como PDF
+    </a>} @else {<p>No tienes pagos registrados.</p>}
   </section>
 
   <!-- mis logros -->

@@ -1,41 +1,21 @@
-<!-- encabezado -->
 <header class="qr-encabezado">
-  <a routerLink="/rutas-transportista" class="flecha-volver">
-    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
-  </a>
-  <h1 class="qr-titulo">Validación QR Entrega</h1>
+  <a routerLink="/rutas-transportista" class="flecha-volver"><img src="assets/images/flecha_retroceso2.png" alt="Volver" /></a>
+  <h1 class="qr-titulo">Validación de entrega</h1>
 </header>
-
 <main class="qr-contenido">
   <h2 class="qr-subtitulo">Confirmar entrega</h2>
-
-  <!-- tarjeta del lote -->
-  <div class="tarjeta-lote">
-    <div class="lote-encabezado">
-      <img src="assets/images/caja2.png" class="lote-icono" />
-      <h3 class="lote-nombre">Lote #A-04-Carlos M.</h3>
-    </div>
-    <p class="lote-detalle">850kg papa blanca-Huancayo</p>
-    <p class="lote-detalle">Destino: La Parada, Lima</p>
-  </div>
-
-  <!-- codigo qr -->
-  <section class="seccion-qr">
-    <h3 class="qr-instruccion">Código para el productor</h3>
-
-    <div class="qr-imagen-contenedor">
-      <img src="assets/images/QR.png" />
-    </div>
-
-    <p class="qr-leyenda">QR</p>
-  </section>
-
-  <hr class="qr-separador" />
-
-  <!-- acciones -->
-  <div class="qr-acciones">
-    <button mat-button class="agro-material-button btn-qr confirmar">Confirmar recojo de carga</button>
-    <button mat-button class="agro-material-button btn-qr manual">Ingresar código manualmente</button>
-  </div>
+  @if (error()) { <p role="alert">{{error()}}</p> }
+  @if (mensaje()) { <p role="status">{{mensaje()}}</p> }
+  @if (cargando()) { <p>Cargando viajes…</p> }
+  @if (!cargando() && lotes().length === 0) { <p>No hay lotes activos para confirmar.</p> }
+  @if (lotes().length) {
+    <label>Lote activo <select [ngModel]="seleccionado()?.idLote ?? 0" (ngModelChange)="seleccionar(+$event)"><option [ngValue]="0">Selecciona un lote</option>@for(l of lotes(); track l.idLote){<option [ngValue]="l.idLote">{{l.codigoLote}}</option>}</select></label>
+  }
+  @if (seleccionado(); as l) {
+    <div class="tarjeta-lote"><div class="lote-encabezado"><img src="assets/images/caja2.png" class="lote-icono"/><h3 class="lote-nombre">{{l.codigoLote}}</h3></div>
+      <p class="lote-detalle">{{peso(l) | number:'1.0-2'}} kg · {{l.origen}}</p><p class="lote-detalle">Destino: {{l.destino}}</p></div>
+    <section class="seccion-qr"><h3 class="qr-instruccion">Código de validación</h3><p class="qr-leyenda">Solicita el código al productor e ingrésalo manualmente.</p>
+      <input [(ngModel)]="codigo" placeholder="Código del lote" aria-label="Código de validación" (keyup.enter)="confirmar()" />
+    </section><hr class="qr-separador"/><div class="qr-acciones"><button mat-button class="agro-material-button btn-qr confirmar" (click)="confirmar()" [disabled]="enviando() || !codigo.trim()">Confirmar entrega</button></div>
+  }
 </main>
-

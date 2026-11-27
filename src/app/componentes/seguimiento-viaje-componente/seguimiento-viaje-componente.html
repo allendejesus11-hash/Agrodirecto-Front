@@ -1,0 +1,197 @@
+<!-- VISTA 1: lista de lotes activos -->
+@if (!loteActivo()) {
+
+  <header class="seg-encabezado">
+    <a [routerLink]="esProductor ? '/informacion-productor' : '/inicio-transportista'" class="btn-menu">
+      <img src="assets/images/barras_menu.png" />
+    </a>
+    <h1 class="seg-titulo-pagina">Seguimiento de viaje</h1>
+  </header>
+
+  <main class="seg-contenido">
+
+    @if (cargando()) {
+      <div class="cargando-contenedor">
+        <mat-spinner diameter="48"></mat-spinner>
+        <p class="cargando-texto">Buscando tus lotes activos…</p>
+      </div>
+    }
+
+    @if (error()) { <div class="mensaje-error">{{ error() }}</div> }
+
+    @if (!cargando() && lotes().length === 0) {
+      <div class="sin-datos-contenedor">
+        <img src="assets/images/clima.png" class="sin-datos-icono" />
+        <p class="sin-datos">No tienes lotes en camino en este momento.</p>
+      </div>
+    }
+
+    @if (!cargando()) {
+      @for (lote of lotes(); track lote.idLote) {
+        <div class="tarjeta-lote" (click)="verSeguimiento(lote)">
+          <div class="lote-fila">
+            <span class="lote-codigo">{{ lote.codigoLote }}</span>
+            <span class="badge-camino">{{ lote.estadoLote === 'con_retraso' ? 'Con retraso' : 'En camino' }}</span>
+          </div>
+          <div class="lote-ruta">
+            <span>{{ lote.origen }}</span>
+            <span class="flecha">→</span>
+            <span>{{ lote.destino }}</span>
+          </div>
+          @if (lote.fechaSalida) {
+            <p class="lote-fecha">Salida: {{ lote.fechaSalida | date:'dd/MM/yyyy HH:mm' }}</p>
+          }
+          <p class="lote-hint">Toca para ver el seguimiento</p>
+        </div>
+      }
+    }
+  </main>
+
+} @else {
+
+  <!-- VISTA 2: detalle de seguimiento -->
+  <header class="seg-encabezado">
+    <button class="btn-volver" (click)="volver()">
+      <img src="assets/images/barras_menu.png" />
+    </button>
+    <h1 class="seg-titulo-pagina">{{ loteActivo()!.codigoLote }}</h1>
+  </header>
+
+  <main class="seg-contenido">
+
+    @if (error()) { <div class="mensaje-error">{{ error() }}</div> }
+    @if (mensaje()) { <div class="mensaje-exito">{{ mensaje() }}</div> }
+
+    <!-- Estado del lote -->
+    <div class="tarjeta-estado">
+      <p class="estado-etiqueta">Estado</p>
+      <p class="estado-valor">{{ seguimiento()?.estadoLote ?? 'Cargando…' }}</p>
+      <p>ETA: {{ seguimiento()?.eta ? (seguimiento()!.eta | date:'dd/MM/yyyy HH:mm') : 'Sin estimación informada' }}</p>
+      @if (seguimiento()?.ubicacionActual) {
+        <p class="estado-ubicacion">📍 {{ seguimiento()!.ubicacionActual }}</p>
+      }
+      @if (seguimiento()?.motivoRetraso) {
+        <div class="retraso-aviso">
+          <span>⚠️ Retraso reportado:</span> {{ seguimiento()!.motivoRetraso }}
+        </div>
+      }
+    </div>
+
+    <!-- MAPA OpenStreetMap -->
+    @if (mapaUrl()) {
+      <div class="mapa-contenedor">
+        <p class="mapa-titulo">Última ubicación registrada</p>
+        <iframe
+          [src]="mapaUrl()!"
+          class="mapa-iframe"
+          frameborder="0"
+          scrolling="no"
+          allowfullscreen
+          title="Ubicación del lote">
+        </iframe>
+        <p class="mapa-nota">Última posición: {{ seguimiento()?.fechaActualizacion | date:'dd/MM/yyyy HH:mm:ss' }} · Consulta cada 30 s</p>
+      </div>
+    } @else {
+      <div class="mapa-sin-gps">
+        <p class="mapa-sin-gps-texto">📡 Datos GPS no disponibles aún</p>
+      </div>
+    }
+
+    <!-- Ruta del viaje -->
+    <div class="tarjeta-ruta">
+      <div class="ruta-punto">
+        <span class="ruta-dot ruta-dot-origen"></span>
+        <div>
+          <p class="ruta-label">Origen</p>
+          <p class="ruta-valor">{{ loteActivo()!.origen }}</p>
+        </div>
+      </div>
+      <div class="ruta-linea"></div>
+      <div class="ruta-punto">
+        <span class="ruta-dot ruta-dot-destino"></span>
+        <div>
+          <p class="ruta-label">Destino</p>
+          <p class="ruta-valor">{{ loteActivo()!.destino }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="acciones-fila">
+      @if (idSolicitud()) {
+        <button mat-flat-button class="btn-chat" (click)="abrirChat()">
+          💬 Chat
+        </button>
+      }
+      @if (esTransportista) {
+        <label>ETA (opcional): <input type="datetime-local" [formControl]="controlEta" /></label>
+        <button mat-stroked-button (click)="gpsActivo() ? detenerGPS() : compartirGPS()">{{ gpsActivo() ? 'Detener ubicación' : 'Compartir GPS' }}</button>
+        <details><summary>Registrar coordenadas manualmente (opcional)</summary>
+          <label>Latitud <input type="number" step="any" [formControl]="controlLatitud" /></label>
+          <label>Longitud <input type="number" step="any" [formControl]="controlLongitud" /></label>
+          <button mat-stroked-button (click)="registrarUbicacionManual()">Guardar ubicación</button>
+        </details>
+        <a mat-stroked-button routerLink="/qr-transportista" [queryParams]="{ idLote: loteActivo()!.idLote }">Confirmar entrega</a>
+        <button mat-stroked-button class="btn-retraso" (click)="mostrarRetraso.set(true)">
+          ⚠️ Reportar retraso
+        </button>
+      }
+    </div>
+  </main>
+
+  <!-- PANEL CHAT (slide-up) -->
+  @if (mostrarChat()) {
+    <div class="chat-overlay" (click)="cerrarChat()">
+      <div class="chat-panel" (click)="$event.stopPropagation()">
+        <div class="chat-header">
+          <h3 class="chat-titulo">Chat del viaje</h3>
+          <button mat-icon-button (click)="cerrarChat()">✕</button>
+        </div>
+
+        <div class="chat-mensajes">
+          @if (mensajes().length === 0) {
+            <p class="chat-sin-mensajes">Aún no hay mensajes. Sé el primero en escribir.</p>
+          }
+          @for (m of mensajes(); track m.idMensaje) {
+            <div class="burbuja" [ngClass]="m.emisor.idUsuario === idMiUsuario ? 'burbuja-propia' : 'burbuja-otro'">
+              <p class="burbuja-nombre">{{ m.emisor.nombreCompleto }}</p>
+              <p class="burbuja-texto">{{ m.contenido }}</p>
+              <p class="burbuja-hora">{{ m.fechaEnvio | date:'HH:mm' }}</p>
+            </div>
+          }
+        </div>
+
+        <div class="chat-input-fila">
+          <mat-form-field appearance="outline" class="chat-input">
+            <input matInput [formControl]="controlMensaje" placeholder="Escribe un mensaje…" (keyup.enter)="enviarMensaje()" />
+          </mat-form-field>
+          <button mat-flat-button class="btn-enviar" (click)="enviarMensaje()" [disabled]="enviandoMensaje() || controlMensaje.invalid">
+            @if (enviandoMensaje()) { <mat-spinner diameter="20"></mat-spinner> } @else { Enviar }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- MODAL REPORTAR RETRASO -->
+  @if (mostrarRetraso()) {
+    <div class="overlay" (click)="mostrarRetraso.set(false)">
+      <div class="modal-retraso" (click)="$event.stopPropagation()">
+        <h3 class="modal-titulo">Reportar retraso</h3>
+        <p class="modal-sub">Describe el motivo del retraso para notificar al productor.</p>
+        <mat-form-field appearance="outline" class="campo-retraso">
+          <mat-label>Motivo del retraso</mat-label>
+          <textarea matInput [formControl]="controlRetraso" rows="3" placeholder="Ej: Carretera bloqueada por derrumbe en km 48"></textarea>
+        </mat-form-field>
+        <div class="modal-botones">
+          <button mat-stroked-button (click)="mostrarRetraso.set(false)">Cancelar</button>
+          <button mat-flat-button class="btn-confirmar-retraso"
+            [disabled]="controlRetraso.invalid || reportandoRetraso() || seguimiento()?.estadoLote !== 'en_transito'"
+            (click)="reportarRetraso()">
+            @if (reportandoRetraso()) { <mat-spinner diameter="20"></mat-spinner> } @else { Reportar }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+}

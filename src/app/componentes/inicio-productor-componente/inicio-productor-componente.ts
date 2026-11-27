@@ -13,7 +13,7 @@ export class InicioProductorComponente implements OnInit {
  cerrarSesion(e:Event){e.preventDefault();this.sesion.cerrarSesion();}
  ngOnInit(){this.cargar();}
 saldo=signal(0);ahorro=signal<AhorroProductor|null>(null);cargas=signal<Carga[]>([]);
- activos(){return this.cargas().filter(x=>x.estadoCarga==='publicada').length;}
+ activos(){return this.cargas().filter(x=>['publicada','en_revision','confirmada_en_lote','en_transito'].includes(x.estadoCarga)).length;}
  cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.api.cargasDeProductor(id).subscribe({next:x=>this.cargas.set(x),error:e=>this.error.set(mensajeError(e))});this.api.saldoProductor(id).subscribe({next:x=>this.saldo.set(x.saldoDisponible),error:e=>this.error.set(mensajeError(e))});this.api.ahorroProductor(id).subscribe({next:x=>this.ahorro.set(x),error:e=>this.error.set(mensajeError(e))});}
 
 }

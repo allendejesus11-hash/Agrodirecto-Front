@@ -10,14 +10,14 @@
 
 <!-- comparacion de precios -->
 <div class="precios-comparacion">
-    <img src="assets/images/comparacion_precios.png" class="comparacion-precio">
+    @for(p of visibles();track p.idPrecio){<p>{{p.cultivo.nombreCultivo}} · S/ {{p.precioPorKg | number:'1.2-2'}} · {{tendencia(p)}}</p>}@empty{<p>No hay precios del día.</p>}
 </div>
 
-<p class="estado-integracion aviso">Gráficos ilustrativos del diseño original, no datos históricos de la API.</p>
+<p class="estado-integracion aviso">Historial de precios registrados en la API.</p>
 <!-- ultimos 7 dias -->
 <section class="precios-historial">
     <h2 class="historial-titulo">Últimos 7 días:</h2>
-    <img src="assets/images/grafico_precios.png" class="grafico-historial">
+    @for(p of historialVisible();track p.idPrecio){<p>{{p.fechaPrecio}} · {{p.cultivo.nombreCultivo}} · S/ {{p.precioPorKg | number:'1.2-2'}}/kg</p>}@empty{<p>Sin precios registrados en los últimos siete días.</p>}
 </section>
 
 <!-- filtros de cultivo -->
@@ -34,6 +34,6 @@
         <span class="ia-nombre">IA Consejera</span>
     </div>
     <p class="ia-mensaje">
-        Precio actual seleccionado: @for (p of visibles(); track p.idPrecio) { {{p.cultivo.nombreCultivo}} S/ {{p.precioPorKg | number:'1.2-2'}}/kg · } La API todavía no devuelve series históricas para predecir tendencias.
+        Precio actual seleccionado: @for (p of visibles(); track p.idPrecio) { {{p.cultivo.nombreCultivo}} S/ {{p.precioPorKg | number:'1.2-2'}}/kg · } La tendencia es una comparación de precios registrados, no una predicción de IA.
     </p>
 </section>

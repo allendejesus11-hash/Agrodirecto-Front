@@ -15,7 +15,7 @@ export class LotesTransportista2Componente implements OnInit {
  cargar(){const id=this.sesion.idUsuario;if(id===null)return;
  this.api.retornoDisponible().subscribe({next:x=>this.cargas.set(x),error:e=>this.error.set(mensajeError(e))});
  this.api.perfilTransportista(id).subscribe({next:x=>this.perfil.set(x),error:e=>this.error.set(mensajeError(e))});
- this.api.listarLotesTransportista(id).subscribe({next:x=>{this.lotes.set(x);if(x.length && !this.seleccion())this.seleccionarId(x[0].idLote);},error:e=>this.error.set(mensajeError(e))});}
+ this.api.listarLotesTransportista(id, 'activos').subscribe({next:x=>{this.lotes.set(x);if(x.length && !this.seleccion())this.seleccionarId(x[0].idLote);},error:e=>this.error.set(mensajeError(e))});}
  seleccionar(e:Event){this.seleccionarId(Number((e.target as HTMLSelectElement).value));}
  seleccionarId(id:number){this.seleccion.set(id);this.api.lote(id).subscribe({next:x=>this.detalle.set(x),error:e=>this.error.set(mensajeError(e))});}
  capacidad(){const ocupada=(this.detalle()?.cargas||[]).reduce((s,c)=>s+c.pesoKg,0);return Math.max(0,(this.perfil()?.capacidadToneladas||0)*1000-ocupada);}

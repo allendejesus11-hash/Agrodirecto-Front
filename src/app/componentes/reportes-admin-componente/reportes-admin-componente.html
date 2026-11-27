@@ -22,14 +22,23 @@
     </div>
   </section>
 
+  <!-- grafico de barras -->
+  <section class="seccion-grafico">
+    <h2 class="seccion-titulo">Flete por lote (S/)</h2>
+    @if (cargando()) { <p>Cargando transacciones…</p> }
+    @if (transacciones().length > 6) { <p>Gráfico: seis transacciones más recientes; lista completa abajo.</p> }
+    <canvas id="graficoBarras" style="width:100%;max-height:220px;"></canvas>
+  </section>
+
   <!-- transacciones por carga -->
   <section>
-    <h2 class="seccion-titulo">Transacciones por carga</h2>
+    <h2 class="seccion-titulo">Transacciones por lote</h2>
     <label for="mes" class="estado-integracion">Mes: <input id="mes" type="month" [value]="mes()" (change)="cambiarMes($event)" class="estado-integracion selector" /></label>
     @for (lote of transacciones(); track lote.idLote) {
       <div class="tarjeta-transaccion"><div class="transaccion-info"><p class="transaccion-carga">{{lote.codigoLote}} · {{lote.destino}}</p>
-        <p class="transaccion-detalle">{{lote.origen}} → {{lote.destino}} · {{lote.fechaSalida || 'Sin fecha'}}</p></div>
-        <div class="transaccion-montos"><p class="transaccion-monto">S/ {{lote.fleteTotal ?? 0 | number:'1.2-2'}}</p>
+        <p class="transaccion-detalle">{{ productores(lote) }} → {{ lote.transportista?.nombreCompleto || 'Sin transportista' }}</p>
+        <p class="transaccion-detalle">{{lote.origen}} → {{lote.destino}} · {{(lote.fechaTransaccion | date:'dd/MM/yyyy HH:mm') || 'Sin fecha'}}</p></div>
+        <div class="transaccion-montos"><p class="transaccion-monto">S/ {{(lote.fleteTotal ?? 0) | number:'1.2-2'}}</p>
           <p class="transaccion-comision">Comisión: S/ {{lote.montoComision ?? 0 | number:'1.2-2'}}</p></div>
         <span class="alerta-etiqueta" [class.resuelto]="lote.estadoPago==='pagado'" [class.pendiente]="lote.estadoPago!=='pagado'">{{lote.estadoPago || 'Pendiente'}}</span>
       </div>

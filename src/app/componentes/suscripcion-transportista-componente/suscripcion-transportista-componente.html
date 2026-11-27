@@ -1,0 +1,112 @@
+<!-- encabezado -->
+<header class="suscripcion-encabezado">
+  <a routerLink="/inicio-transportista" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+  <h1 class="suscripcion-titulo">Suscripción premium</h1>
+</header>
+
+<main class="suscripcion-contenido">
+
+  @if (cargando()) {
+    <div class="cargando-contenedor">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p class="cargando-texto">Verificando tu suscripción…</p>
+    </div>
+  }
+
+  @if (error()) { <div class="mensaje-error">{{ error() }}</div> }
+  @if (mensaje()) { <div class="mensaje-exito">{{ mensaje() }}</div> }
+
+  @if (!cargando()) {
+
+    <!-- ACTIVA -->
+    @if (suscripcion()?.activa) {
+      <div class="tarjeta-activa">
+        <div class="activa-badge">✓ ACTIVO</div>
+        <p class="activa-plan">{{ suscripcion()!.plan }}</p>
+        <p class="activa-dias">{{ diasRestantes() }} días restantes</p>
+        <div class="activa-linea"></div>
+
+        <div class="activa-dato-fila">
+          <span class="activa-dato-label">Vencimiento</span>
+          <span class="activa-dato-valor">{{ suscripcion()!.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="activa-dato-fila">
+          <span class="activa-dato-label">Precio del plan demo</span>
+          <span class="activa-dato-valor">S/ 49.00 / mes</span>
+        </div>
+      </div>
+
+      <h2 class="beneficios-titulo">Beneficios activos</h2>
+      <div class="lista-beneficios">
+        <div class="beneficio-item">
+          <img src="assets/images/estrella.png" class="beneficio-icono" />
+          <div class="beneficio-texto">
+            <p class="beneficio-nombre">Perfil destacado con borde dorado</p>
+            <p class="beneficio-detalle">Mayor visibilidad ante productores</p>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <img src="assets/images/notificaciones2.png" class="beneficio-icono" />
+          <div class="beneficio-texto">
+            <p class="beneficio-nombre">Alertas prioritarias de lotes</p>
+            <p class="beneficio-detalle">Notificación antes que usuarios free</p>
+          </div>
+        </div>
+        <div class="beneficio-item sin-borde">
+          <img src="assets/images/clima.png" class="beneficio-icono" />
+          <div class="beneficio-texto">
+            <p class="beneficio-nombre">Estadísticas avanzadas de rutas</p>
+            <p class="beneficio-detalle">Análisis de rentabilidad por trayecto</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- SIN SUSCRIPCIÓN -->
+    @if (!suscripcion()?.activa) {
+      <h2 class="plan-titulo">Plan Premium</h2>
+
+      <div class="tarjeta-precio">
+        <p class="tarjeta-precio-nombre">TRANSPORTISTA<br />PREMIUM</p>
+        <p class="tarjeta-precio-monto">S/ 49 / mes</p>
+        <div class="tarjeta-precio-linea"></div>
+        <p class="tarjeta-precio-detalle">Borde dorado en tu perfil</p>
+      </div>
+
+      <h2 class="beneficios-titulo">Beneficios incluidos</h2>
+      <div class="lista-beneficios">
+        <div class="beneficio-item">
+          <img src="assets/images/estrella.png" class="beneficio-icono" />
+          <div class="beneficio-texto">
+            <p class="beneficio-nombre">Perfil destacado con borde dorado</p>
+            <p class="beneficio-detalle">Mayor visibilidad ante productores</p>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <img src="assets/images/notificaciones2.png" class="beneficio-icono" />
+          <div class="beneficio-texto">
+            <p class="beneficio-nombre">Alertas prioritarias de lotes</p>
+            <p class="beneficio-detalle">Notificación antes que usuarios free</p>
+          </div>
+        </div>
+        <div class="beneficio-item sin-borde">
+          <img src="assets/images/clima.png" class="beneficio-icono" />
+          <div class="beneficio-texto">
+            <p class="beneficio-nombre">Estadísticas avanzadas de rutas</p>
+            <p class="beneficio-detalle">Lluvia en ruta Huancayo-Lima · mañana</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="activar-contenedor">
+        <button mat-flat-button class="btn-activar-premium" [disabled]="activando()" (click)="activar()">
+          @if (activando()) { <mat-spinner diameter="22"></mat-spinner> } @else { Activar Premium }
+        </button>
+        <p class="activar-nota">Activación demo por 30 días · Sin cobro real</p>
+      </div>
+    }
+  }
+
+</main>

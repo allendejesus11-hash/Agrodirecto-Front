@@ -1,0 +1,139 @@
+<!-- VISTA 1: lista de lotes -->
+@if (!loteActivo()) {
+  <header class="gastos-encabezado">
+    <a routerLink="/inicio-transportista" class="btn-menu">
+      <img src="assets/images/barras_menu.png" />
+    </a>
+    <h1 class="gastos-titulo-pagina">Gastos de viaje</h1>
+  </header>
+
+  <main class="gastos-contenido">
+
+    @if (cargando()) {
+      <div class="cargando-contenedor">
+        <mat-spinner diameter="48"></mat-spinner>
+        <p class="cargando-texto">Cargando tus lotes…</p>
+      </div>
+    }
+
+    @if (error()) { <div class="mensaje-error">{{ error() }}</div> }
+
+    @if (!cargando() && lotes().length === 0) {
+      <p class="sin-datos">No tienes lotes activos o entregados en este momento.</p>
+    }
+
+    @if (!cargando()) {
+      <p class="lista-descripcion">Selecciona un lote para ver o registrar sus gastos.</p>
+      @for (lote of lotes(); track lote.idLote) {
+        <div class="tarjeta-lote" (click)="verGastos(lote)">
+          <div class="lote-fila">
+            <span class="lote-codigo">{{ lote.codigoLote }}</span>
+            <span class="badge" [style.background]="colorCategoria(lote.estadoLote)">{{ lote.estadoLote }}</span>
+          </div>
+          <div class="lote-ruta">
+            <span>{{ lote.origen }}</span>
+            <span class="flecha">→</span>
+            <span>{{ lote.destino }}</span>
+          </div>
+        </div>
+      }
+    }
+  </main>
+}
+
+<!-- VISTA 2: gastos del lote -->
+@if (loteActivo()) {
+  <header class="gastos-encabezado">
+    <button class="btn-volver" (click)="volver()">
+      <img src="assets/images/barras_menu.png" />
+    </button>
+    <h1 class="gastos-titulo-pagina">{{ loteActivo()!.codigoLote }}</h1>
+  </header>
+
+  <main class="gastos-contenido">
+
+    @if (error()) { <div class="mensaje-error">{{ error() }}</div> }
+    @if (mensaje()) { <div class="mensaje-exito">{{ mensaje() }}</div> }
+
+    <!-- resumen total -->
+    <div class="tarjeta-total">
+      <p class="total-etiqueta">Total gastos registrados</p>
+      <p class="total-monto">S/ {{ totalGastos() | number:'1.2-2' }}</p>
+    </div>
+
+    <!-- resumen por categoría -->
+    @if (gastosPorCategoria().length > 0) {
+      <div class="tarjeta-categorias">
+        <h3 class="sec-titulo">Por categoría</h3>
+        @for (item of gastosPorCategoria(); track item.categoria) {
+          <div class="categoria-fila">
+            <span class="categoria-pill" [style.background]="colorCategoria(item.categoria)">{{ item.categoria }}</span>
+            <span class="categoria-monto">S/ {{ item.total | number:'1.2-2' }}</span>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- lista de gastos -->
+    <h3 class="sec-titulo">Detalle de gastos</h3>
+
+    @if (cargandoGastos()) {
+      <div class="cargando-contenedor"><mat-spinner diameter="36"></mat-spinner></div>
+    }
+
+    @if (!cargandoGastos() && gastos().length === 0) {
+      <p class="sin-datos">Aún no has registrado gastos para este lote.</p>
+    }
+
+    @for (g of gastos(); track g.idGasto) {
+      <div class="tarjeta-gasto">
+        <div class="gasto-fila">
+          <span class="categoria-pill" [style.background]="colorCategoria(g.categoria)">{{ g.categoria }}</span>
+          <span class="gasto-monto">S/ {{ g.monto | number:'1.2-2' }}</span>
+        </div>
+        @if (g.descripcion) { <p class="gasto-desc">{{ g.descripcion }}</p> }
+        <p class="gasto-fecha">{{ g.fechaGasto | date:'dd/MM/yyyy HH:mm' }}</p>
+      </div>
+    }
+
+    <!-- botón registrar -->
+    @if (!mostrarFormulario()) {
+      <button mat-flat-button class="btn-registrar" (click)="mostrarFormulario.set(true)">
+        + Registrar gasto
+      </button>
+    }
+
+    <!-- formulario registrar -->
+    @if (mostrarFormulario()) {
+      <div class="formulario-gasto">
+        <h3 class="sec-titulo">Nuevo gasto</h3>
+
+        <mat-form-field appearance="outline" class="campo-full">
+          <mat-label>Categoría</mat-label>
+          <mat-select [formControl]="$any(form.get('categoria'))">
+            @for (cat of categorias; track cat) {
+              <mat-option [value]="cat">{{ cat }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo-full">
+          <mat-label>Monto (S/)</mat-label>
+          <input matInput type="number" min="0.01" step="0.01" [formControl]="$any(form.get('monto'))" placeholder="0.00" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo-full">
+          <mat-label>Descripción (opcional)</mat-label>
+          <input matInput [formControl]="$any(form.get('descripcion'))" placeholder="Ej: Grifo en km 48, Repsol" />
+        </mat-form-field>
+
+        <div class="form-botones">
+          <button mat-stroked-button class="btn-cancelar-form" (click)="mostrarFormulario.set(false)">Cancelar</button>
+          <button mat-flat-button class="btn-guardar" [disabled]="form.invalid || registrando()" (click)="registrarGasto()">
+            @if (registrando()) { <mat-spinner diameter="20"></mat-spinner> } @else { Guardar }
+          </button>
+        </div>
+      </div>
+    }
+  </main>
+}

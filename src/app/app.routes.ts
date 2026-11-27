@@ -7,6 +7,7 @@ import {ChatsAdminComponente} from './componentes/chats-admin-componente/chats-a
 import {CrearProductorComponente} from './componentes/crear-productor-componente/crear-productor-componente';
 import {CrearTransportistaComponente} from './componentes/crear-transportista-componente/crear-transportista-componente';
 import {FleteProductorComponente} from './componentes/flete-productor-componente/flete-productor-componente';
+import {GastosViajeTransportistaComponente} from './componentes/gastos-viaje-transportista-componente/gastos-viaje-transportista-componente';
 import {HomeComponente} from './componentes/home-componente/home-componente';
 import {InformacionProductorComponente} from './componentes/informacion-productor-componente/informacion-productor-componente';
 import {InicioAdminComponente} from './componentes/inicio-admin-componente/inicio-admin-componente';
@@ -18,16 +19,18 @@ import {LotesTransportistaComponente} from './componentes/lotes-transportista-co
 import {LotesTransportista2Componente} from './componentes/lotes-transportista2-componente/lotes-transportista2-componente';
 import {NotificacionesProductorComponente} from './componentes/notificaciones-productor-componente/notificaciones-productor-componente';
 import {NotificacionesTransportistaComponente} from './componentes/notificaciones-transportista-componente/notificaciones-transportista-componente';
+import {PagosComisionesProductorComponente} from './componentes/pagos-comisiones-productor-componente/pagos-comisiones-productor-componente';
 import {PerfilAdminComponente} from './componentes/perfil-admin-componente/perfil-admin-componente';
 import {PerfilTransportistaComponente} from './componentes/perfil-transportista-componente/perfil-transportista-componente';
-import {PerfilTransportista2Componente} from './componentes/perfil-transportista2-componente/perfil-transportista2-componente';
 import {PreciosProductorComponente} from './componentes/precios-productor-componente/precios-productor-componente';
 import {PreciosProductor2Componente} from './componentes/precios-productor2-componente/precios-productor2-componente';
 import {PublicarCargaProductorComponente} from './componentes/publicar-carga-productor-componente/publicar-carga-productor-componente';
 import {QrTransportistaComponente} from './componentes/qr-transportista-componente/qr-transportista-componente';
 import {ReportesAdminComponente} from './componentes/reportes-admin-componente/reportes-admin-componente';
-import {RutasTransportistaComponente} from './componentes/rutas-transportista-componente/rutas-transportista-componente';
+import {RetornoTransportistaComponente} from './componentes/retorno-transportista-componente/retorno-transportista-componente';
+import {SeguimientoViajeComponente} from './componentes/seguimiento-viaje-componente/seguimiento-viaje-componente';
 import {SuscripcionProductorComponente} from './componentes/suscripcion-productor-componente/suscripcion-productor-componente';
+import {SuscripcionTransportistaComponente} from './componentes/suscripcion-transportista-componente/suscripcion-transportista-componente';
 import {UsuariosAdminComponente} from './componentes/usuarios-admin-componente/usuarios-admin-componente';
 import {ViajesProductorComponente} from './componentes/viajes-productor-componente/viajes-productor-componente';
 
@@ -39,6 +42,8 @@ export const routes: Routes = [
   { path: 'crear-productor', component: CrearProductorComponente },
   { path: 'crear-transportista', component: CrearTransportistaComponente },
   { path: 'flete-productor', canActivate: [authGuard], data: {rol:'productor'}, component: FleteProductorComponente },
+  // HU-20: Gastos de viaje (transportista)
+  { path: 'gastos-viaje-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: GastosViajeTransportistaComponente },
   { path: '', component: HomeComponente },
   { path: 'home', component: HomeComponente },
   { path: 'informacion-productor', canActivate: [authGuard], data: {rol:'productor'}, component: InformacionProductorComponente },
@@ -51,16 +56,26 @@ export const routes: Routes = [
   { path: 'lotes-transportista2', canActivate: [authGuard], data: {rol:'transportista'}, component: LotesTransportista2Componente },
   { path: 'notificaciones-productor', canActivate: [authGuard], data: {rol:'productor'}, component: NotificacionesProductorComponente },
   { path: 'notificaciones-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: NotificacionesTransportistaComponente },
+  // HU-12: Pagos y comisiones (productor)
+  { path: 'pagos-comisiones-productor', canActivate: [authGuard], data: {rol:'productor'}, component: PagosComisionesProductorComponente },
   { path: 'perfil-admin', canActivate: [authGuard], data: {rol:'administrador'}, component: PerfilAdminComponente },
+  { path: 'perfil-publico-transportista', canActivate: [authGuard], data: {rol:'productor'}, component: PerfilTransportistaComponente },
   { path: 'perfil-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: PerfilTransportistaComponente },
-  { path: 'perfil-transportista2', canActivate: [authGuard], data: {rol:'transportista'}, component: PerfilTransportista2Componente },
+  { path: 'perfil-transportista2', redirectTo: 'gastos-viaje-transportista', pathMatch: 'full' },
   { path: 'precios-productor', canActivate: [authGuard], data: {rol:'productor'}, component: PreciosProductorComponente },
   { path: 'precios-productor2', canActivate: [authGuard], data: {rol:'productor'}, component: PreciosProductor2Componente },
   { path: 'publicar-carga-productor', canActivate: [authGuard], data: {rol:'productor'}, component: PublicarCargaProductorComponente },
   { path: 'qr-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: QrTransportistaComponente },
   { path: 'reportes-admin', canActivate: [authGuard], data: {rol:'administrador'}, component: ReportesAdminComponente },
-  { path: 'rutas-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: RutasTransportistaComponente },
-  { path: 'suscripcion-productor', component: SuscripcionProductorComponente },
+  // HU-14: Cargas de retorno (transportista)
+  { path: 'retorno-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: RetornoTransportistaComponente },
+  { path: 'rutas-transportista', redirectTo: 'seguimiento-viaje-transportista', pathMatch: 'full' },
+  // HU-18: Seguimiento de viaje (productor + transportista)
+  { path: 'seguimiento-viaje', canActivate: [authGuard], data: {rol:'productor'}, component: SeguimientoViajeComponente },
+  { path: 'seguimiento-viaje-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: SeguimientoViajeComponente },
+  // HU-21: Suscripción premium (ambos roles – componentes separados)
+  { path: 'suscripcion-productor', canActivate: [authGuard], data: {rol:'productor'}, component: SuscripcionProductorComponente },
+  { path: 'suscripcion-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: SuscripcionTransportistaComponente },
   { path: 'usuarios-admin', canActivate: [authGuard], data: {rol:'administrador'}, component: UsuariosAdminComponente },
   { path: 'viajes-productor', canActivate: [authGuard], data: {rol:'productor'}, component: ViajesProductorComponente },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }

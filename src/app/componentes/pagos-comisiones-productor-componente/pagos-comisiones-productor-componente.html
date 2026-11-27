@@ -1,0 +1,96 @@
+<!-- encabezado -->
+<header class="pagos-encabezado">
+  <a routerLink="/informacion-productor" class="btn-menu">
+    <img src="assets/images/barras_menu.png" />
+  </a>
+  <h1 class="pagos-titulo-pagina">Pagos y comisiones</h1>
+</header>
+
+<main class="pagos-contenido">
+
+  <!-- estado de carga -->
+  @if (cargando()) {
+    <div class="cargando-contenedor">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p class="cargando-texto">Cargando tu información financiera…</p>
+    </div>
+  }
+
+  <!-- error -->
+  @if (error()) {
+    <div class="mensaje-error">{{ error() }}</div>
+  }
+
+  <!-- contenido principal -->
+  @if (!cargando() && !error()) {
+
+    <!-- tarjeta de saldo -->
+    @if (saldo()) {
+      <div class="tarjeta-saldo">
+        <p class="saldo-etiqueta">Saldo disponible</p>
+        <p class="saldo-monto">S/ {{ saldo()!.saldoDisponible | number:'1.2-2' }}</p>
+        <p class="saldo-nota">Monto neto acumulado de tus lotes liquidados</p>
+      </div>
+    }
+
+    <!-- lista de lotes con pago -->
+    <h2 class="seccion-titulo">Historial de lotes</h2>
+
+    @if (lotes().length === 0) {
+      <p class="sin-datos">Aún no tienes lotes con información de pago.</p>
+    } @else {
+      @for (lote of lotes(); track lote.idLote) {
+        <div class="tarjeta-lote" (click)="verDetalle(lote.idLote)">
+          <div class="lote-fila">
+            <span class="lote-codigo">{{ lote.codigoLote }}</span>
+            <span class="badge" [ngClass]="badgeEstado(lote.estadoPago!)">{{ lote.estadoPago }}</span>
+          </div>
+          <div class="lote-fila lote-ruta">
+            <span>{{ lote.origen }}</span>
+            <span class="flecha">→</span>
+            <span>{{ lote.destino }}</span>
+          </div>
+          @if (lote.montoNeto !== undefined) {
+            <p class="lote-neto">Neto: S/ {{ netoPropio(lote) | number:'1.2-2' }}</p>
+          }
+          <p class="lote-hint">Toca para ver el desglose financiero</p>
+        </div>
+      }
+    }
+  }
+
+  <!-- modal de detalle financiero -->
+  @if (loteSeleccionado() || cargandoDetalle()) {
+    <div class="overlay" (click)="cerrarDetalle()">
+      <div class="modal-detalle" (click)="$event.stopPropagation()">
+        @if (cargandoDetalle()) {
+          <mat-spinner diameter="36"></mat-spinner>
+        } @else {
+          <h3 class="modal-titulo">Desglose financiero</h3>
+          <p class="modal-codigo">{{ loteSeleccionado()!.codigoLote }}</p>
+
+          <div class="detalle-fila">
+            <span class="detalle-label">Flete bruto</span>
+            <span class="detalle-valor">S/ {{ loteSeleccionado()!.fleteTotal | number:'1.2-2' }}</span>
+          </div>
+          <div class="detalle-fila">
+            <span class="detalle-label">Comisión AgroDirecto ({{ loteSeleccionado()!.porcentajeComision }}%)</span>
+            <span class="detalle-valor detalle-comision">- S/ {{ loteSeleccionado()!.montoComision | number:'1.2-2' }}</span>
+          </div>
+          <div class="detalle-divisor"></div>
+          <div class="detalle-fila detalle-neto-fila">
+            <span class="detalle-label detalle-neto-label">Monto neto</span>
+            <span class="detalle-valor detalle-neto-valor">S/ {{ loteSeleccionado()!.montoNeto | number:'1.2-2' }}</span>
+          </div>
+          <div class="detalle-fila">
+            <span class="detalle-label">Estado de pago</span>
+            <span class="badge" [ngClass]="badgeEstado(loteSeleccionado()!.estadoPago)">{{ loteSeleccionado()!.estadoPago }}</span>
+          </div>
+
+          <button mat-flat-button class="btn-cerrar" (click)="cerrarDetalle()">Cerrar</button>
+        }
+      </div>
+    </div>
+  }
+
+</main>

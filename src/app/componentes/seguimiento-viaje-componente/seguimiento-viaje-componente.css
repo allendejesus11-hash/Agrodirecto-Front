@@ -1,0 +1,140 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: radial-gradient(circle at 60% 20%, #6aa84f, #38761d 55%, #234c10);
+  font-family: 'Poppins', sans-serif;
+  color: #3f4645;
+}
+
+.seg-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px 10px;
+}
+.btn-menu img, .btn-volver img { width: 32px; }
+.btn-volver { background: none; border: none; cursor: pointer; padding: 0; }
+.seg-titulo-pagina { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0; }
+
+.seg-contenido { padding: 10px 16px 32px; }
+
+.cargando-contenedor { display: flex; flex-direction: column; align-items: center; margin-top: 60px; gap: 16px; }
+.cargando-texto { color: #fff; font-size: .95rem; }
+
+.mensaje-error { background: #fce8e6; color: #c62828; border-radius: 12px; padding: 14px 16px; margin: 20px 0; font-size: .9rem; }
+.mensaje-exito { background: #d1fae5; color: #065f46; border-radius: 12px; padding: 14px 16px; margin: 20px 0; font-size: .9rem; }
+
+.sin-datos-contenedor { text-align: center; margin-top: 60px; }
+.sin-datos-icono { width: 56px; opacity: .7; margin-bottom: 16px; }
+.sin-datos { color: #d4edda; font-size: .9rem; }
+
+/* tarjeta lote (lista) */
+.tarjeta-lote {
+  background: #eceef2;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+  transition: transform .15s;
+}
+.tarjeta-lote:active { transform: scale(.98); }
+.lote-fila { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.lote-codigo { font-weight: 700; font-size: 1rem; color: #234c10; }
+.badge-camino { background: #dbeafe; color: #1e40af; font-size: .72rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
+.lote-ruta { display: flex; gap: 6px; align-items: center; font-size: .88rem; color: #555; }
+.flecha { color: #38761d; }
+.lote-fecha { font-size: .78rem; color: #9ca3af; margin: 4px 0 0; }
+.lote-hint { font-size: .72rem; color: #9ca3af; margin: 6px 0 0; }
+
+/* tarjeta estado */
+.tarjeta-estado {
+  background: #eceef2;
+  border-radius: 20px;
+  padding: 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+}
+.estado-etiqueta { font-size: .8rem; color: #9ca3af; margin: 0 0 4px; }
+.estado-valor { font-size: 1.3rem; font-weight: 700; color: #234c10; margin: 0 0 6px; text-transform: capitalize; }
+.estado-ubicacion { font-size: .85rem; color: #3f4645; margin: 0; }
+.retraso-aviso { background: #fef9c3; border-radius: 10px; padding: 8px 12px; margin-top: 10px; font-size: .82rem; color: #92400e; }
+
+/* mapa */
+.mapa-contenedor {
+  background: #eceef2;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+}
+.mapa-titulo { font-size: .88rem; font-weight: 600; color: #234c10; padding: 12px 16px 6px; margin: 0; }
+.mapa-iframe { width: 100%; height: 220px; display: block; border: none; }
+.mapa-nota { font-size: .72rem; color: #9ca3af; text-align: center; padding: 6px; margin: 0; }
+.mapa-sin-gps { background: #eceef2; border-radius: 20px; padding: 32px; text-align: center; margin-bottom: 14px; }
+.mapa-sin-gps-texto { color: #9ca3af; font-size: .9rem; margin: 0; }
+
+/* tarjeta ruta */
+.tarjeta-ruta {
+  background: #eceef2;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+}
+.ruta-punto { display: flex; align-items: flex-start; gap: 12px; }
+.ruta-dot { display: block; width: 14px; height: 14px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+.ruta-dot-origen { background: #38761d; }
+.ruta-dot-destino { background: #c62828; }
+.ruta-linea { width: 2px; height: 24px; background: #d1d5db; margin: 4px 0 4px 6px; }
+.ruta-label { font-size: .72rem; color: #9ca3af; margin: 0; }
+.ruta-valor { font-size: .9rem; font-weight: 600; color: #3f4645; margin: 0; }
+
+/* botones de acción */
+.acciones-fila { display: flex; gap: 10px; }
+.btn-chat { flex: 1; background: #38761d !important; color: #fff !important; border-radius: 10px !important; }
+.btn-retraso { flex: 1; border-color: #fff !important; color: #fff !important; border-radius: 10px !important; }
+
+/* chat */
+.chat-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+}
+.chat-panel {
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0;
+}
+.chat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.chat-titulo { font-size: 1.1rem; font-weight: 700; color: #234c10; margin: 0; }
+.chat-mensajes { flex: 1; overflow-y: auto; padding-bottom: 10px; min-height: 200px; }
+.chat-sin-mensajes { text-align: center; color: #9ca3af; font-size: .85rem; margin-top: 40px; }
+.burbuja { max-width: 80%; padding: 10px 14px; border-radius: 16px; margin-bottom: 10px; }
+.burbuja-propia { background: #d1fae5; margin-left: auto; border-bottom-right-radius: 4px; }
+.burbuja-otro { background: #f3f4f6; border-bottom-left-radius: 4px; }
+.burbuja-nombre { font-size: .72rem; color: #9ca3af; margin: 0 0 2px; }
+.burbuja-texto { font-size: .9rem; color: #3f4645; margin: 0; }
+.burbuja-hora { font-size: .68rem; color: #d1d5db; margin: 4px 0 0; text-align: right; }
+.chat-input-fila { display: flex; align-items: center; gap: 8px; padding: 10px 0 16px; }
+.chat-input { flex: 1; }
+.btn-enviar { background: #38761d !important; color: #fff !important; border-radius: 10px !important; min-height: 44px; }
+
+/* modal retraso */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: flex-end; justify-content: center; z-index: 300; }
+.modal-retraso { background: #fff; border-radius: 24px 24px 0 0; padding: 28px 24px 36px; width: 100%; max-width: 480px; }
+.modal-titulo { font-size: 1.1rem; font-weight: 700; color: #234c10; margin: 0 0 4px; }
+.modal-sub { font-size: .82rem; color: #6b7280; margin: 0 0 16px; }
+.campo-retraso { width: 100%; }
+.modal-botones { display: flex; gap: 10px; margin-top: 12px; }
+.modal-botones button { flex: 1; border-radius: 10px !important; }
+.btn-confirmar-retraso { background: #38761d !important; color: #fff !important; }

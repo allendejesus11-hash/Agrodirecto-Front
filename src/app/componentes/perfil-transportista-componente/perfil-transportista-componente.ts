@@ -17,9 +17,10 @@ export class PerfilTransportistaComponente implements OnInit {
  error = signal(''); mensaje = signal(''); cargando = signal(false);
  cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
  ngOnInit(): void { this.cargar(); }
-usuario=signal<Usuario|null>(null);reputacion=signal<ReputacionTransportista|null>(null);
+get esProductor(){return this.sesion.rol==='productor';}
+ usuario=signal<Usuario|null>(null);reputacion=signal<ReputacionTransportista|null>(null);
  idBusqueda=signal(0);
- cargar(){const id=Number(this.ruta.snapshot.queryParamMap.get('id')||this.sesion.idUsuario);if(!id){this.error.set('Indica el identificador del transportista.');return;}this.idBusqueda.set(id);this.api.perfilTransportista(id).subscribe({next:x=>this.usuario.set(x),error:e=>this.error.set(mensajeError(e))});this.api.reputacionTransportista(id).subscribe({next:x=>this.reputacion.set(x),error:e=>this.error.set(mensajeError(e))});}
+ cargar(){const id=Number(this.ruta.snapshot.queryParamMap.get('id')||(this.esProductor?0:this.sesion.idUsuario));if(!id){this.error.set('Indica el identificador del transportista.');return;}this.idBusqueda.set(id);this.api.perfilTransportista(id).subscribe({next:x=>this.usuario.set(x),error:e=>this.error.set(mensajeError(e))});this.api.reputacionTransportista(id).subscribe({next:x=>this.reputacion.set(x),error:e=>this.error.set(mensajeError(e))});}
  consultar(){this.router.navigate([], {relativeTo:this.ruta,queryParams:{id:this.idBusqueda()}}).then(()=>this.cargar());}
 
 }

@@ -1,196 +1,84 @@
 :host {
   display: block;
-  font-family: "Poppins", Arial, sans-serif;
-  color: #3f4645;
-  background: radial-gradient(
-    circle at center,
-    #6aa84f 0%,
-    #38761d 55%,
-    #234c10 100%
-  );
   min-height: 100vh;
+  background: radial-gradient(circle at 60% 20%, #6aa84f, #38761d 55%, #234c10);
+  font-family: 'Poppins', sans-serif;
+  color: #3f4645;
 }
 
-/* ===== ENCABEZADO ===== */
 .suscripcion-encabezado {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 30px 5%;
-  border-bottom: 2px solid #ffffff;
+  gap: 12px;
+  padding: 20px 20px 10px;
 }
+.btn-menu img { width: 32px; }
+.suscripcion-titulo { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0; }
 
-.btn-menu img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-}
+.suscripcion-contenido { padding: 10px 16px 32px; }
 
-.suscripcion-titulo {
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-}
+.cargando-contenedor { display: flex; flex-direction: column; align-items: center; margin-top: 60px; gap: 16px; }
+.cargando-texto { color: #fff; font-size: .95rem; }
+.mensaje-error { background: #fce8e6; color: #c62828; border-radius: 12px; padding: 14px 16px; margin: 20px 0; font-size: .9rem; }
+.mensaje-exito { background: #d1fae5; color: #065f46; border-radius: 12px; padding: 14px 16px; margin: 20px 0; font-size: .9rem; }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
-.suscripcion-contenido {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 5% 60px 5%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.plan-titulo {
-  font-size: 28px;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
-}
-
-/* ===== TARJETA DE PRECIO ===== */
-.tarjeta-precio {
-  background-color: #3f4645;
+/* tarjeta activa */
+.tarjeta-activa {
+  background: linear-gradient(135deg, #234c10, #38761d);
   border-radius: 20px;
-  padding: 36px 24px;
+  padding: 22px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+  color: #fff;
+}
+.activa-badge { display: inline-block; background: #fbbf24; color: #78350f; font-size: .72rem; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 10px; }
+.activa-plan { font-size: 1.3rem; font-weight: 700; margin: 0 0 4px; }
+.activa-dias { font-size: .88rem; opacity: .85; margin: 0 0 14px; }
+.activa-linea { border-top: 1px solid rgba(255,255,255,.25); margin-bottom: 14px; }
+.activa-dato-fila { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.activa-dato-label { font-size: .82rem; opacity: .75; }
+.activa-dato-valor { font-size: .82rem; font-weight: 600; }
+
+.plan-titulo { font-size: 1.1rem; font-weight: 600; color: #fff; margin: 0 0 14px; }
+
+/* tarjeta precio */
+.tarjeta-precio {
+  background: #eceef2;
+  border-radius: 20px;
+  padding: 24px 20px;
   text-align: center;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
 }
+.tarjeta-precio-nombre { font-size: 1rem; font-weight: 800; color: #234c10; margin: 0 0 6px; line-height: 1.3; }
+.tarjeta-precio-monto { font-size: 1.8rem; font-weight: 700; color: #3f4645; margin: 0 0 10px; }
+.tarjeta-precio-linea { border-top: 1px solid #d1d5db; margin-bottom: 10px; }
+.tarjeta-precio-detalle { font-size: .84rem; color: #6b7280; margin: 0; }
 
-.tarjeta-precio-nombre {
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.4;
-}
-
-.tarjeta-precio-monto {
-  font-size: 48px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 20px 0;
-}
-
-.tarjeta-precio-linea {
-  border-top: 2px solid #ffffff;
-  width: 60%;
-  margin: 0 auto 20px auto;
-}
-
-.tarjeta-precio-detalle {
-  font-size: 16px;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-/* ===== BENEFICIOS ===== */
-.beneficios-titulo {
-  font-size: 26px;
-  font-weight: 700;
-  color: #3f4645;
-  text-align: center;
-}
-
-.lista-beneficios {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
+/* beneficios */
+.beneficios-titulo { font-size: 1rem; font-weight: 600; color: #fff; margin: 0 0 12px; }
+.lista-beneficios { background: #eceef2; border-radius: 20px; overflow: hidden; margin-bottom: 24px; }
 .beneficio-item {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #ffffff;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #d8dce4;
 }
+.beneficio-item.sin-borde { border-bottom: none; }
+.beneficio-icono { width: 36px; height: 36px; object-fit: contain; }
+.beneficio-nombre { font-size: .9rem; font-weight: 600; color: #3f4645; margin: 0 0 2px; }
+.beneficio-detalle { font-size: .78rem; color: #9ca3af; margin: 0; }
 
-.beneficio-item.sin-borde {
-  border-bottom: none;
-  padding-bottom: 0;
+/* activar */
+.activar-contenedor { text-align: center; }
+.btn-activar-premium {
+  width: 100%;
+  background: #fbbf24 !important;
+  color: #78350f !important;
+  border-radius: 14px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  min-height: 50px;
 }
-
-.beneficio-icono {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  background-color: #ffffff;
-  object-fit: contain;
-  padding: 8px;
-  flex-shrink: 0;
-}
-
-.beneficio-nombre {
-  font-size: 19px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.beneficio-detalle {
-  font-size: 14px;
-  font-weight: 400;
-  color: #ffffff;
-  margin-top: 4px;
-}
-
-/* ===== ACTIVAR PREMIUM ===== */
-.activar-contenedor {
-  text-align: center;
-}
-
-.btn-activar-premium, .btn-activar-premium:is(.agro-material-button) {
-  background-color: #3f4645;
-  color: #ffffff;
-  padding: 24px;
-  border-radius: 20px;
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.activar-nota {
-  font-size: 14px;
-  font-weight: 500;
-  color: #ffffff;
-  margin-top: 14px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-  .suscripcion-encabezado {
-    padding: 24px 4%;
-  }
-
-  .suscripcion-titulo {
-    font-size: 19px;
-  }
-
-  .suscripcion-contenido {
-    padding: 30px 4% 40px 4%;
-    gap: 24px;
-  }
-
-  .plan-titulo {
-    font-size: 22px;
-  }
-
-  .tarjeta-precio-nombre {
-    font-size: 19px;
-  }
-
-  .tarjeta-precio-monto {
-    font-size: 34px;
-  }
-
-  .beneficios-titulo {
-    font-size: 20px;
-  }
-
-  .beneficio-nombre {
-    font-size: 16px;
-  }
-
-  .btn-activar-premium, .btn-activar-premium:is(.agro-material-button) {
-    font-size: 20px;
-    padding: 18px;
-  }
-}
+.activar-nota { font-size: .78rem; color: #d4edda; margin: 10px 0 0; }

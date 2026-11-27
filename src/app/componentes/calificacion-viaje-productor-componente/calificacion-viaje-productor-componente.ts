@@ -21,7 +21,7 @@ export class CalificacionViajeProductorComponente implements OnInit {
  ngOnInit(): void { this.cargar(); }
 lotes=signal<Lote[]>([]); idLote=signal(0);
  form=this.fb.nonNullable.group({estrellas:0,recomienda:true,comentario:''});
- cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.api.listarLotesProductor(id).subscribe({next:x=>{this.lotes.set(x.filter(l=>l.estadoLote==='entregado'));if(x.length)this.idLote.set(x.filter(l=>l.estadoLote==='entregado')[0]?.idLote || 0);},error:e=>this.error.set(mensajeError(e))});}
+ cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.api.listarLotesProductor(id).subscribe({next:x=>{this.lotes.set(x.filter(l=>l.estadoLote==='entregado'));if(x.length){const solicitado=Number(this.ruta.snapshot.queryParamMap.get('idLote'));this.idLote.set(this.lotes().find(l=>l.idLote===solicitado)?.idLote ?? this.lotes()[0]?.idLote ?? 0);}},error:e=>this.error.set(mensajeError(e))});}
  seleccionado(){return this.lotes().find(x=>x.idLote===this.idLote()) ?? null;}
  elegirLote(e:Event){this.idLote.set(Number((e.target as HTMLSelectElement).value));}
  calificar(){const d=this.form.getRawValue();if(this.idLote()<=0||d.estrellas<1||d.estrellas>5){this.error.set('Selecciona un viaje entregado y de 1 a 5 estrellas.');return;}

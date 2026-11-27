@@ -3,7 +3,7 @@ export interface Rol { idRol: number; nombreRol: string; }
 export interface Usuario {
   idUsuario: number; nombreCompleto: string; correo: string; rol: Rol;
   estadoCuenta: string; dni?: string; distrito?: string; ruc?: string; placa?: string;
-  capacidadToneladas?: number; licencia?: string; ultimoAcceso?: string;
+  capacidadToneladas?: number; licencia?: string; ultimoAcceso?: string; premiumHasta?: string;
 }
 export interface Cultivo { idCultivo: number; nombreCultivo: string; }
 export interface Carga {
@@ -15,7 +15,7 @@ export interface Carga {
 export interface Lote {
   idLote: number; codigoLote: string; transportista?: Usuario;
   estadoLote: string; origen: string; destino: string; fechaSalida?: string;
-  fechaLlegada?: string; fleteTotal?: number; porcentajeComision?: number;
+  fechaLlegada?: string; fechaTransaccion?: string; fleteTotal?: number; porcentajeComision?: number;
   montoComision?: number; montoNeto?: number; estadoPago?: string;
   cargas?: Carga[];
 }
@@ -30,6 +30,58 @@ export interface LoginRespuesta { token: string; tipo: string; idUsuario: number
 export interface RegistroRespuesta { idUsuario: number; correo: string; estadoCuenta: string; idRol: number; }
 export interface ResumenTransacciones { mes: string; totalTransado: number; comisionAcumulada: number; }
 export interface AhorroProductor { ahorroTemporada: number; ahorroMesActual: number; totalViajes: number; }
-export interface ReputacionTransportista { promedioEstrellas: number | null; totalResenas: number;
+export interface ReputacionTransportista { promedioEstrellas: number | null; totalResenas: number; totalViajes?: number;
   comentarios: { productor: string; estrellas: number; comentario: string }[]; }
 export interface SaldoProductor { idProductor: number; saldoDisponible: number; }
+
+// ── Nuevas interfaces para HU-12, HU-14, HU-18, HU-20, HU-21 ──────────────────
+
+/** HU-12: Detalle financiero de un lote (EP23) */
+export interface LoteFinanciero {
+  idLote: number;
+  codigoLote: string;
+  fleteTotal: number;
+  porcentajeComision: number;
+  montoComision: number;
+  montoNeto: number;
+  estadoPago: string;
+}
+
+/** HU-18: Seguimiento en tiempo real de un lote (EP31) */
+export interface SeguimientoLote {
+  idLote: number;
+  estadoLote: string;
+  ubicacionActual?: string;
+  latitud?: number;
+  longitud?: number;
+  fechaActualizacion?: string;
+  motivoRetraso?: string;
+  eta?: string;
+}
+
+/** HU-20: Gasto de viaje registrado por transportista (EP35) */
+export interface GastoViaje {
+  idGasto: number;
+  idLote: number;
+  categoria: string;
+  monto: number;
+  descripcion?: string;
+  fechaGasto: string;
+}
+
+/** HU-21: Suscripción premium de un usuario (EP37) */
+export interface Suscripcion {
+  idUsuario: number;
+  plan: string;
+  activa: boolean;
+  fechaVencimiento?: string;
+}
+
+/** HU-18: Mensaje de chat entre productor y transportista (EP13 / EP32) */
+export interface MensajeChat {
+  idMensaje: number;
+  idSolicitud: number;
+  emisor: Usuario;
+  contenido: string;
+  fechaEnvio: string;
+}
