@@ -9,132 +9,560 @@
 .seg-encabezado {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 20px 20px 10px;
+  gap: 14px;
+  padding: 22px 20px 10px;
 }
-.btn-menu img, .btn-volver img { width: 32px; }
-.btn-volver { background: none; border: none; cursor: pointer; padding: 0; }
-.seg-titulo-pagina { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0; }
 
-.seg-contenido { padding: 10px 16px 32px; }
-
-.cargando-contenedor { display: flex; flex-direction: column; align-items: center; margin-top: 60px; gap: 16px; }
-.cargando-texto { color: #fff; font-size: .95rem; }
-
-.mensaje-error { background: #fce8e6; color: #c62828; border-radius: 12px; padding: 14px 16px; margin: 20px 0; font-size: .9rem; }
-.mensaje-exito { background: #d1fae5; color: #065f46; border-radius: 12px; padding: 14px 16px; margin: 20px 0; font-size: .9rem; }
-
-.sin-datos-contenedor { text-align: center; margin-top: 60px; }
-.sin-datos-icono { width: 56px; opacity: .7; margin-bottom: 16px; }
-.sin-datos { color: #d4edda; font-size: .9rem; }
-
-/* tarjeta lote (lista) */
-.tarjeta-lote {
-  background: #eceef2;
-  border-radius: 20px;
-  padding: 16px;
-  margin-bottom: 14px;
+.btn-menu,
+.btn-volver {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0,0,0,.14);
-  transition: transform .15s;
 }
-.tarjeta-lote:active { transform: scale(.98); }
-.lote-fila { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.lote-codigo { font-weight: 700; font-size: 1rem; color: #234c10; }
-.badge-camino { background: #dbeafe; color: #1e40af; font-size: .72rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
-.lote-ruta { display: flex; gap: 6px; align-items: center; font-size: .88rem; color: #555; }
-.flecha { color: #38761d; }
-.lote-fecha { font-size: .78rem; color: #9ca3af; margin: 4px 0 0; }
-.lote-hint { font-size: .72rem; color: #9ca3af; margin: 6px 0 0; }
 
-/* tarjeta estado */
-.tarjeta-estado {
-  background: #eceef2;
-  border-radius: 20px;
-  padding: 18px 16px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+.btn-menu img,
+.btn-volver img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
-.estado-etiqueta { font-size: .8rem; color: #9ca3af; margin: 0 0 4px; }
-.estado-valor { font-size: 1.3rem; font-weight: 700; color: #234c10; margin: 0 0 6px; text-transform: capitalize; }
-.estado-ubicacion { font-size: .85rem; color: #3f4645; margin: 0; }
-.retraso-aviso { background: #fef9c3; border-radius: 10px; padding: 8px 12px; margin-top: 10px; font-size: .82rem; color: #92400e; }
 
-/* mapa */
-.mapa-contenedor {
-  background: #eceef2;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+.seg-kicker {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
 }
-.mapa-titulo { font-size: .88rem; font-weight: 600; color: #234c10; padding: 12px 16px 6px; margin: 0; }
-.mapa-iframe { width: 100%; height: 220px; display: block; border: none; }
-.mapa-nota { font-size: .72rem; color: #9ca3af; text-align: center; padding: 6px; margin: 0; }
-.mapa-sin-gps { background: #eceef2; border-radius: 20px; padding: 32px; text-align: center; margin-bottom: 14px; }
-.mapa-sin-gps-texto { color: #9ca3af; font-size: .9rem; margin: 0; }
 
-/* tarjeta ruta */
-.tarjeta-ruta {
-  background: #eceef2;
-  border-radius: 20px;
-  padding: 16px;
+.seg-titulo-pagina {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.seg-contenido {
+  padding: 10px 16px 34px;
+}
+
+.seg-contenido.detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lista-lotes {
+  display: grid;
+  gap: 14px;
+}
+
+.cargando-contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  gap: 16px;
+}
+
+.cargando-texto,
+.sin-datos {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.mensaje-error,
+.mensaje-exito {
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 0.92rem;
+}
+
+.mensaje-error {
+  background: #fce8e6;
+  color: #b42318;
+}
+
+.mensaje-exito {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.sin-datos-contenedor {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.sin-datos-icono {
+  width: 56px;
+  opacity: 0.8;
   margin-bottom: 16px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.14);
 }
-.ruta-punto { display: flex; align-items: flex-start; gap: 12px; }
-.ruta-dot { display: block; width: 14px; height: 14px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+
+.tarjeta-lote,
+.tarjeta-estado,
+.tarjeta-ruta,
+.tarjeta-resumen,
+.mapa-contenedor-leaflet,
+.acciones-panel {
+  background: #eceef2;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta-lote {
+  padding: 18px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tarjeta-lote:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+}
+
+.lote-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.lote-codigo {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #234c10;
+}
+
+.badge-camino {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.lote-ruta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.92rem;
+  color: #3f4645;
+}
+
+.flecha { color: #38761d; }
+.lote-fecha, .lote-hint { font-size: 0.78rem; color: #555; margin-top: 8px; }
+
+.tarjeta-estado {
+  padding: 18px;
+}
+
+.estado-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.estado-etiqueta,
+.dato-titulo,
+.resumen-label,
+.ruta-label {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.estado-valor {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #234c10;
+  margin-top: 4px;
+  text-transform: capitalize;
+}
+
+.estado-chip {
+  background: #d1fae5;
+  color: #234c10;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.estado-datos-grid,
+.resumen-ruta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dato-mini,
+.tarjeta-resumen {
+  padding: 14px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+}
+
+.dato-mini strong,
+.resumen-valor {
+  display: block;
+  margin-top: 6px;
+  font-size: 1rem;
+  color: #234c10;
+}
+
+.estado-ubicacion {
+  margin-top: 14px;
+  font-size: 0.92rem;
+  color: #3f4645;
+}
+
+.retraso-aviso {
+  background: #fef9c3;
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-size: 0.84rem;
+  color: #92400e;
+}
+
+.mapa-contenedor-leaflet {
+  padding: 16px;
+}
+
+.mapa-cabecera {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mapa-titulo {
+  font-size: 1rem;
+  color: #234c10;
+  margin: 0 0 4px;
+}
+
+.mapa-subtitulo,
+.mapa-nota {
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.mapa-cargando {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #234c10;
+}
+
+.seguimiento-mapa {
+  width: 100%;
+  height: 340px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #eceef2;
+}
+
+.mapa-nota {
+  margin-top: 10px;
+}
+
+.tarjeta-ruta {
+  padding: 18px;
+}
+
+.ruta-punto {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ruta-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
 .ruta-dot-origen { background: #38761d; }
+.ruta-dot-actual { background: #2b7fff; }
 .ruta-dot-destino { background: #c62828; }
-.ruta-linea { width: 2px; height: 24px; background: #d1d5db; margin: 4px 0 4px 6px; }
-.ruta-label { font-size: .72rem; color: #9ca3af; margin: 0; }
-.ruta-valor { font-size: .9rem; font-weight: 600; color: #3f4645; margin: 0; }
+.ruta-linea {
+  width: 2px;
+  height: 24px;
+  background: #d1d5db;
+  margin: 4px 0 4px 6px;
+}
 
-/* botones de acción */
-.acciones-fila { display: flex; gap: 10px; }
-.btn-chat { flex: 1; background: #38761d !important; color: #fff !important; border-radius: 10px !important; }
-.btn-retraso { flex: 1; border-color: #fff !important; color: #fff !important; border-radius: 10px !important; }
+.ruta-valor {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #3f4645;
+}
 
-/* chat */
-.chat-overlay {
+.acciones-panel {
+  padding: 16px;
+}
+
+.acciones-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.campo-accion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo-doble,
+.panel-manual {
+  grid-column: 1 / -1;
+}
+
+.campo-accion label,
+.panel-manual summary {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #3f4645;
+}
+
+.campo-accion input {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 16px;
+  border: 1px solid #6b7270;
+  background: #eceef2;
+  padding: 0 14px;
+  font-size: 0.95rem;
+  color: #3f4645;
+}
+
+.panel-manual {
+  background: #eceef2;
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.panel-manual summary {
+  cursor: pointer;
+}
+
+.manual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.btn-chat,
+.btn-primario,
+.btn-secundario,
+.btn-retraso,
+.btn-enviar,
+.btn-confirmar-retraso {
+  min-height: 50px;
+  border-radius: 16px !important;
+  font-weight: 700 !important;
+}
+
+.btn-chat,
+.btn-primario,
+.btn-enviar,
+.btn-confirmar-retraso {
+  background: #38761d !important;
+  color: #fff !important;
+}
+
+.btn-secundario {
+  border-color: #3f4645 !important;
+  color: #234c10 !important;
+  background: #ffffff !important;
+}
+
+.btn-retraso {
+  border-color: #990000 !important;
+  color: #ffffff !important;
+  background: #990000 !important;
+}
+
+.chat-overlay,
+.overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 200;
   display: flex;
   align-items: flex-end;
 }
-.chat-panel {
+
+.chat-panel,
+.modal-retraso {
   background: #fff;
   border-radius: 24px 24px 0 0;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
+  padding: 20px 20px 24px;
+}
+
+.chat-panel {
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 0;
+  padding-bottom: 0;
 }
-.chat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.chat-titulo { font-size: 1.1rem; font-weight: 700; color: #234c10; margin: 0; }
-.chat-mensajes { flex: 1; overflow-y: auto; padding-bottom: 10px; min-height: 200px; }
-.chat-sin-mensajes { text-align: center; color: #9ca3af; font-size: .85rem; margin-top: 40px; }
-.burbuja { max-width: 80%; padding: 10px 14px; border-radius: 16px; margin-bottom: 10px; }
-.burbuja-propia { background: #d1fae5; margin-left: auto; border-bottom-right-radius: 4px; }
-.burbuja-otro { background: #f3f4f6; border-bottom-left-radius: 4px; }
-.burbuja-nombre { font-size: .72rem; color: #9ca3af; margin: 0 0 2px; }
-.burbuja-texto { font-size: .9rem; color: #3f4645; margin: 0; }
-.burbuja-hora { font-size: .68rem; color: #d1d5db; margin: 4px 0 0; text-align: right; }
-.chat-input-fila { display: flex; align-items: center; gap: 8px; padding: 10px 0 16px; }
-.chat-input { flex: 1; }
-.btn-enviar { background: #38761d !important; color: #fff !important; border-radius: 10px !important; min-height: 44px; }
 
-/* modal retraso */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: flex-end; justify-content: center; z-index: 300; }
-.modal-retraso { background: #fff; border-radius: 24px 24px 0 0; padding: 28px 24px 36px; width: 100%; max-width: 480px; }
-.modal-titulo { font-size: 1.1rem; font-weight: 700; color: #234c10; margin: 0 0 4px; }
-.modal-sub { font-size: .82rem; color: #6b7280; margin: 0 0 16px; }
-.campo-retraso { width: 100%; }
-.modal-botones { display: flex; gap: 10px; margin-top: 12px; }
-.modal-botones button { flex: 1; border-radius: 10px !important; }
-.btn-confirmar-retraso { background: #38761d !important; color: #fff !important; }
+.chat-header,
+.modal-botones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-titulo,
+.modal-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #234c10;
+  margin: 0;
+}
+
+.modal-sub {
+  font-size: 0.84rem;
+  color: #6b7280;
+  margin: 8px 0 16px;
+}
+
+.chat-mensajes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0 10px;
+  min-height: 200px;
+}
+
+.chat-sin-mensajes {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin-top: 40px;
+}
+
+.burbuja {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.burbuja-propia {
+  background: #d1fae5;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.burbuja-otro {
+  background: #f3f4f6;
+  border-bottom-left-radius: 4px;
+}
+
+.burbuja-nombre {
+  font-size: 0.72rem;
+  color: #555;
+  margin: 0 0 2px;
+}
+
+.burbuja-texto {
+  font-size: 0.9rem;
+  color: #3f4645;
+  margin: 0;
+}
+
+.burbuja-hora {
+  font-size: 0.68rem;
+  color: #6b7280;
+  margin: 4px 0 0;
+  text-align: right;
+}
+
+.chat-input-fila {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0 16px;
+}
+
+.chat-input,
+.campo-retraso {
+  width: 100%;
+}
+
+:host ::ng-deep .seg-pin {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 900px) {
+  .estado-datos-grid,
+  .resumen-ruta-grid,
+  .acciones-grid,
+  .manual-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .seg-encabezado {
+    padding: 18px 16px 8px;
+  }
+
+  .seg-contenido {
+    padding: 8px 12px 28px;
+  }
+
+  .seguimiento-mapa {
+    height: 280px;
+  }
+
+  .lote-ruta {
+    flex-wrap: wrap;
+  }
+}
+
+/* Acciones y coordenadas: contraste, separación y adaptación móvil. */
+.seguimiento-mapa{isolation:isolate;height:clamp(300px,45vh,480px)}
+.mapa-leyenda{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0;font-size:.8rem;color:#3f4645}
+.mapa-leyenda span{display:flex;align-items:center;gap:6px}.mapa-leyenda .ruta-dot{width:10px;height:10px;margin:0}
+.ruta-dot-acopio{background:#c78b17}.mapa-aviso{background:#fef9c3;color:#783f04;padding:10px 14px;border-radius:12px;margin:10px 0;font-size:.85rem}
+.mapa-boton{min-height:44px;border:1px solid #6b7270;border-radius:12px;background:#eceef2;color:#234c10;font:inherit;font-weight:600;font-size:.86rem;padding:10px 16px;cursor:pointer;margin-top:8px}
+.mapa-boton.seleccionado{background:#38761d;color:#fff;border-color:#38761d}
+.mapa-boton:disabled{opacity:.55;cursor:wait}.campo-accion input:focus{outline:2px solid #38761d;outline-offset:1px}
+.acciones-panel .panel-manual{margin-top:12px}.panel-manual .mapa-subtitulo{margin:10px 0}
+.eta-selector{display:flex;gap:8px;flex-wrap:wrap}.eta-selector .mapa-boton{flex:1}
+.acopio-item{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid #d1d5db;font-size:.87rem}.acopio-item a{color:#234c10;font-weight:700}
+.acciones-panel>.btn-chat{margin-bottom:12px;width:100%}.manual-grid>.btn-secundario{grid-column:1/-1}
+.estado-datos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:640px){.estado-datos-grid{grid-template-columns:1fr}.mapa-cabecera{align-items:flex-start;flex-wrap:wrap}}

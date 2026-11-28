@@ -6,7 +6,7 @@ import type {
   AhorroProductor, Carga, Cultivo, GastoViaje, LoginRespuesta, Lote, LoteFinanciero,
   MensajeChat, Notificacion, NotificacionesRespuesta, PrecioMercado, RegistroRespuesta,
   ReputacionTransportista, ResumenTransacciones, SaldoProductor, SeguimientoLote,
-  SolicitudChat, Suscripcion, Usuario
+  SolicitudChat, Suscripcion, Usuario, PuntosRuta
 } from '../modelos/agro-modelos';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +25,7 @@ export class AgroApiServicio {
     return this.httpClient.post<RegistroRespuesta>(`${this.url}/auth/registro-transportista`, datos);
   }
   listarCultivos(): Observable<Cultivo[]> { return this.httpClient.get<Cultivo[]>(`${this.url}/cultivos`); }
-  publicarCarga(datos: { idCultivo: number; pesoKg: number; tipoCarga: string; direccionDestino: string; tarifaPropuesta: number; fechaRecojo: string; esUrgente: boolean }): Observable<Carga> {
+  publicarCarga(datos: { idCultivo: number; pesoKg: number; tipoCarga: string; direccionDestino: string; tarifaPropuesta: number; fechaRecojo: string; esUrgente: boolean; latitudAcopio?: number; longitudAcopio?: number }): Observable<Carga> {
     return this.httpClient.post<Carga>(`${this.url}/cargas`, datos);
   }
   cancelarCarga(idCarga: number): Observable<Carga> { return this.httpClient.patch<Carga>(`${this.url}/cargas/${idCarga}/cancelar`, {}); }
@@ -86,6 +86,9 @@ export class AgroApiServicio {
   /** EP31: Seguimiento GPS/estado del lote */
   seguimientoLote(idLote: number): Observable<SeguimientoLote> {
     return this.httpClient.get<SeguimientoLote>(`${this.url}/lotes/${idLote}/seguimiento`);
+  }
+  guardarPuntosRuta(idLote: number, puntos: PuntosRuta): Observable<SeguimientoLote> {
+    return this.httpClient.patch<SeguimientoLote>(`${this.url}/lotes/${idLote}/puntos-ruta`, puntos);
   }
   actualizarUbicacion(idLote: number, latitud: number, longitud: number, eta?: string): Observable<SeguimientoLote> {
     return this.httpClient.patch<SeguimientoLote>(`${this.url}/lotes/${idLote}/ubicacion`, { latitud, longitud, eta });

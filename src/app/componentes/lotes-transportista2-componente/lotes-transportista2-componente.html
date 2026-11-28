@@ -31,7 +31,10 @@
       <div class="insumo-item">
         <div class="insumo-icono-contenedor"><img src="assets/images/caja2.png" class="insumo-icono" /></div>
         <div class="insumo-info"><p class="insumo-nombre">{{carga.cultivo.nombreCultivo}} · {{carga.pesoKg / 1000 | number:'1.1-2'}} t</p>
-          <p class="insumo-detalle">{{carga.direccionDestino}} · S/ {{carga.tarifaPropuesta | number:'1.2-2'}}</p></div>
+          <p class="insumo-detalle">{{carga.direccionDestino}} · S/ {{carga.tarifaPropuesta | number:'1.2-2'}}</p>
+              @if (carga.latitudAcopio != null && carga.longitudAcopio != null) {
+                <a class="enlace-acopio" [href]="'https://www.openstreetmap.org/?mlat=' + carga.latitudAcopio + '&mlon=' + carga.longitudAcopio + '#map=17/' + carga.latitudAcopio + '/' + carga.longitudAcopio" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">Ver punto de acopio ↗</a>
+              }</div>
         <button mat-button class="agro-material-button lote-etiqueta aceptar" (click)="aceptar(carga)" [disabled]="!seleccion() || capacidad() < carga.pesoKg">Aceptar</button>
       </div><hr class="lote-separador" />
     } @empty { <p>No hay cargas de retorno disponibles.</p> }

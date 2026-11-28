@@ -1,123 +1,130 @@
-<!-- encabezado -->
 <header class="publicar-encabezado">
   <a routerLink="/inicio-productor" class="flecha-volver">
-    <img src="assets/images/flecha_retroceso2.png" />
+    <img src="assets/images/flecha_retroceso2.png" alt="Volver" />
   </a>
-  <h1 class="publicar-titulo">Publicar carga</h1>
+  <div>
+    <p class="publicar-kicker">Productor</p>
+    <h1 class="publicar-titulo">Publicar carga</h1>
+  </div>
 </header>
 
 <main class="publicar-contenido">
-  <h2 class="publicar-subtitulo">Nueva publicación</h2>
-
-  <form [formGroup]="form" (ngSubmit)="publicar()" ngNativeValidate>
-    <!-- tipo de cultivo -->
-    <div class="campo-formulario">
-      <label class="campo-label">Tipo de cultivo:</label>
-      <div class="opciones-fila">
-            @for (opcion of cultivos(); track opcion.idCultivo) {
-              <button mat-button
-                type="button"
-                class="agro-material-button btn-opcion"
-                [class.activo]="form.controls.idCultivo.value === opcion.idCultivo"
-                (click)="form.controls.idCultivo.setValue(opcion.idCultivo)"
-              >
-                {{ opcion.nombreCultivo }}
-              </button>
-            }
-          </div>
+  <section class="panel-publicacion">
+    <div class="panel-cabecera">
+      <h2 class="publicar-subtitulo">Nueva publicación</h2>
+      <p class="publicar-descripcion">Completa los datos de la carga y marca el punto de acopio en el mapa.</p>
     </div>
 
-    <!-- peso estimado -->
-    <div class="campo-formulario">
-      <label for="peso" class="campo-label"
-        >Peso estimado (kg) MAX 50T:</label
-      >
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="peso" class="campo-input" min="0" formControlName="pesoKg" /></mat-form-field>
-      <p class="campo-error" [class.visible]="!!error() && form.controls.pesoKg.value <= 0">
-        Ingrese un peso válido mayor a 0
-      </p>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="publicar()" ngNativeValidate>
+      <div class="campo-formulario">
+        <label class="campo-label">Tipo de cultivo</label>
+        <div class="opciones-fila">
+          @for (opcion of cultivos(); track opcion.idCultivo) {
+            <button mat-button type="button" class="agro-material-button btn-opcion"
+              [class.activo]="form.controls.idCultivo.value === opcion.idCultivo"
+              (click)="form.controls.idCultivo.setValue(opcion.idCultivo)">
+              {{ opcion.nombreCultivo }}
+            </button>
+          }
+        </div>
+      </div>
 
-    <!-- tipo -->
-    <div class="campo-formulario">
-      <label class="campo-label">Tipo:</label>
-      <div class="opciones-fila">
+      <div class="grid-campos">
+        <div class="campo-formulario">
+          <label for="peso" class="campo-label">Peso estimado (kg) · máx. 50T</label>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field campo-elegante">
+            <input matInput type="number" id="peso" min="0" max="50000" formControlName="pesoKg" placeholder="Ej. 12000" />
+          </mat-form-field>
+          <p class="campo-error" [class.visible]="!!error() && form.controls.pesoKg.value <= 0">Ingresa un peso válido mayor a 0.</p>
+        </div>
+
+        <div class="campo-formulario">
+          <label class="campo-label">Tipo de carga</label>
+          <div class="opciones-fila">
             @for (opcion of tipos; track opcion.valor) {
-              <button mat-button
-                type="button"
-                class="agro-material-button btn-opcion"
+              <button mat-button type="button" class="agro-material-button btn-opcion"
                 [class.activo]="form.controls.tipoCarga.value === opcion.valor"
-                (click)="form.controls.tipoCarga.setValue(opcion.valor)"
-              >
+                (click)="form.controls.tipoCarga.setValue(opcion.valor)">
                 {{ opcion.texto }}
               </button>
             }
           </div>
-    </div>
-
-    <!-- direccion destino -->
-    <div class="campo-formulario">
-      <label for="destino" class="campo-label"
-        >Dirección/Ciudad de Destino:</label
-      >
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="destino" class="campo-input" formControlName="direccionDestino" /></mat-form-field>
-    </div>
-
-    <!-- tarifa -->
-    <div class="campo-formulario">
-      <label for="tarifa" class="campo-label"
-        >Tarifa/Presupuesto propuesto (S/):</label
-      >
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="number" id="tarifa" class="campo-input" min="0" formControlName="tarifaPropuesta" /></mat-form-field>
-      <p class="campo-error" [class.visible]="!!error() && form.controls.tarifaPropuesta.value <= 0">
-        Ingrese una tarifa válida mayor a 0
-      </p>
-    </div>
-
-    <!-- punto de acopio -->
-    <div class="campo-formulario">
-      <label class="campo-label campo-label-centro"
-        >Punto de acopio (GPS):</label
-      >
-      <div class="mapa-contenedor">
-        <img src="assets/images/mapa.png" />
+        </div>
       </div>
-    </div>
 
-    <!-- fecha de recojo -->
-    <div class="campo-formulario">
-      <label for="fecha" class="campo-label">Fecha de recojo:</label>
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field agro-material-date"><input matInput type="date" id="fecha" class="campo-input" formControlName="fechaRecojo" /></mat-form-field>
-    </div>
+      <div class="campo-formulario">
+        <label for="destino" class="campo-label">Dirección / ciudad de destino</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field campo-elegante">
+          <input matInput type="text" id="destino" formControlName="direccionDestino" placeholder="Ej. Mercado Mayorista N.º 1, Lima" />
+        </mat-form-field>
+      </div>
 
-    <!-- marcar como urgente -->
-    <mat-checkbox class="campo-urgente agro-material-checkbox" [checked]="form.controls.esUrgente.value" (change)="form.controls.esUrgente.setValue($event.checked)">Marcar como urgente</mat-checkbox>
+      <div class="grid-campos">
+        <div class="campo-formulario">
+          <label for="tarifa" class="campo-label">Tarifa propuesta (S/)</label>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field campo-elegante">
+            <input matInput type="number" id="tarifa" min="0" formControlName="tarifaPropuesta" placeholder="Ej. 2000" />
+          </mat-form-field>
+          <p class="campo-error" [class.visible]="!!error() && form.controls.tarifaPropuesta.value <= 0">Ingresa una tarifa válida mayor a 0.</p>
+        </div>
 
-    <!-- acciones -->
-    <div class="publicar-acciones">
-      <button mat-button type="submit" class="agro-material-button btn-publicar" [disabled]="cargando()">{{cargando() ? "Publicando..." : "Publicar carga"}}</button>
-      <button mat-button type="button" class="agro-material-button btn-cancelar" (click)="modalCancelar.set(true)">
-        Cancelar carga
-      </button>
-    </div>
-  </form>
+        <div class="campo-formulario">
+          <label for="fecha" class="campo-label">Fecha de recojo</label>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field campo-elegante agro-material-date">
+            <input matInput type="date" id="fecha" formControlName="fechaRecojo" />
+          </mat-form-field>
+        </div>
+      </div>
 
-  @if (error()) { <p class="estado-integracion error" role="alert">{{error()}}</p> }
+      <div class="campo-formulario">
+        <div class="campo-mapa-cabecera">
+          <label class="campo-label">Punto de acopio (GPS)</label>
+          <span class="coordenadas-chip">{{ coordenadasAcopioTexto() }}</span>
+        </div>
+        <div class="acopio-busqueda">
+          <input aria-label="Buscar localidad o dirección" [formControl]="controlBusqueda" placeholder="Buscar localidad o dirección" />
+          <button type="button" class="mapa-boton" (click)="buscarAcopio()" [disabled]="buscando()">{{ buscando() ? 'Buscando…' : 'Buscar' }}</button>
+        </div>
+        <div class="mapa-panel">
+          <div id="mapa-acopio" class="mapa-interactivo"></div>
+          <div class="mapa-ayuda">
+            <span>Haz clic para marcar el punto de acopio y arrastra el pin si quieres ajustarlo. La ubicación se guardará con la carga.</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- modal de confirmacion -->
+      <div class="acopio-manual">
+        <label>Latitud <input type="number" step="any" [formControl]="latAcopio" /></label>
+        <label>Longitud <input type="number" step="any" [formControl]="lonAcopio" /></label>
+        <button type="button" class="mapa-boton" (click)="registrarAcopioManual()">Confirmar punto</button>
+      </div>
+      @if (errorMapa()) { <p class="mapa-aviso" role="alert">{{errorMapa()}}</p> }
+      <mat-checkbox class="campo-urgente agro-material-checkbox"
+        [checked]="form.controls.esUrgente.value"
+        (change)="form.controls.esUrgente.setValue($event.checked)">
+        Marcar como urgente
+      </mat-checkbox>
+
+      <div class="publicar-acciones">
+        <button mat-button type="submit" class="agro-material-button btn-publicar" [disabled]="cargando()">
+          {{ cargando() ? 'Publicando…' : 'Publicar carga' }}
+        </button>
+        <button mat-button type="button" class="agro-material-button btn-cancelar" (click)="modalCancelar.set(true)">
+          Cancelar carga
+        </button>
+      </div>
+    </form>
+
+    @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
+  </section>
+
   <div class="modal-overlay" [class.visible]="modalCancelar()">
     <div class="modal-caja">
-      <p class="modal-pregunta">
-        ¿Estás seguro de que deseas cancelar esta carga?
-      </p>
+      <p class="modal-pregunta">¿Estás seguro de que deseas cancelar esta carga?</p>
       <div class="modal-botones">
-        <button mat-button type="button" class="agro-material-button modal-btn-no" (click)="modalCancelar.set(false)">
-          No
-        </button>
+        <button mat-button type="button" class="agro-material-button modal-btn-no" (click)="modalCancelar.set(false)">No</button>
         <a mat-button routerLink="/inicio-productor" class="agro-material-button modal-btn-si">Sí</a>
       </div>
     </div>
   </div>
 </main>
-
-

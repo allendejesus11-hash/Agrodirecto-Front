@@ -220,3 +220,4 @@
     gap: 20px;
   }
 }
+.enlace-acopio{display:inline-block;color:inherit;text-decoration:underline;font-weight:600;font-size:.85rem;margin:4px 0;}

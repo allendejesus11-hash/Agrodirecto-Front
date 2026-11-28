@@ -9,11 +9,17 @@ export interface Cultivo { idCultivo: number; nombreCultivo: string; }
 export interface Carga {
   idCarga: number; codigoCarga: string; productor: Usuario; cultivo: Cultivo;
   pesoKg: number; tipoCarga: string; direccionDestino: string;
+  latitudAcopio?: number | null; longitudAcopio?: number | null;
   tarifaPropuesta: number; fechaRecojo: string; esUrgente: boolean;
   estadoCarga: string; fechaPublicacion: string;
 }
-export interface Lote {
+export interface PuntosRuta {
+  latitudOrigen: number; longitudOrigen: number;
+  latitudDestino: number; longitudDestino: number;
+}
+export interface Lote extends Partial<PuntosRuta> {
   idLote: number; codigoLote: string; transportista?: Usuario;
+  latitud?: number; longitud?: number; eta?: string; fechaActualizacion?: string;
   estadoLote: string; origen: string; destino: string; fechaSalida?: string;
   fechaLlegada?: string; fechaTransaccion?: string; fleteTotal?: number; porcentajeComision?: number;
   montoComision?: number; montoNeto?: number; estadoPago?: string;
@@ -48,7 +54,8 @@ export interface LoteFinanciero {
 }
 
 /** HU-18: Seguimiento en tiempo real de un lote (EP31) */
-export interface SeguimientoLote {
+export interface SeguimientoLote extends Partial<PuntosRuta> {
+  origen?: string; destino?: string; cargas?: Carga[];
   idLote: number;
   estadoLote: string;
   ubicacionActual?: string;

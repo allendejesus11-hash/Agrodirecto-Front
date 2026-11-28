@@ -143,3 +143,5 @@
 .lote-mini-ruta { display: block; font-size: 0.82rem; color: #6b7280; margin-top: 2px; }
 
 .btn-cancelar { width: 100%; margin-top: 10px; color: #6b7280 !important; }
+
+.enlace-acopio{display:inline-block;color:inherit;text-decoration:underline;font-weight:600;font-size:.85rem;margin:4px 0;}

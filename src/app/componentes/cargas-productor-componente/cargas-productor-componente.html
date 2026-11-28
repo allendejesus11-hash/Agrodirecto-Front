@@ -18,6 +18,9 @@
               <p>Producto: {{carga.cultivo.nombreCultivo}} · {{carga.pesoKg}} kg</p>
               <p>Destino: {{carga.direccionDestino}}</p>
               <p>Recojo: {{carga.fechaRecojo}} · {{carga.estadoCarga}}</p>
+              @if (carga.latitudAcopio != null && carga.longitudAcopio != null) {
+                <a class="enlace-acopio" [href]="'https://www.openstreetmap.org/?mlat=' + carga.latitudAcopio + '&mlon=' + carga.longitudAcopio + '#map=17/' + carga.latitudAcopio + '/' + carga.longitudAcopio" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">Ver punto de acopio ↗</a>
+              }
             </div>
           </div>
         }
