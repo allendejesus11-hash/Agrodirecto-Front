@@ -55,7 +55,7 @@
       <div class="campo-formulario">
         <label for="destino" class="campo-label">Dirección / ciudad de destino</label>
         <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field campo-elegante">
-          <input matInput type="text" id="destino" formControlName="direccionDestino" placeholder="Ej. Mercado Mayorista N.º 1, Lima" />
+          <input matInput type="text" id="destino" maxlength="100" formControlName="direccionDestino" placeholder="Ej. Mercado Mayorista N.º 1, Lima" />
         </mat-form-field>
       </div>
 
@@ -77,18 +77,19 @@
       </div>
 
       <div class="campo-formulario">
+        <div class="seleccion-ruta"><button type="button" class="mapa-boton" [class.seleccionado]="modoMapa()==='acopio'" (click)="elegirMapa('acopio')">Marcar acopio</button><button type="button" class="mapa-boton" [class.seleccionado]="modoMapa()==='destino'" (click)="elegirMapa('destino')">Marcar destino</button><button type="button" class="mapa-boton" (click)="buscarDestino()" [disabled]="buscando()">Buscar destino escrito</button></div>
         <div class="campo-mapa-cabecera">
-          <label class="campo-label">Punto de acopio (GPS)</label>
+          <label class="campo-label">Mapa de acopio y entrega</label>
           <span class="coordenadas-chip">{{ coordenadasAcopioTexto() }}</span>
         </div>
         <div class="acopio-busqueda">
-          <input aria-label="Buscar localidad o dirección" [formControl]="controlBusqueda" placeholder="Buscar localidad o dirección" />
+          <input aria-label="Buscar localidad o dirección" [formControl]="controlBusqueda" placeholder="Buscar punto de acopio" />
           <button type="button" class="mapa-boton" (click)="buscarAcopio()" [disabled]="buscando()">{{ buscando() ? 'Buscando…' : 'Buscar' }}</button>
         </div>
         <div class="mapa-panel">
           <div id="mapa-acopio" class="mapa-interactivo"></div>
           <div class="mapa-ayuda">
-            <span>Haz clic para marcar el punto de acopio y arrastra el pin si quieres ajustarlo. La ubicación se guardará con la carga.</span>
+            <span>Selecciona primero el modo acopio o destino y marca el punto correspondiente en el mapa. El destino queda fijado por el productor.</span>
           </div>
         </div>
       </div>
@@ -98,6 +99,8 @@
         <label>Longitud <input type="number" step="any" [formControl]="lonAcopio" /></label>
         <button type="button" class="mapa-boton" (click)="registrarAcopioManual()">Confirmar punto</button>
       </div>
+      <p class="campo-label">Destino: {{destinoSeleccionado() ? 'Punto de entrega seleccionado' : 'Pendiente de seleccionar'}}</p>
+      <details class="campo-formulario"><summary>Coordenadas de destino (opcional para seleccionar en mapa)</summary><div class="acopio-manual"><label>Latitud <input type="number" step="any" [formControl]="latDestino" /></label><label>Longitud <input type="number" step="any" [formControl]="lonDestino" /></label><button type="button" class="mapa-boton" (click)="confirmarDestino()">Confirmar destino</button></div></details>
       @if (errorMapa()) { <p class="mapa-aviso" role="alert">{{errorMapa()}}</p> }
       <mat-checkbox class="campo-urgente agro-material-checkbox"
         [checked]="form.controls.esUrgente.value"

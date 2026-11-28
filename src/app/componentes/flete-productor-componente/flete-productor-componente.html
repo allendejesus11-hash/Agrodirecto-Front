@@ -10,21 +10,21 @@
   @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
   @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
 
+  @if(!lotes().length){<div class="tarjeta-ruta"><h2>Sin lote asignado</h2><p>Cuando el administrador consolide tu carga, podrás revisar y confirmar el flete aquí.</p><a routerLink="/cargas-productor" style="color:white">Ver mis cargas</a></div>}@else{
+  <select class="estado-integracion selector" aria-label="Seleccionar lote" [value]="seleccionado()?.idLote || lotes()[0].idLote" (change)="cambiarLote($event)">@for(l of lotes();track l.idLote){<option [value]="l.idLote">{{l.codigoLote}}</option>}</select>
   <h2 class="consolidacion-subtitulo">Mi carga · {{seleccionado()?.codigoLote || "Sin lote"}}</h2>
   @if(seleccionado()?.transportista; as transportista){<a routerLink="/perfil-publico-transportista" [queryParams]="{id:transportista.idUsuario}">Ver perfil de {{transportista.nombreCompleto}}</a>}
 
   <!-- ruta generada -->
   <div class="tarjeta-ruta">
-    <h3 class="ruta-titulo">Ruta de consolidación generada</h3>
+    <h3 class="ruta-titulo">Ruta del lote</h3>
     <p class="ruta-detalle">Agrupado con {{(seleccionado()?.cargas || []).length}} cargas · {{seleccionado()?.origen || "Origen pendiente"}}</p>
   </div>
 
   <!-- productores en el lote -->
   <section class="seccion-productores">
     <h2 class="productores-titulo">Productores en el lote</h2>
-    <select class="estado-integracion selector" aria-label="Lote" (change)="cambiarLote($event)">
-      @for (l of lotes(); track l.idLote) {<option [value]="l.idLote">{{l.codigoLote}}</option>}
-    </select>
+
     @for (carga of seleccionado()?.cargas || []; track carga.idCarga) {
       <div class="productor-item"><img src="assets/images/persona_real1.png" class="productor-foto" />
         <div class="productor-info"><p class="productor-nombre">{{carga.productor.nombreCompleto}} · {{carga.pesoKg}} kg {{carga.cultivo.nombreCultivo}}</p>
@@ -53,5 +53,8 @@
     <img src="assets/images/advertencia2.png" class="alerta-icono" />
     <p>Estado: {{seleccionado()?.estadoLote || "Pendiente"}}</p>
   </div>
+  @if(puedeConfirmar()){<button type="button" class="flete-accion" [disabled]="cargando()" (click)="confirmar()">Confirmar mi parte del flete</button>}
+  @if(seleccionado()?.idLote){<a class="flete-accion" routerLink="/chats-productor" [queryParams]="{idLote:seleccionado()!.idLote}">Chat con transportista</a>}
+  }
 </main>
 

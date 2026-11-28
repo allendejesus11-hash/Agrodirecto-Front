@@ -28,9 +28,9 @@
               class="agro-material-button btn-chat-estado"
               [class.pendiente]="chat.estadoSolicitud === 'pendiente'"
               [class.aprobado]="chat.estadoSolicitud === 'aprobado'"
-              (click)="aprobar(chat)"
+              [disabled]="chat.estadoSolicitud!=='pendiente'" (click)="aprobar(chat)"
             >
-              {{ chat.estadoSolicitud === 'aprobado' ? 'Chat habilitado' : 'Aprobar chat' }}
+              {{ chat.estadoSolicitud === 'aprobado' ? 'Chat habilitado' : chat.estadoSolicitud==='rechazado'?'Rechazado':'Aprobar chat' }}
             </button>
           </div>
           @if (!$last) {

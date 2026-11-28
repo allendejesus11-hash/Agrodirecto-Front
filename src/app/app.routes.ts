@@ -34,7 +34,12 @@ import {SuscripcionTransportistaComponente} from './componentes/suscripcion-tran
 import {UsuariosAdminComponente} from './componentes/usuarios-admin-componente/usuarios-admin-componente';
 import {ViajesProductorComponente} from './componentes/viajes-productor-componente/viajes-productor-componente';
 
+import {ChatViajeComponente} from './componentes/chat-viaje-componente/chat-viaje-componente';
+import {PreciosAdminComponente} from './componentes/precios-admin-componente/precios-admin-componente';
 export const routes: Routes = [
+  {path:'precios-admin',canActivate:[authGuard],data:{rol:'administrador'},component:PreciosAdminComponente},
+  { path: 'chats-productor', canActivate:[authGuard], data:{rol:'productor'}, component:ChatViajeComponente },
+  { path: 'chats-transportista', canActivate:[authGuard], data:{rol:'transportista'}, component:ChatViajeComponente },
   { path: 'calificacion-viaje-productor', canActivate: [authGuard], data: {rol:'productor'}, component: CalificacionViajeProductorComponente },
   { path: 'cargas-admin', canActivate: [authGuard], data: {rol:'administrador'}, component: CargasAdminComponente },
   { path: 'cargas-productor', canActivate: [authGuard], data: {rol:'productor'}, component: CargasProductorComponente },
@@ -63,7 +68,7 @@ export const routes: Routes = [
   { path: 'perfil-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: PerfilTransportistaComponente },
   { path: 'perfil-transportista2', redirectTo: 'gastos-viaje-transportista', pathMatch: 'full' },
   { path: 'precios-productor', canActivate: [authGuard], data: {rol:'productor'}, component: PreciosProductorComponente },
-  { path: 'precios-productor2', canActivate: [authGuard], data: {rol:'productor'}, component: PreciosProductor2Componente },
+  { path: 'precios-productor2', redirectTo:'precios-productor', pathMatch:'full' },
   { path: 'publicar-carga-productor', canActivate: [authGuard], data: {rol:'productor'}, component: PublicarCargaProductorComponente },
   { path: 'qr-transportista', canActivate: [authGuard], data: {rol:'transportista'}, component: QrTransportistaComponente },
   { path: 'reportes-admin', canActivate: [authGuard], data: {rol:'administrador'}, component: ReportesAdminComponente },

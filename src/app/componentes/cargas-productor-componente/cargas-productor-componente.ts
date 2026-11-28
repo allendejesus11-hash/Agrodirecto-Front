@@ -19,11 +19,8 @@ export class CargasProductorComponente implements OnInit {
  error = signal(''); mensaje = signal(''); cargando = signal(false);
  cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
  ngOnInit(): void { this.cargar(); }
-cargas=signal<Carga[]>([]);seleccionada=signal<Carga|null>(null);
- nombreComprador=new FormControl('');dniComprador=new FormControl('');errorDniComprador=signal(false);
- limpiar(){this.nombreComprador.reset();this.dniComprador.reset();this.seleccionada.set(null);}
- cancelarSeleccionada(){const c=this.seleccionada();if(c)this.cancelar(c);}
+cargas=signal<Carga[]>([]);
  cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.api.cargasDeProductor(id).subscribe({next:x=>this.cargas.set(x),error:e=>this.error.set(mensajeError(e))});}
- cancelar(c:Carga){if(c.estadoCarga!=='publicada')return;this.error.set('');this.api.cancelarCarga(c.idCarga).subscribe({next:()=>this.cargar(),error:e=>this.error.set(mensajeError(e))});}
+ cancelar(c:Carga){if(c.estadoCarga!=='publicada'||c.idLote||!window.confirm('¿Cancelar esta carga?'))return;this.error.set('');this.api.cancelarCarga(c.idCarga).subscribe({next:()=>this.cargar(),error:e=>this.error.set(mensajeError(e))});}
 
 }

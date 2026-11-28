@@ -17,7 +17,9 @@ export class LotesTransportistaComponente implements OnInit {
  error = signal(''); mensaje = signal(''); cargando = signal(false);
  cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
  ngOnInit(): void { this.cargar(); }
-lotes=signal<Lote[]>([]); filtro=signal('todos');
+iniciando=signal(false);
+ iniciar(l:Lote){if(this.iniciando()||!window.confirm('¿Iniciar el viaje '+l.codigoLote+'?'))return;this.iniciando.set(true);this.error.set('');this.api.iniciarViaje(l.idLote).subscribe({next:()=>{this.iniciando.set(false);this.router.navigate(['/seguimiento-viaje-transportista']);},error:e=>{this.iniciando.set(false);this.error.set(mensajeError(e));}});}
+ lotes=signal<Lote[]>([]); filtro=signal('todos');
  cargar(){const id=this.sesion.idUsuario;if(id===null)return;this.error.set('');this.api.listarLotesTransportista(id).subscribe({next:x=>this.lotes.set(x),error:e=>this.error.set(mensajeError(e))});}
  entregados(){return this.lotes().filter(l=>l.estadoLote==='entregado').length;}
  visibles=computed(()=>this.lotes().filter(l=>this.filtro()==='todos'||(this.filtro()==='activos'?['en_transito','con_retraso'].includes(l.estadoLote):l.estadoLote==='entregado')));

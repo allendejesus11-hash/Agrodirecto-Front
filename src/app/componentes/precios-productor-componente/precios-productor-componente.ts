@@ -1,27 +1,11 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { forkJoin, catchError, of } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AgroApiServicio } from '../../servicios/agro-api-servicio';
-import { SesionServicio } from '../../servicios/sesion-servicio';
-import { mensajeError } from '../../servicios/mensaje-error';
-import type { Usuario, Carga, Lote, Cultivo, PrecioMercado, SolicitudChat, Notificacion, ResumenTransacciones, AhorroProductor, ReputacionTransportista } from '../../modelos/agro-modelos';
-@Component({ selector: 'app-precios-productor-componente', standalone: true, imports: [CommonModule, RouterLink, ReactiveFormsModule], templateUrl: './precios-productor-componente.html', styleUrl: './precios-productor-componente.css' })
-export class PreciosProductorComponente implements OnInit {
- private api = inject(AgroApiServicio);
- protected sesion = inject(SesionServicio);
- private router = inject(Router);
- private ruta = inject(ActivatedRoute);
- private fb = inject(FormBuilder);
- error = signal(''); mensaje = signal(''); cargando = signal(false);
- cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
- ngOnInit(): void { this.cargar(); }
-precios=signal<PrecioMercado[]>([]); anteriores=signal<PrecioMercado[]>([]); historial=signal<PrecioMercado[][]>([]);cultivo=signal('todos');
- visibles=computed(()=>this.precios().filter(p=>this.cultivo()==='todos'||p.cultivo.nombreCultivo===this.cultivo()));
- nombres=computed(()=>[...new Set(this.precios().map(p=>p.cultivo.nombreCultivo))]);
- tendencia(p:PrecioMercado){const a=this.anteriores().find(x=>x.cultivo.idCultivo===p.cultivo.idCultivo);return !a?'Sin datos previos':p.precioPorKg>a.precioPorKg?'Sube':p.precioPorKg<a.precioPorKg?'Baja':'Estable';}
- cargar(){this.api.listarPrecios().subscribe({next:x=>{this.precios.set(x);const hoy=x[0]?.fechaPrecio??new Date().toISOString().slice(0,10);const fechas=Array.from({length:6},(_,i)=>{const d=new Date(hoy+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-i-1);return d.toISOString().slice(0,10);});forkJoin(fechas.map(f=>this.api.listarPrecios(f).pipe(catchError(()=>of([] as PrecioMercado[]))))).subscribe({next:d=>{this.anteriores.set(d[0]??[]);this.historial.set([x,...d]);}});},error:e=>this.error.set(mensajeError(e))});}
- historialVisible(){return this.historial().flat().filter(p=>this.cultivo()==='todos'||p.cultivo.nombreCultivo===this.cultivo()).sort((a,b)=>b.fechaPrecio.localeCompare(a.fechaPrecio));}
-
-}
+import { Component,inject,signal,computed,OnInit } from '@angular/core';import {CommonModule} from '@angular/common';import {RouterLink} from '@angular/router';import {AgroApiServicio} from '../../servicios/agro-api-servicio';import {mensajeError} from '../../servicios/mensaje-error';import type {PrecioMercado} from '../../modelos/agro-modelos';
+@Component({selector:'app-precios-productor-componente',standalone:true,imports:[CommonModule,RouterLink],templateUrl:'./precios-productor-componente.html',styleUrl:'./precios-productor-componente.css'})
+export class PreciosProductorComponente implements OnInit{private api=inject(AgroApiServicio);error=signal('');cargando=signal(true);historial=signal<PrecioMercado[]>([]);cultivo=signal(0);
+ nombres=computed(()=>[...new Map(this.historial().map(p=>[p.cultivo.idCultivo,p.cultivo])).values()]);
+ precios=computed(()=>{const m=new Map<number,PrecioMercado>();for(const p of this.historial())m.set(p.cultivo.idCultivo,p);return [...m.values()];});
+ visibles=computed(()=>this.precios().filter(p=>!this.cultivo()||p.cultivo.idCultivo===this.cultivo()));
+ serie=computed(()=>this.historial().filter(p=>p.cultivo.idCultivo===(this.cultivo()||this.nombres()[0]?.idCultivo)).sort((a,b)=>a.fechaPrecio.localeCompare(b.fechaPrecio)));
+ max=computed(()=>Math.max(0.01,...this.serie().map(p=>p.precioPorKg)));
+ nombreGrafico=computed(()=>this.serie()[0]?.cultivo.nombreCultivo||'');
+ tendencia(p:PrecioMercado){const d=new Date(p.fechaPrecio+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-1);const fecha=d.toISOString().slice(0,10);const a=this.historial().find(x=>x.cultivo.idCultivo===p.cultivo.idCultivo&&x.fechaPrecio===fecha);return a&&a.precioPorKg>0?(p.precioPorKg-a.precioPorKg)/a.precioPorKg*100:null;}
+ ngOnInit(){this.cargar();}cargar(){this.cargando.set(true);this.error.set('');this.api.historialPrecios().subscribe({next:p=>{this.historial.set(p);this.cargando.set(false);},error:e=>{this.error.set(mensajeError(e));this.cargando.set(false);}});}}

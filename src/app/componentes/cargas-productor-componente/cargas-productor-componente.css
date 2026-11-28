@@ -221,3 +221,5 @@
   }
 }
 .enlace-acopio{display:inline-block;color:inherit;text-decoration:underline;font-weight:600;font-size:.85rem;margin:4px 0;}
+
+.btn-publicar-nueva,.cancelar-carga{display:inline-block;border:0;border-radius:10px;padding:12px 18px;background:#38761d;color:white;text-decoration:none;font-weight:600;margin:8px 0;cursor:pointer}.cancelar-carga{background:#874800}.carga-item{cursor:default}.carga-info a{display:block;margin:8px 0}.vacio-cargas{padding:20px;color:white}

@@ -1,6 +1,6 @@
 @if (!loteActivo()) {
   <header class="seg-encabezado">
-    <a [routerLink]="esProductor ? '/informacion-productor' : '/inicio-transportista'" class="btn-menu">
+    <a [routerLink]="esProductor ? '/inicio-productor' : '/inicio-transportista'" class="btn-menu">
       <img src="assets/images/barras_menu.png" alt="Menú" />
     </a>
     <div>
@@ -69,7 +69,7 @@
           <p class="estado-etiqueta">Estado</p>
           <p class="estado-valor">{{ seguimiento()?.estadoLote === 'en_transito' ? 'En tránsito' : seguimiento()?.estadoLote === 'con_retraso' ? 'Con retraso' : (seguimiento()?.estadoLote || 'Cargando…') }}</p>
         </div>
-        <div class="estado-chip">{{ seguimiento()?.estadoLote === 'con_retraso' ? 'Atención' : 'En ruta' }}</div>
+        <div class="estado-chip">{{ seguimiento()?.estadoLote === 'con_retraso' ? 'Atención' : seguimiento()?.estadoLote === 'entregado' ? 'Entregado' : 'En ruta' }}</div>
       </div>
       <div class="estado-datos-grid">
         <div class="dato-mini">
@@ -158,32 +158,12 @@
           </div>
         } @empty { <p class="mapa-subtitulo">No hay cargas asociadas al lote.</p> }
       </section>
-      <section class="acciones-panel">
-        <h2 class="mapa-titulo">Origen y destino del viaje</h2>
-        <p class="mapa-subtitulo">{{ puntosConfirmados() ? 'Coordenadas guardadas. Puedes corregirlas si es necesario.' : 'Este lote aún no tiene puntos confirmados. Selecciónalos una vez para habilitar la ruta y el ETA.' }}</p>
-        <details class="panel-manual" [open]="!puntosConfirmados()">
-          <summary>Configurar puntos de la ruta</summary>
-          <p class="mapa-subtitulo">Busca las direcciones existentes o marca los puntos en el mapa; también puedes ingresar coordenadas. Verifica las sugerencias antes de guardar.</p>
-          <button type="button" class="mapa-boton" (click)="buscarPuntosRuta()" [disabled]="buscandoPuntos() || guardandoPuntos()">{{ buscandoPuntos() ? 'Buscando…' : 'Buscar origen y destino' }}</button>
-          <div class="manual-grid">
-            <div class="campo-accion"><label for="lat-origen">Latitud origen</label><input id="lat-origen" type="number" step="any" [formControl]="controlLatOrigen" /></div>
-            <div class="campo-accion"><label for="lon-origen">Longitud origen</label><input id="lon-origen" type="number" step="any" [formControl]="controlLonOrigen" /></div>
-            <button type="button" class="mapa-boton" [class.seleccionado]="modoPunto()==='origen'" (click)="elegirPunto('origen')">Marcar origen en mapa</button>
-            <div class="campo-accion"><label for="lat-destino">Latitud destino</label><input id="lat-destino" type="number" step="any" [formControl]="controlLatDestino" /></div>
-            <div class="campo-accion"><label for="lon-destino">Longitud destino</label><input id="lon-destino" type="number" step="any" [formControl]="controlLonDestino" /></div>
-            <button type="button" class="mapa-boton" [class.seleccionado]="modoPunto()==='destino'" (click)="elegirPunto('destino')">Marcar destino en mapa</button>
-            <button type="button" class="mapa-boton" (click)="previsualizarPuntos()">Previsualizar puntos</button>
-            <button type="button" mat-flat-button class="btn-primario" (click)="guardarPuntos()" [disabled]="guardandoPuntos() || buscandoPuntos() || guardandoUbicacion()">{{ guardandoPuntos() ? 'Guardando…' : 'Guardar origen y destino' }}</button>
-          </div>
-        </details>
-      </section>
+      <section class="acciones-panel"><h2 class="mapa-titulo">Ruta asignada</h2><p class="mapa-subtitulo">{{puntosConfirmados()?'Origen y destino confirmados. Solo lectura.':'Faltan coordenadas de un lote antiguo. Solicita su corrección al administrador.'}}</p></section>
     }
     <section class="acciones-panel">
-      @if (idSolicitud()) {
-        <button mat-flat-button class="btn-chat" (click)="abrirChat()">💬 Abrir chat</button>
-      }
+      <a mat-flat-button class="btn-chat" [routerLink]="esTransportista?'/chats-transportista':'/chats-productor'" [queryParams]="{idLote:loteActivo()!.idLote}">💬 Abrir chat</a>
 
-      @if (esTransportista) {
+      @if (esTransportista && (!seguimiento() || ['en_transito','con_retraso'].includes(seguimiento()!.estadoLote))) {
         <div class="acciones-grid">
           <div class="campo-accion campo-doble">
             <h2 class="mapa-titulo">Actualizar ubicación</h2>

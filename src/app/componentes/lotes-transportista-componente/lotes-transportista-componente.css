@@ -246,3 +246,5 @@
     font-size: 26px;
   }
 }
+
+.viaje-accion{display:inline-block;background:#e9ecef;color:#2b521a;border:0;border-radius:10px;padding:10px 18px;font-weight:600;text-decoration:none;margin:8px 0;cursor:pointer}

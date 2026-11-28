@@ -1,48 +1,10 @@
-<!-- encabezado -->
-<header class="precios-encabezado">
-  <h1 class="precios-titulo">Precios de mercado</h1>
-  <a routerLink="/precios-productor2" class="btn-menu">
-    <img src="assets/images/barras_menu.png" />
-  </a>
-</header>
-
-<main class="precios-contenido">
-  @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
-  @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
-
-  <h2 class="precios-subtitulo">Inteligencia de mercado</h2>
-
-  <!-- actualizacion -->
-  <div class="actualizacion-fila">
-    <p class="actualizacion-texto">Precios de la API · Fecha: {{precios()[0]?.fechaPrecio || "Sin datos"}}</p>
-    <span class="etiqueta-hoy">Hoy</span>
-  </div>
-
-  <!-- lista de precios -->
-  <section class="seccion-precios">
-    <label>Filtrar cultivo <select [value]="cultivo()" (change)="cultivo.set($any($event.target).value)"><option value="todos">Todos</option>@for(n of nombres();track n){<option [value]="n">{{n}}</option>}</select></label>
-    @for (p of visibles(); track p.idPrecio) {
-      <div class="precio-item"><img src="assets/images/papa.png" class="precio-icono" />
-        <div class="precio-info"><p class="precio-nombre">{{p.cultivo.nombreCultivo}}</p><p class="precio-valor">S/ {{p.precioPorKg | number:'1.2-2'}}/kg</p></div>
-        <span class="precio-tendencia estable">{{tendencia(p)}}</span>
-      </div><hr class="precio-separador" />
-    } @empty {<p>No hay precios registrados.</p>}
-  </section>
-
-  <!-- ia consejera -->
-  <section class="seccion-ia">
-    <div class="ia-encabezado">
-      <img src="assets/images/IA.png" class="ia-foto" />
-      <h2 class="ia-titulo">IA Consejera</h2>
-    </div>
-    <div class="ia-recuadro">
-      <p>
-        La tendencia compara el precio registrado con el día anterior; si falta un precio, no se inventa una tendencia.
-      </p>
-    </div>
-  </section>
-</main>
-
+<header class="precios-encabezado"><h1 class="precios-titulo">Precios de mercado</h1><a routerLink="/inicio-productor" class="btn-menu" aria-label="Volver al inicio"><img src="assets/images/inicio.png" alt="Inicio"/></a></header>
+<main class="precios-contenido mercado"><h2 class="precios-subtitulo">Inteligencia de mercado</h2><p class="mercado-ayuda">Últimos precios registrados con fuente, no necesariamente del día de hoy. Variación frente al día anterior si existe.</p>
+@if(error()){<p class="estado-integracion error" role="alert">{{error()}}</p>}@if(cargando()){<p>Cargando cotizaciones…</p>}
+<div class="mercado-filtro"><label>Filtrar cultivo <select [value]="cultivo()" (change)="cultivo.set(+$any($event.target).value)"><option value="0">Todos</option>@for(c of nombres();track c.idCultivo){<option [value]="c.idCultivo">{{c.nombreCultivo}}</option>}</select></label><button (click)="cargar()">Actualizar</button></div>
+@for(p of visibles();track p.idPrecio){<article class="precio-real"><div><strong>{{p.cultivo.nombreCultivo}}</strong><p>Fecha: {{p.fechaPrecio | date:'dd/MM/yyyy':'UTC'}}</p><small>{{p.fuente}}</small></div><div class="precio-cifra"><strong>S/ {{p.precioPorKg | number:'1.2-2'}}/kg</strong>@let t=tendencia(p);<span [class.alza]="t!==null&&t>0" [class.baja]="t!==null&&t<0">@if(t===null){Sin precio previo}@else { {{t>0?'+':''}}{{t | number:'1.1-2'}} % }</span></div></article>}@empty{@if(!cargando()){<p class="mercado-ayuda">No hay precios con fuente registrada. El administrador puede importar un boletín oficial.</p>}}
+@if(serie().length){<section class="precio-real historial"><h3>Evolución: {{nombreGrafico()}}</h3><p>Últimos registros disponibles (S/ por kg). No se rellenan fechas ausentes.</p><div class="grafico-precios">@for(p of serie();track p.idPrecio){<div class="barra-col"><span>{{p.precioPorKg | number:'1.2-2'}}</span><div class="barra-valor" [style.height.px]="150*p.precioPorKg/max()"></div><small>{{p.fechaPrecio | date:'dd/MM':'UTC'}}</small></div>}</div></section>}
+<p class="mercado-ayuda">La tendencia es una comparación matemática de registros, no una predicción.</p></main>
 <!-- barra de navegacion inferior -->
 <nav class="nav-inferior">
   <a routerLink="/inicio-productor" class="nav-item">

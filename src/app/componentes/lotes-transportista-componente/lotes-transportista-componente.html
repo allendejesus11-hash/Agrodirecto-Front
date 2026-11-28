@@ -26,7 +26,10 @@
         <div class="lote-info"><p class="lote-nombre">{{lote.codigoLote}} · {{lote.destino}}</p>
           <p class="lote-detalle">Salida: {{lote.fechaSalida || 'Sin programar'}} · {{lote.estadoLote}}</p></div>
         <span class="lote-etiqueta" [class.entregado]="lote.estadoLote==='entregado'" [class.en-ruta]="lote.estadoLote!=='entregado'">{{lote.estadoLote}}</span>
-      </a><hr class="lote-separador" />
+      </a>
+      @if(lote.estadoLote==='confirmado'){<button type="button" class="viaje-accion" (click)="iniciar(lote)" [disabled]="iniciando()">Iniciar viaje</button>}
+      @if(['en_transito','con_retraso'].includes(lote.estadoLote)){<a class="viaje-accion" routerLink="/seguimiento-viaje-transportista">Seguimiento</a>}
+      <hr class="lote-separador" />
     } @empty { <p>No tienes envíos en este filtro.</p> }
   </section>
 

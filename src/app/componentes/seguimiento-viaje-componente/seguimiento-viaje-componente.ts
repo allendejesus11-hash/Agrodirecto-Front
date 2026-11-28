@@ -11,7 +11,7 @@ import { SesionServicio } from '../../servicios/sesion-servicio';
 import type { SeguimientoLote, MensajeChat, Lote, SolicitudChat } from '../../modelos/agro-modelos';
 import { interval, Subscription, startWith, switchMap, catchError, EMPTY, firstValueFrom } from 'rxjs';
 
-import { cargarLeaflet, agregarMapaBase, punto, geocodificar, consultarRuta, fechaPeru, enlaceMapa } from '../../servicios/mapas-servicio';
+import { cargarLeaflet, agregarMapaBase, punto, consultarRuta, fechaPeru, enlaceMapa } from '../../servicios/mapas-servicio';
 import type { PuntoMapa, RutaMapa } from '../../servicios/mapas-servicio';
 interface ResumenRuta {
   distanciaKm: number | null;
@@ -132,13 +132,7 @@ export class SeguimientoViajeComponente implements OnInit, OnDestroy {
       if (!this.vistaActual(version) || this.guardandoUbicacion() || this.guardandoPuntos()) return;
       this.recibirSeguimiento(s);
     });
-    this.api.listarSolicitudesChat().subscribe({
-      next: solicitudes => {
-        if (!this.vistaActual(version)) return;
-        const sol = solicitudes.find(s => s.lote?.idLote === lote.idLote && s.estadoSolicitud === 'aprobado');
-        if (sol) { this.idSolicitud.set(sol.idSolicitud); this.solicitudChat.set(sol); }
-      }, error: () => { if (this.vistaActual(version)) this.error.set('No se pudieron consultar los chats.'); }
-    });
+
   }
 
   private vistaActual(version: number): boolean {
@@ -166,49 +160,6 @@ export class SeguimientoViajeComponente implements OnInit, OnDestroy {
     this.controlLatOrigen.setValue(a?.lat ?? null); this.controlLonOrigen.setValue(a?.lon ?? null);
     this.controlLatDestino.setValue(b?.lat ?? null); this.controlLonDestino.setValue(b?.lon ?? null);
   }
-  async buscarPuntosRuta(): Promise<void> {
-    const l = this.loteActivo(), v = this.versionVista;
-    if (!l || !this.esTransportista || this.buscandoPuntos() || this.guardandoPuntos()) return;
-    this.buscandoPuntos.set(true); this.mapaError.set('');
-    const a = await geocodificar(l.origen || '');
-    const b = await geocodificar(l.destino || '');
-    if (!this.vistaActual(v)) return;
-    this.buscandoPuntos.set(false);
-    // Las sugerencias no se guardan hasta que el transportista las confirme.
-    this.rellenarPuntos(a || punto(this.controlLatOrigen.value,this.controlLonOrigen.value),b || punto(this.controlLatDestino.value,this.controlLonDestino.value));
-    this.previsualizarPuntos();
-    this.mapaError.set(a && b ? 'Ubicaciones sugeridas. Verifica los marcadores antes de guardar.' : 'No se localizaron todas las direcciones. Completa los puntos en el mapa o con coordenadas.');
-  }
-  elegirPunto(tipo:'origen'|'destino'): void {
-    this.modoPunto.set(tipo);
-    this.mapaError.set(`Haz clic en el mapa para seleccionar el ${tipo}.`);
-    document.getElementById('seguimiento-mapa')?.scrollIntoView({behavior:'smooth',block:'center'});
-  }
-  previsualizarPuntos(): void {
-    this.modoPunto.set(null);
-    const a = punto(this.controlLatOrigen.value,this.controlLonOrigen.value);
-    const b = punto(this.controlLatDestino.value,this.controlLonDestino.value);
-    // Solo se previsualiza. La ruta/ETA compartidos usan los datos guardados.
-    void this.dibujarMapa(this.posicionActual(),null,a,b,true);
-  }
-  async guardarPuntos(): Promise<void> {
-    const l=this.loteActivo(), v=this.versionVista;
-    if (!l || !this.esTransportista || this.guardandoPuntos() || this.guardandoUbicacion()) return;
-    const a=punto(this.controlLatOrigen.value,this.controlLonOrigen.value), b=punto(this.controlLatDestino.value,this.controlLonDestino.value);
-    if (!a || !b) {this.error.set('Completa las cuatro coordenadas de origen y destino.');return;}
-    this.guardandoPuntos.set(true); this.error.set(''); this.mapaError.set('');
-    this.detenerGPS();
-    try {
-      const s=await firstValueFrom(this.api.guardarPuntosRuta(l.idLote,{latitudOrigen:a.lat,longitudOrigen:a.lon,latitudDestino:b.lat,longitudDestino:b.lon}));
-      if (!this.vistaActual(v)) return;
-      this.claveMapa=''; this.claveEncuadre=''; this.modoPunto.set(null);
-      this.recibirSeguimiento(s); this.mensaje.set('Origen y destino guardados en la base de datos.');
-      // Si el ETA anterior ya no corresponde al destino, se muestra una estimación
-      // basada en la última posición. El próximo registro de posición persiste el ETA.
-    } catch { if(this.vistaActual(v)) this.error.set('No se pudieron guardar los puntos de la ruta.'); }
-    finally { if(this.vistaActual(v)) this.guardandoPuntos.set(false); }
-  }
-
   abrirChat(): void {
     const id = this.idSolicitud();
     if (id === null) { this.error.set('No hay chat habilitado para este lote.'); return; }
@@ -352,7 +303,7 @@ export class SeguimientoViajeComponente implements OnInit, OnDestroy {
     const marca=s?.fechaActualizacion;
     const ts=marca ? Date.parse(/(?:Z|[+-]\d\d:\d\d)$/.test(marca) ? marca : marca+'Z') : NaN;
     const etaAuto=actual && ruta && Number.isFinite(ts) ? fechaPeru(new Date(ts+ruta.duration*1000)) : null;
-    let observacion='Confirma el origen y destino del lote para calcular la ruta.';
+    let observacion='Solicita al administrador que complete las coordenadas de la ruta.';
     if (origen && destino) {
       observacion = ruta ? (actual ? 'Ruta restante estimada desde la última posición registrada. No incluye tráfico en tiempo real.' : 'Ruta planificada de origen a destino. Falta registrar la posición del vehículo para calcular el ETA.') : 'No se pudo calcular la ruta por carretera. Los marcadores siguen disponibles.';
     }
@@ -371,13 +322,7 @@ export class SeguimientoViajeComponente implements OnInit, OnDestroy {
       if(!this.mapa){
         this.mapa=L.map(el,{zoomControl:true}).setView([-11.52,-75.9],6); agregarMapaBase(L,this.mapa);
         this.capasMapa=L.layerGroup().addTo(this.mapa);
-        this.mapa.on('click',(e:any)=>{
-          const tipo=this.modoPunto(); if(!tipo || !this.esTransportista) return;
-          const p=punto(e.latlng.lat,e.latlng.lng); if(!p)return;
-          if(tipo==='origen'){this.controlLatOrigen.setValue(p.lat);this.controlLonOrigen.setValue(p.lon);}
-          else{this.controlLatDestino.setValue(p.lat);this.controlLonDestino.setValue(p.lon);}
-          this.previsualizarPuntos(); this.mapaError.set('Punto seleccionado. Guarda los dos puntos para confirmarlos.');
-        });
+
       }
       this.capasMapa.clearLayers(); const bounds:[number,number][]=[];
       if(ruta?.geometry.length){L.polyline(ruta.geometry,{color:'#2f7d32',weight:5,opacity:.85}).addTo(this.capasMapa);bounds.push(...ruta.geometry);}

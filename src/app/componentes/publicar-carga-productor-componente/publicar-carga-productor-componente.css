@@ -361,3 +361,5 @@ form {
 .mapa-boton{min-height:46px;border:1px solid #38761d;border-radius:12px;padding:10px 18px;background:#eceef2;color:#234c10;font:inherit;font-weight:700;cursor:pointer}
 .mapa-boton:disabled{opacity:.6;cursor:wait}.mapa-aviso{background:#fef9c3;color:#783f04;padding:12px;border-radius:12px;font-size:.85rem}
 .mapa-interactivo{background:#eceef2;isolation:isolate}
+
+.seleccion-ruta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.seleccion-ruta .seleccionado{background:#38761d;color:white}

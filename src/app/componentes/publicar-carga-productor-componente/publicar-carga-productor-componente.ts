@@ -42,6 +42,10 @@ export class PublicarCargaProductorComponente implements OnInit, AfterViewInit, 
     return p ? `${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}` : 'Haz clic en el mapa para marcar un punto de acopio.';
   });
 
+  destinoSeleccionado=signal<{lat:number;lng:number}|null>(null);
+  modoMapa=signal<'acopio'|'destino'>('acopio');
+  latDestino=new FormControl<number|null>(null); lonDestino=new FormControl<number|null>(null);
+  private marcadorDestino:any;
   private mapa: any;
   private marcador: any;
   private destruido = false;
@@ -63,7 +67,12 @@ export class PublicarCargaProductorComponente implements OnInit, AfterViewInit, 
 
   cerrarSesion(e: Event) { e.preventDefault(); this.sesion.cerrarSesion(); }
 
-  ngOnInit(): void { this.cargar(); }
+  ngOnInit(): void { this.cargar(); this.form.controls.direccionDestino.valueChanges.subscribe(()=>{this.destinoSeleccionado.set(null);this.marcadorDestino?.remove();this.marcadorDestino=undefined;this.latDestino.reset();this.lonDestino.reset();}); }
+  elegirMapa(m:'acopio'|'destino'){this.modoMapa.set(m);this.errorMapa.set('');}
+  async buscarDestino(){const dir=this.form.controls.direccionDestino.value.trim();if(!dir||this.buscando())return;this.buscando.set(true);const p=await geocodificar(dir);if(this.destruido)return;this.buscando.set(false);if(dir!==this.form.controls.direccionDestino.value.trim())return;if(!p){this.errorMapa.set('No se encontró el destino. Marca el punto manualmente.');return;}this.elegirMapa('destino');this.mapa?.setView([p.lat,p.lon],15);this.latDestino.setValue(p.lat);this.lonDestino.setValue(p.lon);this.errorMapa.set('Verifica la ubicación y marca el destino en el mapa o confirma las coordenadas.');}
+  confirmarDestino(){const p=punto(this.latDestino.value,this.lonDestino.value);if(!p){this.errorMapa.set('Coordenadas del destino inválidas');return;}this.actualizarDestino(p.lat,p.lon);}
+  private actualizarDestino(lat:number,lng:number){if(!punto(lat,lng))return;this.destinoSeleccionado.set({lat,lng});this.latDestino.setValue(lat);this.lonDestino.setValue(lng);this.errorMapa.set('');if(!this.mapa)return;const L=(window as any).L;if(!this.marcadorDestino){this.marcadorDestino=L.circleMarker([lat,lng],{radius:9,color:'#fff',weight:2,fillColor:'#c62828',fillOpacity:1}).addTo(this.mapa);}else this.marcadorDestino.setLatLng([lat,lng]);this.marcadorDestino.bindPopup('Destino de entrega').openPopup();}
+
 
   ngAfterViewInit(): void {
     queueMicrotask(() => this.inicializarMapaAcopio());
@@ -92,14 +101,16 @@ export class PublicarCargaProductorComponente implements OnInit, AfterViewInit, 
   publicar() {
     const d = this.form.getRawValue();
     this.error.set('');
-    if (!d.idCultivo || d.pesoKg <= 0 || d.pesoKg > 50000 || d.tarifaPropuesta <= 0 || !d.direccionDestino.trim() || !d.fechaRecojo || d.fechaRecojo < this.fechaLocalHoy()) {
+    if (!d.idCultivo || d.pesoKg <= 0 || d.pesoKg > 50000 || d.tarifaPropuesta <= 0 || !d.direccionDestino.trim() || d.direccionDestino.trim().length>100 || !d.fechaRecojo || d.fechaRecojo < this.fechaLocalHoy()) {
       this.error.set('Completa cultivo, peso, tarifa, destino y fecha no anterior a hoy.');
       return;
     }
     const acopio = this.acopioSeleccionado();
     if (!acopio || acopio.lat !== this.latAcopio.value || acopio.lng !== this.lonAcopio.value) { this.error.set('Selecciona el punto de acopio en el mapa o confirma las coordenadas antes de publicar.'); return; }
+    const destino=this.destinoSeleccionado();
+    if(!destino||destino.lat!==this.latDestino.value||destino.lng!==this.lonDestino.value){this.error.set('Confirma el punto de entrega antes de publicar.');return;}
     this.cargando.set(true);
-    this.api.publicarCarga({...d, latitudAcopio: acopio.lat, longitudAcopio: acopio.lng}).subscribe({
+    this.api.publicarCarga({...d, latitudAcopio: acopio.lat, longitudAcopio: acopio.lng,latitudDestino:destino.lat,longitudDestino:destino.lng}).subscribe({
       next: r => {
         this.cargando.set(false);
         this.mensaje.set('Carga ' + r.codigoCarga + ' publicada.');
@@ -120,7 +131,7 @@ export class PublicarCargaProductorComponente implements OnInit, AfterViewInit, 
       if (this.destruido || !el.isConnected) return;
       this.mapa = L.map(el, { zoomControl: true }).setView([-11.52, -75.9], 7);
       agregarMapaBase(L, this.mapa);
-      this.mapa.on('click', (e: any) => this.actualizarPuntoAcopio(e.latlng.lat, e.latlng.lng));
+      this.mapa.on('click', (e: any) => this.modoMapa()==='acopio'?this.actualizarPuntoAcopio(e.latlng.lat, e.latlng.lng):this.actualizarDestino(e.latlng.lat,e.latlng.lng));
       const previo = this.acopioSeleccionado();
       if (previo) this.actualizarPuntoAcopio(previo.lat, previo.lng);
       this.errorMapa.set('');
@@ -135,6 +146,7 @@ export class PublicarCargaProductorComponente implements OnInit, AfterViewInit, 
   }
 
   async buscarAcopio(): Promise<void> {
+    this.elegirMapa('acopio');
     const texto = this.controlBusqueda.value?.trim();
     if (!texto || this.buscando()) return;
     this.buscando.set(true);

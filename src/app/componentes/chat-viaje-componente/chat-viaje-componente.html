@@ -1,0 +1,15 @@
+<header class="cabecera"><a [routerLink]="inicio">← Inicio</a><h1>Mis conversaciones</h1></header>
+<main class="chat-main">
+ @if(error()){<p class="aviso error" role="alert">{{error()}}</p>}
+ @if(actual();as s){
+  <section class="panel"><header class="conversacion"><button type="button" (click)="cerrar()">← Chats</button><div><h2>{{nombre(s)}}</h2><p>{{s.lote.codigoLote}}</p></div></header>
+   <div class="mensajes" role="log" aria-label="Mensajes de la conversación">@for(m of mensajes();track m.idMensaje){<div class="burbuja" [class.propio]="m.emisor.idUsuario===miId"><strong>{{m.emisor.idUsuario===miId?'Tú':nombre(s)}}</strong><p>{{m.contenido}}</p><small>{{m.fechaEnvio | date:'dd/MM HH:mm'}}</small></div>}@empty{<p>No hay mensajes. Inicia la conversación.</p>}</div>
+   @if(s.estadoSolicitud==='aprobado'){<form class="enviar" (ngSubmit)="enviar()"><input aria-label="Mensaje" placeholder="Escribe un mensaje…" [formControl]="texto" maxlength="500"/><button type="submit" [disabled]="texto.invalid||enviando()">{{enviando()?'Enviando…':'Enviar'}}</button></form>}@else{<p>La conversación no está habilitada.</p>}
+  </section>
+ }@else{
+  @if(filtro()){<button (click)="filtro.set(null)">Ver todos los chats</button>}
+  <p class="intro">Coordina el recojo y la entrega con los participantes de tus lotes. Cada conversación requiere aprobación del administrador.</p>
+  @for(s of visibles();track s.idSolicitud){<article class="panel tarjeta"><div><h2>{{nombre(s)}}</h2><p>{{s.lote.codigoLote}} · {{s.lote.destino}}</p><small>{{s.estadoSolicitud==='aprobado'?'Chat habilitado':s.estadoSolicitud==='pendiente'?'Pendiente de aprobación':'Solicitud rechazada'}}</small></div><button type="button" [disabled]="s.estadoSolicitud!=='aprobado'" (click)="abrir(s)">Abrir chat</button></article>}@empty{@if(!cargando()){<p class="aviso">Todavía no tienes conversaciones disponibles.</p>}}
+  @if(lotesVisibles().length){<section class="panel"><h2>Solicitudes de chat</h2><p>Para lotes antiguos puedes solicitar la conversación con sus participantes.</p>@for(l of lotesVisibles();track l.idLote){<div class="tarjeta"><span>{{l.codigoLote}} · {{l.destino}}</span><button (click)="solicitar(l)" [disabled]="solicitando()">Solicitar / actualizar</button></div>}</section>}
+ }
+</main>

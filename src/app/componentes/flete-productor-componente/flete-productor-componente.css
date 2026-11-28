@@ -205,3 +205,5 @@
     font-size: 18px;
   }
 }
+
+.flete-accion{display:block;text-align:center;background:#e9ecef;color:#315c1e;border:0;border-radius:10px;padding:13px;margin:12px 0;text-decoration:none;font-weight:700;cursor:pointer}

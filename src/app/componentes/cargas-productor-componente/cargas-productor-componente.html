@@ -7,52 +7,14 @@
   @if (error()) { <p class="estado-integracion error" role="alert">{{ error() }}</p> }
   @if (mensaje()) { <p class="estado-integracion exito" role="status">{{ mensaje() }}</p> }
 
-  <!-- cargas -->
+  <a routerLink="/publicar-carga-productor" class="btn-publicar-nueva">+ Publicar nueva carga</a>
   <section class="seccion-cargas">
-        @for (carga of cargas(); track carga.idCarga) {
-          <div class="carga-item" [class.activo]="seleccionada()?.idCarga === carga.idCarga" (click)="seleccionada.set(carga)">
-            <div class="carga-icono-contenedor">
-              <img src="assets/images/caja2.png" class="carga-icono" />
-            </div>
-            <div class="carga-info">
-              <p>Producto: {{carga.cultivo.nombreCultivo}} · {{carga.pesoKg}} kg</p>
-              <p>Destino: {{carga.direccionDestino}}</p>
-              <p>Recojo: {{carga.fechaRecojo}} · {{carga.estadoCarga}}</p>
-              @if (carga.latitudAcopio != null && carga.longitudAcopio != null) {
-                <a class="enlace-acopio" [href]="'https://www.openstreetmap.org/?mlat=' + carga.latitudAcopio + '&mlon=' + carga.longitudAcopio + '#map=17/' + carga.latitudAcopio + '/' + carga.longitudAcopio" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">Ver punto de acopio ↗</a>
-              }
-            </div>
-          </div>
-        }
-      </section>
-
-  @if (!cargas().length) { <p>No hay cargas publicadas todavía.</p> }
-  <!-- datos del comprador -->
-  <section class="seccion-comprador">
-    <h2 class="comprador-titulo">Datos del comprador:</h2>
-
-    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="nombre-comprador" class="campo-input" placeholder="Nombre del comprador" [formControl]="nombreComprador" /></mat-form-field>
-    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="agro-material-field"><input matInput type="text" id="dni-comprador" class="campo-input" placeholder="DNI/RUC" [formControl]="dniComprador" /></mat-form-field>
-    <p class="campo-error" [class.visible]="errorDniComprador()">
-      Ingrese un DNI (8 dígitos) o RUC (11 dígitos) válido
-    </p>
+    @for(carga of cargas();track carga.idCarga){<article class="carga-item"><div class="carga-info"><strong>{{carga.codigoCarga}} · {{carga.cultivo.nombreCultivo}}</strong><p>{{carga.pesoKg}} kg · {{carga.estadoCarga}}</p><p>Destino: {{carga.direccionDestino}}</p><p>Recojo: {{carga.fechaRecojo}}</p>
+     @if(carga.latitudAcopio!=null&&carga.longitudAcopio!=null){<a class="enlace-acopio" [href]="'https://www.openstreetmap.org/?mlat='+carga.latitudAcopio+'&mlon='+carga.longitudAcopio+'#map=17/'+carga.latitudAcopio+'/'+carga.longitudAcopio" target="_blank" rel="noopener noreferrer">Ver acopio ↗</a>}
+     @if(carga.idLote){<a class="enlace-acopio" routerLink="/flete-productor" [queryParams]="{idLote:carga.idLote}">Ver consolidación</a>}
+     @if(carga.estadoCarga==='publicada'&&!carga.idLote){<button type="button" class="cancelar-carga" (click)="cancelar(carga)">Cancelar carga</button>}
+    </div></article>}@empty{<p class="vacio-cargas">No hay cargas publicadas todavía.</p>}
   </section>
-
-  <!-- firma digital -->
-  <section class="seccion-firma">
-    <h2 class="firma-titulo">Firma digital</h2>
-    <div class="firma-area">
-      <span>Área de firma</span>
-    </div>
-  </section>
-
-  <!-- acciones -->
-  <div class="lista-acciones">
-    <button mat-button type="button" class="agro-material-button btn-limpiar" (click)="limpiar()">
-      Limpiar
-    </button>
-    <button mat-button type="button" class="agro-material-button btn-confirmar" [disabled]="!seleccionada() || seleccionada()?.estadoCarga !== 'publicada'" (click)="cancelarSeleccionada()">Cancelar carga no asignada</button>
-  </div>
 </main>
 
 <!-- barra de navegacion inferior -->

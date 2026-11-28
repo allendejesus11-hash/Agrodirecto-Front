@@ -393,3 +393,5 @@
     height: 20px;
   }
 }
+
+.capacidad-real{width:110px;height:110px;border-radius:50%;display:grid;place-items:center}.capacidad-real span{background:#3f4645;color:white;border-radius:50%;width:76px;height:76px;display:grid;place-items:center;font-size:23px;font-weight:700}.acceso-chat{display:block;background:#3f4645;color:white;text-align:center;padding:14px;border-radius:12px;text-decoration:none;margin:14px 0;font-weight:600}

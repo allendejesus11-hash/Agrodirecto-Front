@@ -24,7 +24,7 @@
   <!-- seccion de capacidad -->
   <section class="seccion-capacidad">
     <div class="capacidad-grafico">
-      <img src="assets/images/grafico_pastel_transportista.png" />
+      <div class="capacidad-real" [style.background]="'conic-gradient(#0082a0 ' + porcentaje() + '%, #d9e4d1 0)'"><span>{{porcentaje() | number:'1.0-1'}}%</span></div>
     </div>
     <div class="capacidad-info">
       <h2 class="capacidad-titulo">Capacidad usada</h2>
@@ -34,37 +34,38 @@
     </div>
   </section>
 
+  <a routerLink="/chats-transportista" class="acceso-chat">💬 Mis chats</a>
   <!-- tarjeta de proxima ruta -->
   <div class="tarjeta-ruta">
     <div class="ruta-encabezado">
       <img src="assets/images/puntero.png" class="ruta-puntero" />
       <h2 class="ruta-titulo">Próxima Ruta</h2>
     </div>
-    <p class="ruta-destino">{{lotes().length ? lotes()[0].origen + " → " + lotes()[0].destino : "Sin próxima ruta"}}</p>
+    <p class="ruta-destino">{{proximaRuta() ? proximaRuta()!.origen + " → " + proximaRuta()!.destino : "Sin próxima ruta"}}</p>
     <p class="ruta-salida">
-      <span>Salida:</span> {{lotes().length ? (lotes()[0].fechaSalida || "Por programar") : "Sin rutas asignadas"}}
+      <span>Salida:</span> {{proximaRuta() ? (proximaRuta()!.fechaSalida || "Por programar") : "Sin rutas asignadas"}}
     </p>
   </div>
 
   <!-- lotes disponibles -->
   <section class="seccion-lotes">
     <div class="lotes-encabezado">
-      <h2 class="lotes-titulo">Lotes disponibles</h2>
+      <h2 class="lotes-titulo">Lotes asignados</h2>
       <div class="lotes-filtro">
         <span>Filtro (Tn):</span>
         <span>&lt;</span>
-        <input matInput type="number" id="filtro-toneladas" class="filtro-input" />
+        <input matInput type="number" id="filtro-toneladas" class="filtro-input" min="0" step="any" (input)="filtroPeso.set($any($event.target).value===''?null:+$any($event.target).value)" />
       </div>
     </div>
 
     <!-- Lista de lotes real -->
-    @for (lote of lotes(); track lote.idLote) {
+    @for (lote of visibles(); track lote.idLote) {
       <div class="lote-item">
         <img src="assets/images/caja.png" class="lote-icono" />
         <div class="lote-info"><p class="lote-nombre">{{lote.codigoLote}}</p><p class="lote-detalle">{{lote.origen}} → {{lote.destino}}</p></div>
-        <span class="lote-etiqueta aceptar">{{lote.estadoLote}}</span>
+        <a routerLink="/lotes-transportista" class="lote-etiqueta aceptar">{{lote.estadoLote}}</a>
       </div><hr class="lote-separador" />
-    } @empty { <p>No tienes lotes asignados.</p> }
+    } @empty { <p>No hay lotes para este filtro.</p> }
   </section>
 </main>
 

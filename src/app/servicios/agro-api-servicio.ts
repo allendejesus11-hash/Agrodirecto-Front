@@ -6,7 +6,7 @@ import type {
   AhorroProductor, Carga, Cultivo, GastoViaje, LoginRespuesta, Lote, LoteFinanciero,
   MensajeChat, Notificacion, NotificacionesRespuesta, PrecioMercado, RegistroRespuesta,
   ReputacionTransportista, ResumenTransacciones, SaldoProductor, SeguimientoLote,
-  SolicitudChat, Suscripcion, Usuario, PuntosRuta
+  SolicitudChat, Suscripcion, Usuario, PuntosRuta, PersonaChat
 } from '../modelos/agro-modelos';
 
 @Injectable({ providedIn: 'root' })
@@ -24,8 +24,15 @@ export class AgroApiServicio {
   registrarTransportista(datos: { nombreCompleto: string; correo: string; contrasena: string; ruc: string; placa: string; capacidadToneladas: number; licencia: string }): Observable<RegistroRespuesta> {
     return this.httpClient.post<RegistroRespuesta>(`${this.url}/auth/registro-transportista`, datos);
   }
+  consolidar(idsCargas: number[], idTransportista: number, fleteTotal: number): Observable<Lote> {return this.httpClient.post<Lote>(`${this.url}/lotes/consolidar`,{idsCargas,idTransportista,fleteTotal});}
+  confirmarFlete(id: number): Observable<Lote> {return this.httpClient.patch<Lote>(`${this.url}/lotes/${id}/confirmar-flete`,{});}
+  iniciarViaje(id: number): Observable<Lote> {return this.httpClient.patch<Lote>(`${this.url}/lotes/${id}/iniciar`,{});}
+  lotesAdmin(): Observable<Lote[]> {return this.httpClient.get<Lote[]>(`${this.url}/lotes/admin`);}
+  solicitarChats(id: number): Observable<SolicitudChat[]> {return this.httpClient.post<SolicitudChat[]>(`${this.url}/chats/solicitudes/lote/${id}`,{});}
+  historialPrecios(): Observable<PrecioMercado[]> {return this.httpClient.get<PrecioMercado[]>(`${this.url}/precios-mercado/historial`);}
+  importarPrecios(filas: {idCultivo:number;fecha:string;precioPorKg:number;fuente:string}[]): Observable<{importados:number}> {return this.httpClient.post<{importados:number}>(`${this.url}/precios-mercado/importar`,filas);}
   listarCultivos(): Observable<Cultivo[]> { return this.httpClient.get<Cultivo[]>(`${this.url}/cultivos`); }
-  publicarCarga(datos: { idCultivo: number; pesoKg: number; tipoCarga: string; direccionDestino: string; tarifaPropuesta: number; fechaRecojo: string; esUrgente: boolean; latitudAcopio?: number; longitudAcopio?: number }): Observable<Carga> {
+  publicarCarga(datos: { idCultivo: number; pesoKg: number; tipoCarga: string; direccionDestino: string; tarifaPropuesta: number; fechaRecojo: string; esUrgente: boolean; latitudAcopio?: number; longitudAcopio?: number; latitudDestino?: number; longitudDestino?: number }): Observable<Carga> {
     return this.httpClient.post<Carga>(`${this.url}/cargas`, datos);
   }
   cancelarCarga(idCarga: number): Observable<Carga> { return this.httpClient.patch<Carga>(`${this.url}/cargas/${idCarga}/cancelar`, {}); }
@@ -139,7 +146,7 @@ export class AgroApiServicio {
 
 interface GastoApi { idGasto: number; concepto: string; monto: number; fechaHora: string; }
 interface SuscripcionApi { idUsuario: number; premiumHasta: string | null; esPremium: boolean; }
-interface MensajeApi { idMensaje: number; usuarioEmisor: Usuario; contenido: string; fechaEnvio: string; }
+interface MensajeApi { idMensaje: number; usuarioEmisor: PersonaChat; contenido: string; fechaEnvio: string; }
 function convertirGasto(g: GastoApi, idLote: number): GastoViaje {
   const [primero, ...resto] = g.concepto.split(': ');
   const categorias = ['Combustible', 'Peaje', 'Alimentación', 'Mantenimiento', 'Alojamiento', 'Otro'];

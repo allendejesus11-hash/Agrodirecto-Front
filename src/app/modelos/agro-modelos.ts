@@ -10,6 +10,7 @@ export interface Carga {
   idCarga: number; codigoCarga: string; productor: Usuario; cultivo: Cultivo;
   pesoKg: number; tipoCarga: string; direccionDestino: string;
   latitudAcopio?: number | null; longitudAcopio?: number | null;
+  latitudDestino?: number | null; longitudDestino?: number | null; idLote?: number | null;
   tarifaPropuesta: number; fechaRecojo: string; esUrgente: boolean;
   estadoCarga: string; fechaPublicacion: string;
 }
@@ -25,9 +26,10 @@ export interface Lote extends Partial<PuntosRuta> {
   montoComision?: number; montoNeto?: number; estadoPago?: string;
   cargas?: Carga[];
 }
-export interface PrecioMercado { idPrecio: number; cultivo: Cultivo; precioPorKg: number; fechaPrecio: string; }
-export interface SolicitudChat { idSolicitud: number; productor: Usuario; transportista: Usuario;
-  lote: Lote; estadoSolicitud: string; fechaSolicitud: string; administrador?: Usuario; }
+export interface PrecioMercado { idPrecio: number; cultivo: Cultivo; precioPorKg: number; fechaPrecio: string; fuente?: string | null; }
+export interface PersonaChat { idUsuario: number; nombreCompleto: string; }
+export interface SolicitudChat { idSolicitud: number; productor: PersonaChat; transportista: PersonaChat;
+  lote: Pick<Lote, 'idLote'|'codigoLote'|'destino'>; estadoSolicitud: string; fechaSolicitud: string; administrador?: PersonaChat; }
 export interface Notificacion { idNotificacion: number; titulo: string; mensaje: string;
   leida: boolean; fechaCreacion: string; usuario: Usuario; }
 export interface NotificacionesRespuesta { totalNoLeidas: number; notificaciones: Notificacion[]; }
@@ -88,7 +90,7 @@ export interface Suscripcion {
 export interface MensajeChat {
   idMensaje: number;
   idSolicitud: number;
-  emisor: Usuario;
+  emisor: PersonaChat;
   contenido: string;
   fechaEnvio: string;
 }
